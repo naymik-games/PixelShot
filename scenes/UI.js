@@ -31,6 +31,27 @@ class UI extends Phaser.Scene {
     this.distanceText = this.add.bitmapText(800, 1150, 'topaz', '0', 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(0);
 
 
+
+    //WIND SET
+    this.windAdjust = 0
+    this.windContainer = this.add.container()
+    var windLeftButton = this.add.image(game.config.width / 2 - 100, game.config.height / 2 - 450, 'blank').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
+    //var windLeftText = this.add.bitmapText(game.config.width / 2 - 100, game.config.height / 2 - 450, 'topaz', 'L', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
+    windLeftButton.on('pointerdown', function () {
+      this.changeWind('left')
+    }, this)
+    this.windSetText = this.add.bitmapText(game.config.width / 2, game.config.height / 2 - 450, 'topaz', this.windAdjust, 60).setOrigin(.5).setTint(0xffffff).setAlpha(1);
+    var windRightButton = this.add.image(game.config.width / 2 + 100, game.config.height / 2 - 450, 'blank').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
+    //var windRightText = this.add.bitmapText(game.config.width / 2 + 100, game.config.height / 2 - 450, 'topaz', 'R', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
+    windRightButton.on('pointerdown', function () {
+      this.changeWind('right')
+    }, this)
+    this.windContainer.add(this.windSetText)
+    this.windContainer.add(windLeftButton)
+    this.windContainer.add(windRightButton)
+    this.windContainer.setAlpha(0)
+
+
     this.staticXJsPos = 450
     this.staticYJsPos = 1200
     this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
@@ -98,6 +119,9 @@ class UI extends Phaser.Scene {
     if (this.Main.toggle == 0) {
       this.fireButton.setAlpha(1).setInteractive()
       this.distanceText.setAlpha(1)
+      this.windContainer.setAlpha(1)
+      this.windAdjust = 0
+      this.windSetText.setText(this.windAdjust)
       /*  var tween = this.tweens.add({
          targets: this.rifle,
          scale: 3,
@@ -113,6 +137,7 @@ class UI extends Phaser.Scene {
     } else {
       this.fireButton.setAlpha(0).disableInteractive()
       this.distanceText.setAlpha(0)
+      this.windContainer.setAlpha(0)
       /*       var tween = this.tweens.add({
               targets: this.rifle,
               scale: 1,
@@ -130,7 +155,18 @@ class UI extends Phaser.Scene {
   }
   fireShot() {
     this.Main.fire()
-  }
 
+  }
+  changeWind(dir) {
+    if (dir == 'left') {
+      this.Main.player.x += 1
+      this.windAdjust -= 1
+      this.windSetText.setText(this.windAdjust)
+    } else {
+      this.Main.player.x -= 1
+      this.windAdjust += 1
+      this.windSetText.setText(this.windAdjust)
+    }
+  }
 
 }
