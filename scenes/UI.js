@@ -5,7 +5,7 @@ class UI extends Phaser.Scene {
     super("UI");
   }
   preload() {
-
+    this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
 
 
   }
@@ -30,6 +30,22 @@ class UI extends Phaser.Scene {
 
     this.distanceText = this.add.bitmapText(800, 1150, 'topaz', '0', 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(0);
 
+
+    this.staticXJsPos = 450
+    this.staticYJsPos = 1200
+    this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+      x: this.staticXJsPos,
+      y: this.staticYJsPos,
+      radius: 100,
+      //base: baseGameObject,
+      //thumb: thumbGameObject,
+      dir: '4dir',
+      // forceMin: 16,
+      // fixed: true,
+      // enable: true
+    }).on('update', this.updateJoystickState, this);
+    this.cursorKeys = this.joyStick.createCursorKeys();
+
     this.Main.events.on('score', function () {
 
       this.score += 1;
@@ -44,6 +60,38 @@ class UI extends Phaser.Scene {
   update() {
     this.distanceText.setText(this.Main.distance)
     this.windText.setText(this.Main.wind)
+    this.updateJoystickState();
+  }
+  updateJoystickState() {
+    let direction = '';
+    for (let key in this.cursorKeys) {
+      if (this.cursorKeys[key].isDown) {
+        direction += key;
+      }
+    }
+
+    // If no direction if provided then stop 
+    // the player animations and exit the method
+    if (direction.length === 0) {
+      //  this.stopPlayerAnimations();
+      return;
+    }
+
+    // If last cursor direction is different
+    //  the stop all player animations
+    if (this.lastCursorDirection !== direction) {
+      //this.stopPlayerAnimations();
+    }
+
+    // Set the new cursor direction
+    this.lastCursorDirection = direction;
+    //console.log(this.lastCursorDirection)
+    // Handle the player moving
+    var force = Math.floor(this.joyStick.force * 100) / 100
+    this.Main.movePlayer(this.lastCursorDirection, force);
+
+    // Set debug info about the cursor
+    //this.setCursorDebugInfo();
   }
   scopeToggle() {
     this.Main.toggleScope()

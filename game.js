@@ -260,23 +260,19 @@ class playGame extends Phaser.Scene {
     }
   }
   movePlayer(direction, force) {
-    /* if (this.cameras.main.zoom == 3) {
+    if (this.toggle == 1) {
       this.playerSpeed = 1
 
     } else {
 
 
       if (force > 90) {
-        this.playerSpeed = 10
+        this.playerSpeed = 5
       } else {
         this.playerSpeed = 1
       }
-    } */
-    if (this.toggle == 1) {
-      this.playerSpeed = 1
-    } else {
-      this.playerSpeed = 5
     }
+
     if (direction === "up") {
       this.player.y -= this.playerSpeed;
 
