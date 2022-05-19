@@ -96,6 +96,8 @@ class preloadGame extends Phaser.Scene {
     this.load.image('blank', 'assets/sprites/blank.png');
     this.load.image('target', 'assets/sprites/target.png');
     this.load.image('spot', 'assets/sprites/spot.png');
+    this.load.image('bullet', 'assets/sprites/bullet.png');
+    this.load.image('crosshair', 'assets/sprites/crosshair.png');
     this.load.image('target_help', 'assets/sprites/target_help.png');
     this.load.image('background', 'assets/sprites/background.png');
     this.load.image('middle-back', 'assets/sprites/middle-back.png');

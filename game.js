@@ -55,7 +55,7 @@ class playGame extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, this.widthActual * this.backScale, this.heightActual * this.backScale)
     //this.cameras.main.setDeadzone(400, 200);
     this.cameras.main.setZoom(1)
-    var back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(0)
+    this.back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(0)
     var mb = this.add.image(0, 0, 'middle-back').setOrigin(0).setScale(this.backScale).setDepth(2)
     var mf = this.add.image(0, 0, 'middle-front').setOrigin(0).setScale(this.backScale).setDepth(4)
     var fore = this.add.image(0, 0, 'foreground').setOrigin(0).setScale(this.backScale).setDepth(5)
@@ -67,8 +67,8 @@ class playGame extends Phaser.Scene {
     var front = this.add.image(0, 0, 'map2_05').setOrigin(0).setScale(this.backScale).setDepth(4)
     var front = this.add.image(0, 0, 'map2_06').setOrigin(0).setScale(this.backScale).setDepth(5) */
 
-    this.player = this.add.image(game.config.width / 2, game.config.height / 2, 'scope', 1).setAlpha(.2).setInteractive().setDepth(8);
-    this.player.on("pointerdown", this.addScore, this);
+    this.player = this.add.image(this.cameras.main.getBounds().width / 2, game.config.height / 2, 'scope', 1).setAlpha(.2).setInteractive().setDepth(8);
+
     this.cameras.main.startFollow(this.player, true);
 
     this.playerSpeed = 5
@@ -103,12 +103,12 @@ class playGame extends Phaser.Scene {
     this.graphics.strokeRectShape(this.rect).setDepth(8);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spot = this.add.image(0, 0, 'spot').setDepth(8).setScale(2).setTint(0xff0000)
-    this.input.on("pointerdown", function (pointer) {
+    /* this.input.on("pointerdown", function (pointer) {
       console.log(pointer.x + ',' + pointer.y)
       var col = Math.floor(pointer.worldX / this.backScale)
       var row = Math.floor(pointer.worldY / this.backScale)
       console.log(col + ',' + row)
-    }, this)
+    }, this) */
 
 
     if (this.easy) {
@@ -209,7 +209,7 @@ class playGame extends Phaser.Scene {
       yoyo: true,
       duration: 100
     })
-    console.log(this.distance)
+    //console.log(this.distance)
     this.spot.setPosition(this.player.x + this.wind, this.player.y + this.distance)
 
     this.targets.forEach(function (target) {
@@ -233,6 +233,8 @@ class playGame extends Phaser.Scene {
 
         //numX = (numX < 0) ? numX * -1 : numX;
         console.log('HIT')
+        var acc = Math.abs(numX) + Math.abs(numY)
+        this.addHit(acc, this.distance)
 
       }
 
@@ -240,6 +242,10 @@ class playGame extends Phaser.Scene {
 
 
 
+  }
+  addHit(acc, dis) {
+    var data = { acc: acc, dis: dis }
+    this.events.emit('hit', data);
   }
   adjustWindMinor() {
     if (Phaser.Math.Between(1, 100) < 50) {
@@ -274,16 +280,22 @@ class playGame extends Phaser.Scene {
     }
 
     if (direction === "up") {
+      if (this.player.y <= this.cameras.main.getBounds().y) { return }
       this.player.y -= this.playerSpeed;
 
     } else if (direction === "down") {
+      if (this.player.y >= this.cameras.main.getBounds().height) { return }
       this.player.y += this.playerSpeed;
 
     } else if (direction === "right") {
+      if (this.player.x >= this.cameras.main.getBounds().width) { return }
       this.player.x += this.playerSpeed;
-
+      //this.back.x -= this.playerSpeed / 4
     } else if (direction === "left") {
+
+      if (this.player.x <= this.cameras.main.getBounds().x) { return }
       this.player.x -= this.playerSpeed;
+      // this.back.x += this.playerSpeed / 4
 
     } else if (direction === "upright") {
       this.player.x += this.playerSpeed;
