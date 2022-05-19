@@ -34,19 +34,33 @@ class playGame extends Phaser.Scene {
 
   }
   create() {
-    this.easy = false;
+    this.easy = easy;
     // map1
     this.wideZoom = 1
     this.scopeZoom = 6
     this.backScale = 4
     this.widthActual = 805
     this.heightActual = 410
+    this.totalLayers = 5
+    this.startingClips = 5
+    this.targetScaleFactor = 4 + this.totalLayers
+    this.distances = [0, 5, 10, 20, 30]
+    this.targetData = [{ col: 489, row: 385, dis: 0 }, { col: 676, row: 379, dis: 1 }, { col: 374, row: 336, dis: 1 }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
     //map 2
     /*  this.wideZoom = 1
      this.scopeZoom = 6
      this.backScale = 2
      this.widthActual = 25600
      this.heightActual = 900 */
+    //map 3
+    /*  this.wideZoom = 1
+     this.scopeZoom = 6
+     this.backScale = 2
+     this.widthActual = 900
+     this.heightActual = 1640 */
+
+    this.maxDistance = 30
+    this.minDistance = 0
     this.distance = 0
     this.wind = 0
     this.toggle = 0
@@ -55,11 +69,18 @@ class playGame extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, this.widthActual * this.backScale, this.heightActual * this.backScale)
     //this.cameras.main.setDeadzone(400, 200);
     this.cameras.main.setZoom(1)
-    this.back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(0)
-    var mb = this.add.image(0, 0, 'middle-back').setOrigin(0).setScale(this.backScale).setDepth(2)
-    var mf = this.add.image(0, 0, 'middle-front').setOrigin(0).setScale(this.backScale).setDepth(4)
-    var fore = this.add.image(0, 0, 'foreground').setOrigin(0).setScale(this.backScale).setDepth(5)
-    var front = this.add.image(0, 0, 'frontground').setOrigin(0).setScale(this.backScale).setDepth(6)
+
+    // var mb = this.add.image(0, 0, 'map3').setOrigin(0).setScale(this.backScale).setDepth(2)
+
+    this.back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(1)//4
+    var mb = this.add.image(0, 0, 'middle-back').setOrigin(0).setScale(this.backScale).setDepth(2)//3
+    var mf = this.add.image(0, 0, 'middle-front').setOrigin(0).setScale(this.backScale).setDepth(3)//2
+    var fore = this.add.image(0, 0, 'foreground').setOrigin(0).setScale(this.backScale).setDepth(4)//1
+    var front = this.add.image(0, 0, 'frontground').setOrigin(0).setScale(this.backScale).setDepth(5)//0
+
+
+
+
     /* var back = this.add.image(0, 0, 'map2_01').setOrigin(0).setScale(this.backScale).setDepth(0)
     var mb = this.add.image(0, 0, 'map2_02').setOrigin(0).setScale(this.backScale).setDepth(1)
     var mf = this.add.image(0, 0, 'map2_03').setOrigin(0).setScale(this.backScale).setDepth(2)
@@ -73,34 +94,42 @@ class playGame extends Phaser.Scene {
 
     this.playerSpeed = 5
     this.targets = []
-    var target = this.add.image(220 * this.backScale, 50 * this.backScale, 'target').setDepth(7).setScale(4)
-    target.distance = 0
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 100 * this.backScale, 'target').setDepth(7).setScale(4)
-    target.distance = 5
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 150 * this.backScale, 'target').setDepth(7).setScale(4)
-    target.distance = 10
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 200 * this.backScale, 'target').setDepth(7).setScale(4)
-    target.distance = 15
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 250 * this.backScale, 'target').setDepth(7).setScale(4)
-    target.distance = 20
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 300 * this.backScale, 'target').setDepth(7).setScale(4)
-    target.distance = 25
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 350 * this.backScale, 'target').setDepth(7).setScale(4)
+    for (var i = 0; i < this.targetData.length; i++) {
+      var td = this.targetData[i]
+      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, false)
+      //var target = this.add.image(td.col * this.backScale, td.row * this.backScale, 'spot').setDepth(7).setScale(this.targetScaleFactor - td.dis).setTint(0xff0000)
+      //target.distance = this.distances[td.dis]
+      //this.targets.push(target)
+    }
+
+    /* var target = this.add.image(220 * this.backScale, 50 * this.backScale, 'spot').setDepth(7).setScale(1).setTint(0xff0000)
     target.distance = 30
     this.targets.push(target)
+    var target = this.add.image(220 * this.backScale, 100 * this.backScale, 'spot').setDepth(7).setScale(2).setTint(0xff0000)
+    target.distance = 20
+    this.targets.push(target)
+    var target = this.add.image(220 * this.backScale, 150 * this.backScale, 'spot').setDepth(7).setScale(3).setTint(0xff0000)
+    target.distance = 15
+    this.targets.push(target)
+    var target = this.add.image(220 * this.backScale, 200 * this.backScale, 'spot').setDepth(7).setScale(4).setTint(0xff0000)
+    target.distance = 10
+    this.targets.push(target)
+    var target = this.add.image(220 * this.backScale, 250 * this.backScale, 'spot').setDepth(7).setScale(5).setTint(0xff0000)
+    target.distance = 5
+    this.targets.push(target)
+    var target = this.add.image(220 * this.backScale, 300 * this.backScale, 'spot').setDepth(7).setScale(4).setTint(0xff0000)
+    target.distance = 0
+    this.targets.push(target)
+    var target = this.add.image(220 * this.backScale, 350 * this.backScale, 'target').setDepth(7).setScale(4).setTint(0xff0000)
+    target.distance = 30
+    this.targets.push(target) */
 
     this.graphicsScope = this.add.graphics({ lineStyle: { width: 4, color: 0x000000 }, fillStyle: { color: 0xaa0000 } });
     this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa }, fillStyle: { color: 0xaa0000 } });
 
     this.rect = new Phaser.Geom.Rectangle(this.player.x - 175, this.player.y - 175, 350, 350);
 
-    this.graphics.strokeRectShape(this.rect).setDepth(8);
+    //this.graphics.strokeRectShape(this.rect).setDepth(8);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spot = this.add.image(0, 0, 'spot').setDepth(8).setScale(2).setTint(0xff0000)
     /* this.input.on("pointerdown", function (pointer) {
@@ -119,6 +148,19 @@ class playGame extends Phaser.Scene {
       this.windAdjustMinor = this.time.addEvent({ delay: 2000, callback: this.adjustWindMinor, callbackScope: this, loop: true });
       this.windAdjustMajor = this.time.addEvent({ delay: 30000, callback: this.adjustWindMajor, callbackScope: this, loop: true });
     }
+
+    //bursts
+    const config1 = {
+      key: 'burst1',
+      frames: 'burst',
+      frameRate: 20,
+      repeat: 0
+    };
+    this.anims.create(config1);
+    this.bursts = this.add.group({
+      defaultKey: 'burst',
+      maxSize: 30
+    });
     /* this.input.on("pointerdown", this.gemSelect, this);
      this.input.on("pointermove", this.drawPath, this);
      this.input.on("pointerup", this.removeGems, this);
@@ -141,7 +183,7 @@ class playGame extends Phaser.Scene {
     }
     this.graphics.clear()
     this.rect.setPosition(this.player.x - 175, this.player.y - 170)
-    this.graphics.strokeRectShape(this.rect).setDepth(8);
+    //this.graphics.strokeRectShape(this.rect).setDepth(8);
     this.targets.forEach(function (target) {
       if (Phaser.Geom.Rectangle.ContainsPoint(this.rect, target)) {
         target.setTexture('target_help')
@@ -209,8 +251,13 @@ class playGame extends Phaser.Scene {
       yoyo: true,
       duration: 100
     })
+    this.cameras.main.flash();
     //console.log(this.distance)
-    this.spot.setPosition(this.player.x + this.wind, this.player.y + this.distance)
+    var drop = this.distance
+    if (this.easy) {
+      drop = 0
+    }
+    this.spot.setPosition(this.player.x + this.wind, this.player.y + drop)
 
     this.targets.forEach(function (target) {
       var tbound = target.getBounds()
@@ -230,8 +277,21 @@ class playGame extends Phaser.Scene {
             return
           }
         } */
-
+        target.setTint(0x00ff00)
         //numX = (numX < 0) ? numX * -1 : numX;
+        var tween = this.tweens.add({
+          targets: target,
+          alpha: 0,
+          delay: 1000,
+          scale: 0,
+          duration: 5000,
+          callbackScope: this,
+          onComplete: function () {
+            target.setPosition(-50, -50)
+          }
+        })
+        //this.showToast('HIT')
+        this.explode(this.spot.x, this.spot.y)
         console.log('HIT')
         var acc = Math.abs(numX) + Math.abs(numY)
         this.addHit(acc, this.distance)
@@ -323,5 +383,68 @@ class playGame extends Phaser.Scene {
   }
   addScore() {
     this.events.emit('score');
+  }
+  showToast(text) {
+    if (this.toastBox) {
+      this.toastBox.destroy(true);
+    }
+    var toastBox = this.add.container().setDepth(2);
+    var backToastb = this.add.image(0, 0, 'blank').setDepth(2).setTint(0x333333);
+    backToastb.setAlpha(1);
+    backToastb.displayWidth = 720;
+    backToastb.displayHeight = 110;
+    toastBox.add(backToastb);
+    var backToast = this.add.image(0, 0, 'blank').setDepth(2).setTint(0x000000);
+    backToast.setAlpha(1);
+    backToast.displayWidth = 700;
+    backToast.displayHeight = 90;
+    toastBox.add(backToast);
+    toastBox.setPosition(game.config.width + 800, 820);
+    var toastText = this.add.bitmapText(20, -10, 'topaz', text, 50,).setTint(0x00ff66).setOrigin(.5, .5).setDepth(2);
+    //toastText.setMaxWidth(game.config.width - 10);
+    toastBox.add(toastText);
+    this.toastBox = toastBox;
+    this.tweens.add({
+      targets: this.toastBox,
+      //alpha: .5,
+      x: 450,
+      duration: 500,
+      //  yoyo: true,
+      callbackScope: this,
+      onComplete: function () {
+        this.time.addEvent({
+          delay: 2500,
+          callback: this.hideToast,
+          callbackScope: this
+        });
+      }
+    });
+    //this.time.addEvent({delay: 2000, callback: this.hideToast, callbackScope: this});
+  }
+  hideToast() {
+    this.tweens.add({
+      targets: this.toastBox,
+      //alpha: .5,
+      x: -800,
+      duration: 500,
+      //  yoyo: true,
+      callbackScope: this,
+      onComplete: function () {
+        this.toastBox.destroy(true);
+      }
+    });
+
+  }
+  explode(x, y) {
+    var explosion = this.bursts.get().setActive(true);
+
+    // Place the explosion on the screen, and play the animation.
+    explosion.setOrigin(0.5, 0.5).setScale(1);
+    explosion.x = x
+    explosion.y = y
+    explosion.play('burst1');
+    explosion.on('animationcomplete', function () {
+      explosion.setActive(false);
+    }, this);
   }
 }

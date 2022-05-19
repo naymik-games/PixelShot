@@ -72,7 +72,7 @@ class preloadGame extends Phaser.Scene {
 
 
 
-
+    this.load.plugin('rexvirtualjoystickplugin', 'classes/virtualjoystick.js', true);
     //this.load.image("particle", "assets/sprites/particle.png");
     this.load.bitmapFont('topaz', 'assets/fonts/topaz.png', 'assets/fonts/topaz.xml');
     this.load.spritesheet("menu_icons", "assets/sprites/icons.png", {
@@ -97,6 +97,7 @@ class preloadGame extends Phaser.Scene {
     this.load.image('target', 'assets/sprites/target.png');
     this.load.image('spot', 'assets/sprites/spot.png');
     this.load.image('bullet', 'assets/sprites/bullet.png');
+    this.load.image('clip', 'assets/sprites/clip.png');
     this.load.image('crosshair', 'assets/sprites/crosshair.png');
     this.load.image('target_help', 'assets/sprites/target_help.png');
     this.load.image('background', 'assets/sprites/background.png');
@@ -112,10 +113,19 @@ class preloadGame extends Phaser.Scene {
     this.load.image('map2_05', 'assets/sprites/map2_05.png');
     this.load.image('map2_06', 'assets/sprites/map2_06.png');
 
+    this.load.image('map3', 'assets/sprites/map3.png');
 
+    this.load.spritesheet("switch", "assets/sprites/switch.png", {
+      frameWidth: 150,
+      frameHeight: 75
+    });
     this.load.spritesheet("scope", "assets/sprites/scope5.png", {
       frameWidth: 900,
       frameHeight: 1640
+    });
+    this.load.spritesheet("burst", "assets/sprites/burst.png", {
+      frameWidth: 100,
+      frameHeight: 100
     });
   }
   create() {
