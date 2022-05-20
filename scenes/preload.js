@@ -101,18 +101,33 @@ class preloadGame extends Phaser.Scene {
     this.load.image('menu', 'assets/sprites/menu.png');
     this.load.image('crosshair', 'assets/sprites/crosshair.png');
     this.load.image('target_help', 'assets/sprites/target_help.png');
-    this.load.image('background', 'assets/sprites/background.png');
-    this.load.image('middle-back', 'assets/sprites/middle-back.png');
-    this.load.image('middle-front', 'assets/sprites/middle-front.png');
-    this.load.image('foreground', 'assets/sprites/forground.png');
-    this.load.image('frontground', 'assets/sprites/frontground.png');
 
-    this.load.image('map2_01', 'assets/sprites/map2_01.png');
-    this.load.image('map2_02', 'assets/sprites/map2_02.png');
-    this.load.image('map2_03', 'assets/sprites/map2_03.png');
-    this.load.image('map2_04', 'assets/sprites/map2_04.png');
-    this.load.image('map2_05', 'assets/sprites/map2_05.png');
-    this.load.image('map2_06', 'assets/sprites/map2_06.png');
+    this.load.image('practice', 'assets/sprites/practice_map.png');
+
+    this.load.image('map1_00', 'assets/sprites/map1/map1_00.png');
+    this.load.image('map1_01', 'assets/sprites/map1/map1_01.png');
+    this.load.image('map1_02', 'assets/sprites/map1/map1_02.png');
+    this.load.image('map1_03', 'assets/sprites/map1/map1_03.png');
+    this.load.image('map1_04', 'assets/sprites/map1/map1_04.png');
+    this.load.image('map1_thumb', 'assets/sprites/map1/map1_thumb.png');
+
+
+    this.load.image('map2_00', 'assets/sprites/map2/map2_00.png');
+    this.load.image('map2_01', 'assets/sprites/map2/map2_01.png');
+    this.load.image('map2_02', 'assets/sprites/map2/map2_02.png');
+    this.load.image('map2_03', 'assets/sprites/map2/map2_03.png');
+    this.load.image('map2_04', 'assets/sprites/map2/map2_04.png');
+    this.load.image('map2_05', 'assets/sprites/map2/map2_05.png');
+    this.load.image('map2_thumb', 'assets/sprites/map2/map2_thumb.png');
+
+    this.load.image('map3_00', 'assets/sprites/map3/map3_00.png');
+    this.load.image('map3_01', 'assets/sprites/map3/map3_01.png');
+    this.load.image('map3_02', 'assets/sprites/map3/map3_02.png');
+    this.load.image('map3_03', 'assets/sprites/map3/map3_03.png');
+    this.load.image('map3_04', 'assets/sprites/map3/map3_04.png');
+    this.load.image('map3_05', 'assets/sprites/map3/map3_05.png');
+    this.load.image('map3_06', 'assets/sprites/map3/map3_06.png');
+    this.load.image('map3_thumb', 'assets/sprites/map3/map3_thumb.png');
 
     this.load.image('map3', 'assets/sprites/map3.png');
 

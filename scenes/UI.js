@@ -92,15 +92,18 @@ class UI extends Phaser.Scene {
     this.distanceContainer.add(distanceUpButton)
     this.distanceContainer.setAlpha(0)
     ///bullets
+    this.ammoGroup = this.add.container()
     for (var i = 0; i < this.clipCount; i++) {
 
       var clip = this.add.image(175 + i * 75, 1535, 'clip').setScale(.8)
+      this.ammoGroup.add(clip)
       this.ammoBox.push(clip)
 
     }
     for (var i = 0; i < this.bulletCount; i++) {
 
       var bullet = this.add.image(50 + i * 25, 1525, 'bullet').setScale(.9)
+      this.ammoGroup.add(bullet)
       this.clip.push(bullet)
 
     }
@@ -139,6 +142,7 @@ class UI extends Phaser.Scene {
       this.fireButton.setAlpha(1).setInteractive()
 
     }, this)
+    this.ammoGroup.setVisible(false)
     //controls
     this.staticXJsPos = 450
     this.staticYJsPos = 1200
@@ -236,6 +240,7 @@ class UI extends Phaser.Scene {
       this.windSetText.setText(this.windAdjust)
       this.distanceContainer.setAlpha(1)
       this.distanceAdjust = 0
+      this.ammoGroup.setVisible(true)
       if (this.ammoBox.length > 0) {
         this.reloadButton.setAlpha(1)
       } else {
@@ -261,6 +266,7 @@ class UI extends Phaser.Scene {
       this.windContainer.setAlpha(0)
       this.distanceContainer.setAlpha(0)
       this.reloadButton.setAlpha(0)
+      this.ammoGroup.setVisible(false)
       /*       var tween = this.tweens.add({
               targets: this.rifle,
               scale: 1,

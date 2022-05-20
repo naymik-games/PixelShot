@@ -35,17 +35,31 @@ class playGame extends Phaser.Scene {
   }
   create() {
     this.easy = gameData.easy;
+    if (gameMode == 'practice') {
+      this.wideZoom = practices[onPractice].wideZoom
+      this.scopeZoom = practices[onPractice].scopeZoom
+      this.backScale = practices[onPractice].backScale
+      this.widthActual = practices[onPractice].widthActual
+      this.heightActual = practices[onPractice].heightActual
+      this.totalLayers = practices[onPractice].totalLayers
+      this.startingClips = practices[onPractice].startingClips
+      this.distances = practices[onPractice].distances
+      this.targetData = practices[onPractice].targetData
+      this.keys = practices[onPractice].keys
+    } else {
+      this.wideZoom = missions[onMission].wideZoom
+      this.scopeZoom = missions[onMission].scopeZoom
+      this.backScale = missions[onMission].backScale
+      this.widthActual = missions[onMission].widthActual
+      this.heightActual = missions[onMission].heightActual
+      this.totalLayers = missions[onMission].totalLayers
+      this.startingClips = missions[onMission].startingClips
+      this.distances = missions[onMission].distances
+      this.targetData = missions[onMission].targetData
+      this.keys = missions[onMission].keys
+    }
     // map1
-    this.wideZoom = maps[0].wideZoom
-    this.scopeZoom = maps[0].scopeZoom
-    this.backScale = maps[0].backScale
-    this.widthActual = maps[0].widthActual
-    this.heightActual = maps[0].heightActual
-    this.totalLayers = maps[0].totalLayers
-    this.startingClips = maps[0].startingClips
-    this.distances = maps[0].distances
-    this.targetData = maps[0].targetData
-    this.keys = maps[0].keys
+
 
 
     this.targetScaleFactor = 4 + this.totalLayers
@@ -77,27 +91,14 @@ class playGame extends Phaser.Scene {
     for (var i = 0; i < this.totalLayers; i++) {
       this.back = this.add.image(0, 0, this.keys[i]).setOrigin(0).setScale(this.backScale).setDepth(i + 1)
     }
-    /*   this.back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(1)//4
-      var mb = this.add.image(0, 0, 'middle-back').setOrigin(0).setScale(this.backScale).setDepth(2)//3
-      var mf = this.add.image(0, 0, 'middle-front').setOrigin(0).setScale(this.backScale).setDepth(3)//2
-      var fore = this.add.image(0, 0, 'foreground').setOrigin(0).setScale(this.backScale).setDepth(4)//1
-      var front = this.add.image(0, 0, 'frontground').setOrigin(0).setScale(this.backScale).setDepth(5)//0
-   */
 
-
-
-    /* var back = this.add.image(0, 0, 'map2_01').setOrigin(0).setScale(this.backScale).setDepth(0)
-    var mb = this.add.image(0, 0, 'map2_02').setOrigin(0).setScale(this.backScale).setDepth(1)
-    var mf = this.add.image(0, 0, 'map2_03').setOrigin(0).setScale(this.backScale).setDepth(2)
-    var fore = this.add.image(0, 0, 'map2_04').setOrigin(0).setScale(this.backScale).setDepth(3)
-    var front = this.add.image(0, 0, 'map2_05').setOrigin(0).setScale(this.backScale).setDepth(4)
-    var front = this.add.image(0, 0, 'map2_06').setOrigin(0).setScale(this.backScale).setDepth(5) */
 
     this.player = this.add.image(this.cameras.main.getBounds().width / 2, game.config.height / 2, 'scope', 1).setAlpha(.2).setInteractive().setDepth(8);
 
     this.cameras.main.startFollow(this.player, true);
 
     this.playerSpeed = 5
+    this.targetPool = []
     this.targets = []
     for (var i = 0; i < this.targetData.length; i++) {
       var td = this.targetData[i]
@@ -107,27 +108,6 @@ class playGame extends Phaser.Scene {
       //this.targets.push(target)
     }
 
-    /* var target = this.add.image(220 * this.backScale, 50 * this.backScale, 'spot').setDepth(7).setScale(1).setTint(0xff0000)
-    target.distance = 30
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 100 * this.backScale, 'spot').setDepth(7).setScale(2).setTint(0xff0000)
-    target.distance = 20
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 150 * this.backScale, 'spot').setDepth(7).setScale(3).setTint(0xff0000)
-    target.distance = 15
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 200 * this.backScale, 'spot').setDepth(7).setScale(4).setTint(0xff0000)
-    target.distance = 10
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 250 * this.backScale, 'spot').setDepth(7).setScale(5).setTint(0xff0000)
-    target.distance = 5
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 300 * this.backScale, 'spot').setDepth(7).setScale(4).setTint(0xff0000)
-    target.distance = 0
-    this.targets.push(target)
-    var target = this.add.image(220 * this.backScale, 350 * this.backScale, 'target').setDepth(7).setScale(4).setTint(0xff0000)
-    target.distance = 30
-    this.targets.push(target) */
 
     this.graphicsScope = this.add.graphics({ lineStyle: { width: 4, color: 0x000000 }, fillStyle: { color: 0xaa0000 } });
     this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa }, fillStyle: { color: 0xaa0000 } });
@@ -284,22 +264,30 @@ class playGame extends Phaser.Scene {
             return
           }
         } */
+
         target.setTint(0x00ff00)
         //numX = (numX < 0) ? numX * -1 : numX;
         var tween = this.tweens.add({
           targets: target,
           alpha: 0,
-          delay: 1000,
+          delay: 300,
           scale: 0,
-          duration: 5000,
+          duration: 200,
           callbackScope: this,
           onComplete: function () {
             target.setPosition(-50, -50)
+            var ind = this.targets.indexOf(target)
+            var removed = this.targets.splice(ind, 1);
+            this.targetPool.push(removed[0])
+            if (gameMode == 'practice') {
+              this.practiceNext()
+            }
           }
         })
+
         //this.showToast('HIT')
         this.explode(this.spot.x, this.spot.y)
-        console.log('HIT')
+        // console.log('HIT')
         var acc = Math.abs(numX) + Math.abs(numY)
         this.addHit(acc, this.distance)
 
@@ -313,6 +301,9 @@ class playGame extends Phaser.Scene {
   addHit(acc, dis) {
     var data = { acc: acc, dis: dis }
     this.events.emit('hit', data);
+  }
+  practiceNext() {
+    console.log('move target for practice')
   }
   adjustWindMinor() {
     if (Phaser.Math.Between(1, 100) < 50) {
