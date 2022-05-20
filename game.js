@@ -13,7 +13,7 @@ window.onload = function () {
       height: 1640
     },
 
-    scene: [preloadGame, startGame, playGame, UI],
+    scene: [preloadGame, startGame, playGame, UI, loseGame],
     pixelArt: true,
     roundPixels: true
   }
@@ -94,6 +94,7 @@ class playGame extends Phaser.Scene {
 
 
     this.player = this.add.image(this.cameras.main.getBounds().width / 2, game.config.height / 2, 'scope', 1).setAlpha(.2).setInteractive().setDepth(8);
+    this.player.health = 100
 
     this.cameras.main.startFollow(this.player, true);
 
@@ -102,7 +103,7 @@ class playGame extends Phaser.Scene {
     this.targets = []
     for (var i = 0; i < this.targetData.length; i++) {
       var td = this.targetData[i]
-      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, false)
+      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, false, td.canShoot)
       //var target = this.add.image(td.col * this.backScale, td.row * this.backScale, 'spot').setDepth(7).setScale(this.targetScaleFactor - td.dis).setTint(0xff0000)
       //target.distance = this.distances[td.dis]
       //this.targets.push(target)
@@ -146,7 +147,10 @@ class playGame extends Phaser.Scene {
       defaultKey: 'burst',
       maxSize: 30
     });
-
+    this.eBullets = this.add.group({
+      defaultKey: 'spot',
+      maxSize: 30
+    });
 
     /* this.input.on("pointerdown", this.gemSelect, this);
      this.input.on("pointermove", this.drawPath, this);
@@ -276,6 +280,10 @@ class playGame extends Phaser.Scene {
           callbackScope: this,
           onComplete: function () {
             target.setPosition(-50, -50)
+            if (target.canShoot) {
+              target.shootTimer.paused = true
+            }
+
             var ind = this.targets.indexOf(target)
             var removed = this.targets.splice(ind, 1);
             this.targetPool.push(removed[0])
@@ -301,6 +309,26 @@ class playGame extends Phaser.Scene {
   addHit(acc, dis) {
     var data = { acc: acc, dis: dis }
     this.events.emit('hit', data);
+  }
+  shootPlayer(x, y) {
+    console.log('shoot player')
+    var ebullet = this.eBullets.get().setActive(true).setDepth(this.totalLayers + 1).setPosition(x, y).setVisible(true);
+    var tween = this.tweens.add({
+      targets: ebullet,
+      x: this.player.x,
+      y: this.player.y,
+      scale: 16,
+      duration: 50,
+      callbackScope: this,
+      onComplete: function () {
+        ebullet.setActive(false);
+        ebullet.setVisible(false)
+        //duration, intensity, force
+        this.cameras.main.shake(100, .05);
+        this.player.health -= 10
+        this.events.emit('health', this.player.health);
+      }
+    })
   }
   practiceNext() {
     console.log('move target for practice')
@@ -434,7 +462,7 @@ class playGame extends Phaser.Scene {
 
   }
   explode(x, y) {
-    var explosion = this.bursts.get().setActive(true);
+    var explosion = this.bursts.get().setActive(true).setDepth(this.totalLayers + 1);
 
     // Place the explosion on the screen, and play the animation.
     explosion.setOrigin(0.5, 0.5).setScale(1);

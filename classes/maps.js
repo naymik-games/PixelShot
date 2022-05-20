@@ -63,7 +63,7 @@ let missions = [
     totalLayers: 7,
     startingClips: 3,
     distances: [0, 10, 13, 15, 20, 30, 35],
-    targetData: [{ col: 977, row: 490, dis: 0 }, { col: 687, row: 412, dis: 1 }, { col: 488, row: 141, dis: 2 }, { col: 1433, row: 225, dis: 3 }, { col: 867, row: 316, dis: 4 }, { col: 1494, row: 84, dis: 5 }, { col: 169, row: 156, dis: 6 },]
+    targetData: [{ col: 977, row: 490, dis: 0 }, { col: 687, row: 412, dis: 1 }, { col: 488, row: 141, dis: 2 }, { col: 1433, row: 225, dis: 3 }, { col: 867, row: 316, dis: 4 }, { col: 1494, row: 84, dis: 5 }, { col: 169, row: 156, dis: 6, canShoot: true },]
   }
 ]
 

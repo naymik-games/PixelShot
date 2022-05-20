@@ -27,15 +27,18 @@ class UI extends Phaser.Scene {
     this.scoreBuffer = 0
     this.shotsFired = 0
     this.bulletCount = 3
+    this.healthTotal = 100
     this.clipCount = this.Main.startingClips
     this.clip = []
     this.bulletPool = []
     this.ammoBox = []
     this.clipPool = []
+    this.targetCount = this.Main.targets.length
     this.scoreText = this.add.bitmapText(450, 100, 'topaz', this.score, 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(1);
+    this.shotText = this.add.bitmapText(875, 100, 'topaz', '0', 80).setOrigin(1, .5).setTint(0xcbf7ff).setAlpha(1);
     this.windText = this.add.bitmapText(110, 100, 'topaz', '0', 80).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
     this.distanceText = this.add.bitmapText(135, 100, 'topaz', '0', 80).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(0);
-    this.hitText = this.add.bitmapText(875, 100, 'topaz', '', 80).setOrigin(1, .5).setTint(0xffffff).setAlpha(1);
+
 
 
 
@@ -95,14 +98,14 @@ class UI extends Phaser.Scene {
     this.ammoGroup = this.add.container()
     for (var i = 0; i < this.clipCount; i++) {
 
-      var clip = this.add.image(175 + i * 75, 1535, 'clip').setScale(.8)
+      var clip = this.add.image(175 + i * 75, 1395, 'clip').setScale(.6)
       this.ammoGroup.add(clip)
       this.ammoBox.push(clip)
 
     }
     for (var i = 0; i < this.bulletCount; i++) {
 
-      var bullet = this.add.image(50 + i * 25, 1525, 'bullet').setScale(.9)
+      var bullet = this.add.image(50 + i * 25, 1395, 'bullet').setScale(.6)
       this.ammoGroup.add(bullet)
       this.clip.push(bullet)
 
@@ -159,22 +162,55 @@ class UI extends Phaser.Scene {
     }).on('update', this.updateJoystickState, this);
     this.cursorKeys = this.joyStick.createCursorKeys();
 
-
-
+    this.Main.events.on('health', function (data) {
+      var per = data / this.healthTotal
+      var tween = this.tweens.add({
+        targets: this.levelProgressBar,
+        displayWidth: 250 * Phaser.Math.Clamp(per, 0, 1),
+        duration: 500,
+        callbackScope: this,
+        onComplete: function () {
+          if (data <= 0) {
+            //this.showToast('YOU ARE DEAD')
+            this.loseGame()
+          }
+        }
+      })
+    }, this);
 
     this.Main.events.on('hit', function (data) {
       // console.log('acc ' + data.acc + ', dist ' + this.distanceFinal)
-      this.showToast('HIT')
+      //this.showToast('HIT')
       this.hits += 1;
-      this.hitText.setText(this.hits + '/' + this.shotsFired)
+
       //console.log('dots ' + string)
       this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
       //this.scoreText.setText(this.score)
-      this.hitText.setText(this.hits + '/' + this.shotsFired)
-      if (this.hits == this.Main.targets.length) {
+      this.hitText.setText(this.hits)
+      if (this.hits == this.targetCount) {
         alert('All Targets Dropped')
       }
     }, this);
+
+    this.initialTime = 90
+
+    this.levelProgressBarB = this.add.image(20, 1620, 'blank').setOrigin(0, 1).setTint(0x000000).setAlpha(.8)
+    this.levelProgressBarB.displayWidth = 260;
+    this.levelProgressBarB.displayHeight = 150;
+    this.hitText = this.add.bitmapText(65, 1550, 'topaz', this.hits, 50).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
+    //this.totalTargetText = this.add.bitmapText(125, 1525, 'topaz', this.hits, 60).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
+    this.totalTargetText = this.add.bitmapText(85, 1550, 'topaz', this.targetCount, 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(1);
+
+    this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
+    this.time = this.add.bitmapText(140, 1550, 'topaz', this.formatTime(this.initialTime), 50).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(1);
+
+
+    this.levelProgressBar = this.add.image(25, 1600, 'blank').setOrigin(0, .5).setTint(0xffb000)
+    this.levelProgressBar.displayWidth = 250 * this.Main.player.health / this.healthTotal;
+    this.levelProgressBar.displayHeight = 25;
+
+
+
 
     this.makeMenu()
 
@@ -190,9 +226,37 @@ class UI extends Phaser.Scene {
       this.scoreBuffer--;
     }
   }
+  loseGame() {
+    /* var endTimer = this.time.addEvent({
+      delay: 1500, callback: function () {
+        
+      }, callbackScope: this, loop: false
+    }); */
+    this.scene.pause()
+    this.scene.pause('playGame')
+    this.scene.launch('loseGame')
+  }
   incrementScore() {
     this.score += 1;
     this.scoreText.setText(this.score);
+  }
+  onEvent() {
+    this.initialTime -= 1; // One second
+    if (this.initialTime == 0) {
+      //this.showToast('OUT OF TIME')
+      this.loseGame()
+    }
+    this.time.setText(this.formatTime(this.initialTime));
+  }
+  formatTime(seconds) {
+    // Minutes
+    var minutes = Math.floor(seconds / 60);
+    // Seconds
+    var partInSeconds = seconds % 60;
+    // Adds left zeros to seconds
+    partInSeconds = partInSeconds.toString().padStart(2, '0');
+    // Returns formated time
+    return `${minutes}:${partInSeconds}`;
   }
   updateJoystickState() {
     let direction = '';
@@ -298,7 +362,7 @@ class UI extends Phaser.Scene {
   }
   fireShot2() {
     this.shotsFired++
-    this.hitText.setText(this.hits + '/' + this.shotsFired)
+    this.shotText.setText(this.shotsFired)
     this.Main.fire()
     var bullet = this.clip.pop()
     bullet.setAlpha(0)
@@ -307,7 +371,8 @@ class UI extends Phaser.Scene {
       this.canFire = false
       this.fireButton.setAlpha(.2)
       if (this.ammoBox.length == 0) {
-        this.showToast('OUT OF AMMO')
+        // this.showToast('OUT OF AMMO')
+        this.loseGame()
       }
     }
   }
@@ -361,7 +426,7 @@ class UI extends Phaser.Scene {
       //  yoyo: true,
       callbackScope: this,
       onComplete: function () {
-        this.time.addEvent({
+        var end = this.time.addEvent({
           delay: 2500,
           callback: this.hideToast,
           callbackScope: this
