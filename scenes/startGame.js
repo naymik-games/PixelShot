@@ -8,13 +8,15 @@ class startGame extends Phaser.Scene {
 
   }
   create() {
-    /*
-      gameSettings = JSON.parse(localStorage.getItem('SDsave'));
-      if (gameSettings === null || gameSettings.length <= 0) {
-        localStorage.setItem('SDsave', JSON.stringify(defaultValues));
-        gameSettings = defaultValues;
-      }
-    */
+
+
+
+    gameData = JSON.parse(localStorage.getItem('PSdata'));
+    if (gameData === null || gameData.length <= 0) {
+      localStorage.setItem('PSdata', JSON.stringify(defaultValues));
+      gameData = defaultValues;
+    }
+
     this.cameras.main.setBackgroundColor(0x000000);
 
     var title = this.add.bitmapText(game.config.width / 2, 100, 'topaz', 'PixelShot', 150).setOrigin(.5).setTint(0xc76210);
@@ -23,15 +25,16 @@ class startGame extends Phaser.Scene {
     startTime.setInteractive();
     startTime.on('pointerdown', this.clickHandler, this);
     var startTime = this.add.bitmapText(game.config.width / 2, 1075, 'topaz', 'Easy Mode', 50).setOrigin(.5).setTint(0xfafafa);
-    var easySwitch = this.add.image(game.config.width / 2, 1175, 'switch', (easy) ? 1 : 0).setInteractive()
+    var easySwitch = this.add.image(game.config.width / 2, 1175, 'switch', (gameData.easy) ? 1 : 0).setInteractive()
     easySwitch.on('pointerdown', function () {
-      if (easy) {
-        easy = false
+      if (gameData.easy) {
+        gameData.easy = false
         easySwitch.setFrame(0)
       } else {
-        easy = true
+        gameData.easy = true
         easySwitch.setFrame(1)
       }
+      localStorage.setItem('PSdata', JSON.stringify(gameData));
     }, this)
 
   }

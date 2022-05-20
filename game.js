@@ -34,18 +34,21 @@ class playGame extends Phaser.Scene {
 
   }
   create() {
-    this.easy = easy;
+    this.easy = gameData.easy;
     // map1
-    this.wideZoom = 1
-    this.scopeZoom = 6
-    this.backScale = 4
-    this.widthActual = 805
-    this.heightActual = 410
-    this.totalLayers = 5
-    this.startingClips = 5
+    this.wideZoom = maps[0].wideZoom
+    this.scopeZoom = maps[0].scopeZoom
+    this.backScale = maps[0].backScale
+    this.widthActual = maps[0].widthActual
+    this.heightActual = maps[0].heightActual
+    this.totalLayers = maps[0].totalLayers
+    this.startingClips = maps[0].startingClips
+    this.distances = maps[0].distances
+    this.targetData = maps[0].targetData
+    this.keys = maps[0].keys
+
+
     this.targetScaleFactor = 4 + this.totalLayers
-    this.distances = [0, 5, 10, 20, 30]
-    this.targetData = [{ col: 489, row: 385, dis: 0 }, { col: 676, row: 379, dis: 1 }, { col: 374, row: 336, dis: 1 }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
     //map 2
     /*  this.wideZoom = 1
      this.scopeZoom = 6
@@ -71,13 +74,15 @@ class playGame extends Phaser.Scene {
     this.cameras.main.setZoom(1)
 
     // var mb = this.add.image(0, 0, 'map3').setOrigin(0).setScale(this.backScale).setDepth(2)
-
-    this.back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(1)//4
-    var mb = this.add.image(0, 0, 'middle-back').setOrigin(0).setScale(this.backScale).setDepth(2)//3
-    var mf = this.add.image(0, 0, 'middle-front').setOrigin(0).setScale(this.backScale).setDepth(3)//2
-    var fore = this.add.image(0, 0, 'foreground').setOrigin(0).setScale(this.backScale).setDepth(4)//1
-    var front = this.add.image(0, 0, 'frontground').setOrigin(0).setScale(this.backScale).setDepth(5)//0
-
+    for (var i = 0; i < this.totalLayers; i++) {
+      this.back = this.add.image(0, 0, this.keys[i]).setOrigin(0).setScale(this.backScale).setDepth(i + 1)
+    }
+    /*   this.back = this.add.image(0, 0, 'background').setOrigin(0).setScale(this.backScale).setDepth(1)//4
+      var mb = this.add.image(0, 0, 'middle-back').setOrigin(0).setScale(this.backScale).setDepth(2)//3
+      var mf = this.add.image(0, 0, 'middle-front').setOrigin(0).setScale(this.backScale).setDepth(3)//2
+      var fore = this.add.image(0, 0, 'foreground').setOrigin(0).setScale(this.backScale).setDepth(4)//1
+      var front = this.add.image(0, 0, 'frontground').setOrigin(0).setScale(this.backScale).setDepth(5)//0
+   */
 
 
 
@@ -161,6 +166,8 @@ class playGame extends Phaser.Scene {
       defaultKey: 'burst',
       maxSize: 30
     });
+
+
     /* this.input.on("pointerdown", this.gemSelect, this);
      this.input.on("pointermove", this.drawPath, this);
      this.input.on("pointerup", this.removeGems, this);
@@ -447,4 +454,5 @@ class playGame extends Phaser.Scene {
       explosion.setActive(false);
     }, this);
   }
+
 }

@@ -38,12 +38,7 @@ class UI extends Phaser.Scene {
     this.hitText = this.add.bitmapText(875, 100, 'topaz', '', 80).setOrigin(1, .5).setTint(0xffffff).setAlpha(1);
 
 
-    this.home = this.add.image(850, 250, 'menu_icons', 3).setInteractive()
-    this.home.on('pointerdown', function () {
-      this.scene.stop()
-      this.scene.stop('playGame')
-      this.scene.start('startGame')
-    }, this)
+
 
     this.fireButton = this.add.image(650, 1150, 'blank').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(0);
     this.fireButton.on('pointerdown', this.fireShot, this)
@@ -176,6 +171,8 @@ class UI extends Phaser.Scene {
         alert('All Targets Dropped')
       }
     }, this);
+
+    this.makeMenu()
 
   }
 
@@ -381,4 +378,68 @@ class UI extends Phaser.Scene {
     });
 
   }
+  toggleMenu() {
+
+    if (this.menuGroup.y == 0) {
+      var menuTween = this.tweens.add({
+        targets: this.menuGroup,
+        y: -270,
+        duration: 500,
+        ease: 'Bounce'
+      })
+
+    }
+    if (this.menuGroup.y == -270) {
+      var menuTween = this.tweens.add({
+        targets: this.menuGroup,
+        y: 0,
+        duration: 500,
+        ease: 'Bounce'
+      })
+    }
+  }
+  makeMenu() {
+    ////////menu
+    this.menuGroup = this.add.container().setDepth(5);
+    var menuBG = this.add.image(game.config.width / 2, game.config.height - 85, 'blank').setOrigin(.5, 0).setTint(0x333333).setAlpha(.8)
+    menuBG.displayWidth = 300;
+    menuBG.displayHeight = 600
+    this.menuGroup.add(menuBG)
+    var menuButton = this.add.image(game.config.width / 2, game.config.height - 40, "menu").setInteractive().setDepth(3);
+    menuButton.on('pointerdown', this.toggleMenu, this)
+    menuButton.setOrigin(0.5);
+    this.menuGroup.add(menuButton);
+    var homeButton = this.add.bitmapText(game.config.width / 2, game.config.height + 50, 'topaz', 'HOME', 50).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
+    homeButton.on('pointerdown', function () {
+      this.scene.stop()
+      this.scene.stop('playGame')
+      this.scene.start('startGame')
+
+    }, this)
+    this.menuGroup.add(homeButton);
+    var wordButton = this.add.bitmapText(game.config.width / 2, game.config.height + 140, 'topaz', 'WORDS', 50).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
+    wordButton.on('pointerdown', function () {
+      var data = {
+        yesWords: this.foundWords,
+        noWords: this.notWords
+      }
+      this.scene.pause()
+      //this.scene.launch('wordsPlayed', data)
+    }, this)
+    this.menuGroup.add(wordButton);
+    var helpButton = this.add.bitmapText(game.config.width / 2, game.config.height + 230, 'topaz', 'RESTART', 50).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
+    helpButton.on('pointerdown', function () {
+      this.scene.stop()
+      this.scene.stop('playGame')
+
+      this.scene.start('playGame')
+      this.scene.launch('UI')
+    }, this)
+    this.menuGroup.add(helpButton);
+    //var thankYou = game.add.button(game.config.width / 2, game.config.height + 130, "thankyou", function(){});
+    // thankYou.setOrigin(0.5);
+    // menuGroup.add(thankYou);    
+    ////////end menu
+  }
+
 }

@@ -12,12 +12,8 @@ let gameOptions = {
 }
 
 let easy = true
-let gameSettings;
+let gameData;
 var defaultValues = {
-  mostDotsMoves: 0,
-  mostDotsTime: 0,
-  levelStatus: [0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-  totalSquares: 0,
-  group: 0,
-  currentLevel: 0
+  easy: true,
+  map: 0
 }
