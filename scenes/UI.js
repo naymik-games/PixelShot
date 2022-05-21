@@ -181,7 +181,7 @@ class UI extends Phaser.Scene {
 
     this.Main.events.on('hit', function (data) {
       // console.log('acc ' + data.acc + ', dist ' + this.distanceFinal)
-      //this.showToast('HIT')
+      this.showToast('HIT')
       this.hits += 1;
 
       //console.log('dots ' + string)
@@ -189,7 +189,7 @@ class UI extends Phaser.Scene {
       //this.scoreText.setText(this.score)
       this.hitText.setText(this.hits)
       if (this.hits == this.targetCount) {
-        alert('All Targets Dropped')
+        this.winGame()
       }
     }, this);
 
@@ -202,7 +202,7 @@ class UI extends Phaser.Scene {
     //this.totalTargetText = this.add.bitmapText(125, 1525, 'topaz', this.hits, 60).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
     this.totalTargetText = this.add.bitmapText(85, 1550, 'topaz', this.targetCount, 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(1);
 
-    this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
+    this.timedEvent = this.sys.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
     this.time = this.add.bitmapText(140, 1550, 'topaz', this.formatTime(this.initialTime), 50).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(1);
 
 
@@ -228,14 +228,26 @@ class UI extends Phaser.Scene {
     }
   }
   loseGame() {
-    /* var endTimer = this.time.addEvent({
+    var endTimer = this.sys.time.addEvent({
       delay: 1500, callback: function () {
-
+        this.scene.pause()
+        this.scene.pause('playGame')
+        this.scene.launch('loseGame')
       }, callbackScope: this, loop: false
-    }); */
-    this.scene.pause()
-    this.scene.pause('playGame')
-    this.scene.launch('loseGame')
+    });
+    //this.time.removeEvent(this.timedEvent)
+
+  }
+  winGame() {
+    var endTimer = this.sys.time.addEvent({
+      delay: 1500, callback: function () {
+        this.scene.pause()
+        this.scene.pause('playGame')
+        this.scene.launch('windGame')
+      }, callbackScope: this, loop: false
+    });
+    //this.time.removeEvent(this.timedEvent)
+
   }
   incrementScore() {
     this.score += 1;
@@ -244,7 +256,7 @@ class UI extends Phaser.Scene {
   onEvent() {
     this.initialTime -= 1; // One second
     if (this.initialTime == 0) {
-      //this.showToast('OUT OF TIME')
+      this.showToast('OUT OF TIME')
       this.loseGame()
     }
     this.time.setText(this.formatTime(this.initialTime));
@@ -353,7 +365,7 @@ class UI extends Phaser.Scene {
         this.fireShot2()
 
       } else {
-        var fireTimer = this.time.addEvent({ delay: this.Main.distance * 10, callback: this.fireShot2, callbackScope: this, loop: false });
+        this.fireTimer = this.sys.time.addEvent({ delay: this.Main.distance * 10, callback: this.fireShot2, callbackScope: this, loop: false });
 
       }
 
@@ -372,7 +384,7 @@ class UI extends Phaser.Scene {
       this.canFire = false
       this.fireButton.setAlpha(.2)
       if (this.ammoBox.length == 0) {
-        // this.showToast('OUT OF AMMO')
+        this.showToast('OUT OF AMMO')
         this.loseGame()
       }
     }
@@ -427,7 +439,7 @@ class UI extends Phaser.Scene {
       //  yoyo: true,
       callbackScope: this,
       onComplete: function () {
-        var end = this.time.addEvent({
+        var end = this.sys.time.addEvent({
           delay: 2500,
           callback: this.hideToast,
           callbackScope: this

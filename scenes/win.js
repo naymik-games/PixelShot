@@ -1,6 +1,6 @@
-class loseGame extends Phaser.Scene {
+class winGame extends Phaser.Scene {
   constructor() {
-    super("loseGame");
+    super("winGame");
   }
   preload() {
     //this.load.bitmapFont('atari', 'assets/fonts/atari-smooth.png', 'assets/fonts/atari-smooth.xml');
@@ -19,7 +19,7 @@ class loseGame extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(0x000000);
 
-    var title = this.add.bitmapText(game.config.width / 2, 100, 'topaz', 'FAIL', 150).setOrigin(.5).setTint(0xc76210);
+    var title = this.add.bitmapText(game.config.width / 2, 100, 'topaz', 'SUCCESS', 150).setOrigin(.5).setTint(0xc76210);
 
     var startTime = this.add.bitmapText(game.config.width / 2, 275, 'topaz', 'Play', 50).setOrigin(.5).setTint(0xfafafa);
     startTime.setInteractive();

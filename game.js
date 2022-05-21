@@ -103,7 +103,7 @@ class playGame extends Phaser.Scene {
     this.targets = []
     for (var i = 0; i < this.targetData.length; i++) {
       var td = this.targetData[i]
-      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, false, td.canShoot)
+      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
       //var target = this.add.image(td.col * this.backScale, td.row * this.backScale, 'spot').setDepth(7).setScale(this.targetScaleFactor - td.dis).setTint(0xff0000)
       //target.distance = this.distances[td.dis]
       //this.targets.push(target)
@@ -131,8 +131,8 @@ class playGame extends Phaser.Scene {
 
     } else {
       this.wind = Phaser.Math.Between(-30, 30)
-      this.windAdjustMinor = this.time.addEvent({ delay: 2000, callback: this.adjustWindMinor, callbackScope: this, loop: true });
-      this.windAdjustMajor = this.time.addEvent({ delay: 30000, callback: this.adjustWindMajor, callbackScope: this, loop: true });
+      this.windAdjustMinor = this.sys.time.addEvent({ delay: 2000, callback: this.adjustWindMinor, callbackScope: this, loop: true });
+      this.windAdjustMajor = this.sys.time.addEvent({ delay: 30000, callback: this.adjustWindMajor, callbackScope: this, loop: true });
     }
 
     //bursts
@@ -151,7 +151,7 @@ class playGame extends Phaser.Scene {
       defaultKey: 'spot',
       maxSize: 30
     });
-
+    this.showToast('READY')
     /* this.input.on("pointerdown", this.gemSelect, this);
      this.input.on("pointermove", this.drawPath, this);
      this.input.on("pointerup", this.removeGems, this);
@@ -281,7 +281,8 @@ class playGame extends Phaser.Scene {
           onComplete: function () {
             target.setPosition(-50, -50)
             if (target.canShoot) {
-              target.shootTimer.paused = true
+              //target.shootTimer.paused = true
+              this.time.removeEvent(target.shootTimer);
             }
 
             var ind = this.targets.indexOf(target)
@@ -438,7 +439,7 @@ class playGame extends Phaser.Scene {
       //  yoyo: true,
       callbackScope: this,
       onComplete: function () {
-        this.time.addEvent({
+        this.sys.time.addEvent({
           delay: 2500,
           callback: this.hideToast,
           callbackScope: this

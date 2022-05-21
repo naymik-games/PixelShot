@@ -10,17 +10,19 @@ class Target extends Phaser.GameObjects.Image {
     this.setScale(scale)
     this.setTint(0xff0000)
     this.setDepth(7)
+    this.shootTimes = [8000, 10000, 12000, 15000, 20000]
     scene.add.existing(this);
     scene.targets.push(this)
     if (canShoot) {
-      this.shootTimer = this.scene.time.addEvent({ delay: 10000, callback: this.shoot, callbackScope: this, loop: true });
+      var delay = Phaser.Math.RND.pick(this.shootTimes)
+      this.shootTimer = this.scene.time.addEvent({ delay: delay, callback: this.shoot, callbackScope: this, loop: true });
 
     }
     if (sway) {
       var tween = scene.tweens.add({
         targets: this,
         x: '+= 8',
-        duration: 2500,
+        duration: 3000,
         yoyo: true,
         loop: -1
       })
@@ -41,5 +43,8 @@ class Target extends Phaser.GameObjects.Image {
       yoyo: true,
 
     })
+  }
+  remove() {
+
   }
 }
