@@ -16,7 +16,7 @@ class UI extends Phaser.Scene {
 
     this.header = this.add.image(game.config.width / 2, 0, 'blank').setOrigin(.5, 0).setTint(0x000000).setAlpha(.5);
     this.header.displayWidth = 900;
-    this.header.displayHeight = 200;
+    this.header.displayHeight = 150;
     this.zoom = this.add.image(game.config.width - 25, game.config.height - 25, 'crosshair').setOrigin(1).setTint(0xffffff).setInteractive();
     this.zoom.on('pointerdown', function () {
       this.scopeToggle()
@@ -28,16 +28,17 @@ class UI extends Phaser.Scene {
     this.shotsFired = 0
     this.bulletCount = 3
     this.healthTotal = 100
+    this.initialTime = 120
     this.clipCount = this.Main.startingClips
     this.clip = []
     this.bulletPool = []
     this.ammoBox = []
     this.clipPool = []
     this.targetCount = this.Main.targets.length
-    this.scoreText = this.add.bitmapText(450, 100, 'topaz', this.score, 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(1);
-    this.shotText = this.add.bitmapText(875, 100, 'topaz', '0', 80).setOrigin(1, .5).setTint(0xcbf7ff).setAlpha(1);
-    this.windText = this.add.bitmapText(110, 100, 'topaz', '0', 80).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
-    this.distanceText = this.add.bitmapText(135, 100, 'topaz', '0', 80).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(0);
+    this.scoreText = this.add.bitmapText(450, 75, 'topaz', this.score, 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(1);
+    this.shotText = this.add.bitmapText(875, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0xcbf7ff).setAlpha(1);
+    this.windText = this.add.bitmapText(110, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
+    this.distanceText = this.add.bitmapText(135, 75, 'topaz', '0', 80).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(0);
 
 
 
@@ -155,7 +156,7 @@ class UI extends Phaser.Scene {
       radius: 100,
       //base: baseGameObject,
       //thumb: thumbGameObject,
-      dir: '4dir',
+      dir: '8dir',
       // forceMin: 16,
       // fixed: true,
       // enable: true
@@ -192,7 +193,7 @@ class UI extends Phaser.Scene {
       }
     }, this);
 
-    this.initialTime = 90
+
 
     this.levelProgressBarB = this.add.image(20, 1620, 'blank').setOrigin(0, 1).setTint(0x000000).setAlpha(.8)
     this.levelProgressBarB.displayWidth = 260;
@@ -229,7 +230,7 @@ class UI extends Phaser.Scene {
   loseGame() {
     /* var endTimer = this.time.addEvent({
       delay: 1500, callback: function () {
-        
+
       }, callbackScope: this, loop: false
     }); */
     this.scene.pause()
@@ -352,7 +353,7 @@ class UI extends Phaser.Scene {
         this.fireShot2()
 
       } else {
-        this.time.addEvent({ delay: this.Main.distance * 10, callback: this.fireShot2, callbackScope: this, loop: false });
+        var fireTimer = this.time.addEvent({ delay: this.Main.distance * 10, callback: this.fireShot2, callbackScope: this, loop: false });
 
       }
 

@@ -65,6 +65,21 @@ let missions = [
     distances: [0, 10, 13, 15, 20, 30, 35],
     targetData: [{ col: 977, row: 490, dis: 0 }, { col: 687, row: 412, dis: 1 }, { col: 488, row: 141, dis: 2 }, { col: 1433, row: 225, dis: 3 }, { col: 867, row: 316, dis: 4 }, { col: 1494, row: 84, dis: 5 }, { col: 169, row: 156, dis: 6, canShoot: true },]
   }
+  ,
+  {
+    map: 'Pixelview',
+    mission: 'First',
+    keys: ['map4_00', 'map4_01', 'map4_02', 'map4_03', 'map4_04', 'map4_05', 'map4_06'],
+    wideZoom: 1,
+    scopeZoom: 6,
+    backScale: 2,
+    widthActual: 1600,
+    heightActual: 1200,
+    totalLayers: 7,
+    startingClips: 3,
+    distances: [0, 10, 13, 15, 20, 30, 35],
+    targetData: [{ col: 259, row: 353, dis: 0, canShoot: true }, { col: 609, row: 1085, dis: 0, canShoot: false }, { col: 730, row: 897, dis: 1, canShoot: false }, { col: 374, row: 964, dis: 3, canShoot: false }, { col: 1237, row: 915, dis: 2, canShoot: false }, { col: 24, row: 873, dis: 5, canShoot: false }, { col: 410, row: 770, dis: 6, canShoot: false }, { col: 878, row: 674, dis: 0, canShoot: false },]
+  }
 ]
 
 

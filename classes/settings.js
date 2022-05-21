@@ -13,7 +13,7 @@ let gameOptions = {
 
 let easy = true
 let gameMode = 'map'
-let onMission = 2
+let onMission = 3
 let onPractice = 0
 let gameData;
 var defaultValues = {
