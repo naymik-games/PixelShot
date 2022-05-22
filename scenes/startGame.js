@@ -44,7 +44,7 @@ class startGame extends Phaser.Scene {
 
   }
   clickHandler() {
-
+    gameMode = 'map'
     this.scene.start('playGame');
     this.scene.launch('UI');
   }
