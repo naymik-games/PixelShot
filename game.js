@@ -270,7 +270,8 @@ class playGame extends Phaser.Scene {
             return
           }
         } */
-
+        //var color = this.textures.getPixel(1, 1, 'spot');
+        // console.log(color)
         target.setTint(0x00ff00)
         //numX = (numX < 0) ? numX * -1 : numX;
         var tween = this.tweens.add({
@@ -335,9 +336,14 @@ class playGame extends Phaser.Scene {
   }
   practiceNext() {
     var target = this.targetPool.pop()
+    target.setTexture('spot')
+    target.setTint(0xff0000)
     target.setAlpha(1)
-    target.setScale(this.targetScaleFactor - target.dis)
-    target.setPosition(600 * this.backScale, 600 * this.backScale)
+    target.setScale(this.targetScaleFactor - target.distance)
+    var col = Phaser.Math.Between(20, this.widthActual - 20)
+    var row = Phaser.Math.Between(20, this.heightActual - 20)
+    target.setPosition(col * this.backScale, row * this.backScale)
+    this.targets.push(target)
   }
   adjustWindMinor() {
     if (Phaser.Math.Between(1, 100) < 50) {
