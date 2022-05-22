@@ -34,7 +34,12 @@ class UI extends Phaser.Scene {
     this.bulletPool = []
     this.ammoBox = []
     this.clipPool = []
-    this.targetCount = this.Main.targets.length
+    if (gameMode == 'practice') {
+      this.targetCount = practices[onPractice].targetGoal
+    } else {
+      this.targetCount = this.Main.targets.length
+    }
+
     this.scoreText = this.add.bitmapText(450, 75, 'topaz', this.score, 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(1);
     this.shotText = this.add.bitmapText(875, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0xcbf7ff).setAlpha(1);
     this.windText = this.add.bitmapText(110, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
