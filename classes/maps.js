@@ -11,6 +11,7 @@ let practices = [
     totalLayers: 5,
     startingClips: 5,
     distances: [0, 5, 10, 20, 30],
+    time: 240,
     targetData: [{ col: 489, row: 385, dis: 0 }, { col: 676, row: 379, dis: 1 }, { col: 374, row: 336, dis: 1 }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
   }
 ]
@@ -34,6 +35,7 @@ let missions = [
     heightActual: 410,
     totalLayers: 5,
     startingClips: 5,
+    time: 240,
     distances: [0, 5, 10, 20, 30],
     targetData: [{ col: 489, row: 385, dis: 0 }, { col: 676, row: 379, dis: 1 }, { col: 374, row: 336, dis: 1 }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
   },
@@ -48,6 +50,7 @@ let missions = [
     heightActual: 900,
     totalLayers: 6,
     startingClips: 3,
+    time: 240,
     distances: [5, 10, 15, 20, 30, 35],
     targetData: [{ col: 297, row: 541, dis: 2 }, { col: 2064, row: 793, dis: 0 }, { col: 1424, row: 777, dis: 1 }, { col: 1249, row: 579, dis: 3 }, { col: 480, row: 366, dis: 4 }, { col: 2459, row: 155, dis: 5 }, { col: 1539, row: 450, dis: 4 },]
   },
@@ -62,6 +65,7 @@ let missions = [
     heightActual: 600,
     totalLayers: 7,
     startingClips: 3,
+    time: 240,
     distances: [0, 10, 13, 15, 20, 30, 35],
     targetData: [{ col: 977, row: 490, dis: 0 }, { col: 687, row: 412, dis: 1 }, { col: 488, row: 141, dis: 2 }, { col: 1433, row: 225, dis: 3 }, { col: 867, row: 316, dis: 4 }, { col: 1494, row: 84, dis: 5 }, { col: 169, row: 156, dis: 6, canShoot: true },]
   }
@@ -77,6 +81,7 @@ let missions = [
     heightActual: 1200,
     totalLayers: 7,
     startingClips: 3,
+    time: 240,
     distances: [0, 10, 13, 15, 20, 30, 35],
     targetData: [{ col: 259, row: 353, dis: 0, canShoot: true }, { col: 609, row: 1085, dis: 0, move: true, canShoot: false }, { col: 730, row: 897, dis: 1, canShoot: false }, { col: 374, row: 964, dis: 3, canShoot: false }, { col: 1237, row: 915, dis: 2, canShoot: false }, { col: 24, row: 873, dis: 5, canShoot: false }, { col: 410, row: 770, dis: 6, canShoot: false }, { col: 878, row: 674, dis: 0, canShoot: false },]
   }

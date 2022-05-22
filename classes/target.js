@@ -14,8 +14,7 @@ class Target extends Phaser.GameObjects.Image {
     scene.add.existing(this);
     scene.targets.push(this)
     if (canShoot) {
-      var delay = Phaser.Math.RND.pick(this.shootTimes)
-      this.shootTimer = this.scene.time.addEvent({ delay: delay, callback: this.shoot, callbackScope: this, loop: true });
+      this.setShoot()
 
     }
     if (sway) {
@@ -27,6 +26,11 @@ class Target extends Phaser.GameObjects.Image {
         loop: -1
       })
     }
+
+  }
+  setShoot() {
+    var delay = Phaser.Math.RND.pick(this.shootTimes)
+    this.shootTimer = this.scene.time.addEvent({ delay: delay, callback: this.shoot, callbackScope: this, loop: true });
 
   }
   // ...

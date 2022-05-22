@@ -46,6 +46,7 @@ class playGame extends Phaser.Scene {
       this.distances = practices[onPractice].distances
       this.targetData = practices[onPractice].targetData
       this.keys = practices[onPractice].keys
+      this.initialTime = practices[onPractice].time
     } else {
       this.wideZoom = missions[onMission].wideZoom
       this.scopeZoom = missions[onMission].scopeZoom
@@ -57,6 +58,7 @@ class playGame extends Phaser.Scene {
       this.distances = missions[onMission].distances
       this.targetData = missions[onMission].targetData
       this.keys = missions[onMission].keys
+      this.initialTime = missions[onMission].time
     }
     // map1
 
@@ -332,7 +334,10 @@ class playGame extends Phaser.Scene {
     })
   }
   practiceNext() {
-    console.log('move target for practice')
+    var target = this.targetPool.pop()
+    target.setAlpha(1)
+    target.setScale(this.targetScaleFactor - target.dis)
+    target.setPosition(600 * this.backScale, 600 * this.backScale)
   }
   adjustWindMinor() {
     if (Phaser.Math.Between(1, 100) < 50) {

@@ -28,7 +28,7 @@ class UI extends Phaser.Scene {
     this.shotsFired = 0
     this.bulletCount = 3
     this.healthTotal = 100
-    this.initialTime = 120
+    this.initialTime = this.Main.initialTime
     this.clipCount = this.Main.startingClips
     this.clip = []
     this.bulletPool = []
@@ -195,15 +195,15 @@ class UI extends Phaser.Scene {
 
 
 
-    this.levelProgressBarB = this.add.image(20, 1620, 'blank').setOrigin(0, 1).setTint(0x000000).setAlpha(.8)
+    this.levelProgressBarB = this.add.image(20, 1630, 'blank').setOrigin(0, 1).setTint(0x000000).setAlpha(.8)
     this.levelProgressBarB.displayWidth = 260;
     this.levelProgressBarB.displayHeight = 150;
-    this.hitText = this.add.bitmapText(65, 1550, 'topaz', this.hits, 50).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
+    this.hitText = this.add.bitmapText(65, 1525, 'topaz', this.hits, 50).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
     //this.totalTargetText = this.add.bitmapText(125, 1525, 'topaz', this.hits, 60).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
-    this.totalTargetText = this.add.bitmapText(85, 1550, 'topaz', this.targetCount, 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(1);
+    this.totalTargetText = this.add.bitmapText(85, 1525, 'topaz', this.targetCount, 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(1);
 
     this.timedEvent = this.sys.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
-    this.time = this.add.bitmapText(140, 1550, 'topaz', this.formatTime(this.initialTime), 50).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(1);
+    this.time = this.add.bitmapText(140, 1525, 'topaz', this.formatTime(this.initialTime), 50).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(1);
 
 
     this.levelProgressBar = this.add.image(25, 1600, 'blank').setOrigin(0, .5).setTint(0xffb000)
