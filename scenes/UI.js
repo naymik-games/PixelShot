@@ -47,21 +47,44 @@ class UI extends Phaser.Scene {
 
 
 
-this.showToast('READY?')
+    this.showToast('READY?')
 
     this.fireButton = this.add.image(650, 1150, 'blank').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(0);
     this.fireButton.on('pointerdown', this.fireShot, this)
 
+    this.adjustTest = this.add.image(50, 820, 'blank').setInteractive({ draggable: true })
+    this.adjustTest.displayHeight = 300
+    this.adjustTest.on('dragstart', function (pointer, dragX, dragY) {
+      this.dragging = true
+      this.dragStart = { x: pointer.x, y: pointer.y }
+      /* ... */
+    }, this);
+    this.adjustTest.on('drag', function (pointer, dragX, dragY) {
+      if (this.dragging) {
+        if (dragY < this.dragStart.y) {
+          this.Main.player.y -= 1
+          console.log(this.dragStart.y - dragY)
+        } else if (dragY > this.dragStart.y) {
+          this.Main.player.y += 1
+        }
+
+      }
+      /* ... */
+    }, this);
+    this.adjustTest.on('dragend', function (pointer, dragX, dragY, dropped) { /* ... */ }, this);
 
 
-this.reset = this.add.image(800, 475, 'blank').setInteractive()
-this.reset.on('pointerdown', function(){
-  this.windAdjust = 0
-  this.windSetText.setText(this.windAdjust)
-  
-  this.distanceAdjust = 0
-  this.distanceAdjustText.setText(this.distanceAdjust)
-}, this)
+
+
+
+    this.reset = this.add.image(800, 475, 'blank').setInteractive()
+    this.reset.on('pointerdown', function () {
+      this.windAdjust = 0
+      this.windSetText.setText(this.windAdjust)
+
+      this.distanceAdjust = 0
+      this.distanceAdjustText.setText(this.distanceAdjust)
+    }, this)
 
     //WIND SET
     this.windAdjust = 0

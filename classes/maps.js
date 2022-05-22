@@ -13,7 +13,7 @@ let practices = [
     distances: [0, 5, 10, 20, 30],
     time: 240,
     targetGoal: 10,
-    targetData: [{ col: 489, row: 385, dis: 0 }, { col: 676, row: 379, dis: 1 }, { col: 374, row: 336, dis: 1 }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
+    targetData: [{ col: 489, row: 385, dis: 0, move: true, canShoot: true }, { col: 676, row: 379, dis: 1, move: true, canShoot: false }, { col: 374, row: 336, dis: 1, move: false, canShoot: true }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
   }
 ]
 
@@ -22,6 +22,11 @@ let maps = [
     name: 'Pixel Town',
     missions: [0],
     thumb: 'map1_thumb'
+  },
+  {
+    name: 'Pixelville',
+    missions: [1],
+    thumb: 'map2_thumb'
   }
 ]
 let missions = [
@@ -29,6 +34,7 @@ let missions = [
     map: 'Pixel Town',
     mission: 'First',
     keys: ['map1_00', 'map1_01', 'map1_02', 'map1_03', 'map1_04'],
+    text: 'kill',
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 4,
