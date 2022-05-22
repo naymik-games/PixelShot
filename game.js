@@ -13,7 +13,7 @@ window.onload = function () {
       height: 1640
     },
 
-    scene: [preloadGame, startGame, playGame, UI, loseGame],
+    scene: [preloadGame, startGame, playGame, UI, loseGame, winGame],
     pixelArt: true,
     roundPixels: true
   }
@@ -153,7 +153,7 @@ class playGame extends Phaser.Scene {
       defaultKey: 'spot',
       maxSize: 30
     });
-    this.showToast('READY')
+    
     /* this.input.on("pointerdown", this.gemSelect, this);
      this.input.on("pointermove", this.drawPath, this);
      this.input.on("pointerup", this.removeGems, this);

@@ -47,14 +47,21 @@ class UI extends Phaser.Scene {
 
 
 
-
+this.showToast('READY?')
 
     this.fireButton = this.add.image(650, 1150, 'blank').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(0);
     this.fireButton.on('pointerdown', this.fireShot, this)
 
 
 
-
+this.reset = this.add.image(800, 475, 'blank').setInteractive()
+this.reset.on('pointerdown', function(){
+  this.windAdjust = 0
+  this.windSetText.setText(this.windAdjust)
+  
+  this.distanceAdjust = 0
+  this.distanceAdjustText.setText(this.distanceAdjust)
+}, this)
 
     //WIND SET
     this.windAdjust = 0
@@ -72,6 +79,7 @@ class UI extends Phaser.Scene {
     }, this)
     this.windContainer.add(this.windSetText)
     this.windContainer.add(windLeftButton)
+    this.windContainer.add(this.reset)
     this.windContainer.add(windRightButton)
     this.windContainer.setAlpha(0)
 
@@ -142,7 +150,7 @@ class UI extends Phaser.Scene {
       for (var i = this.clip.length; i < this.bulletCount; i++) {
 
         var bullet = this.bulletPool.pop()
-        bullet.setPosition(50 + i * 25, 1525).setAlpha(1)
+        bullet.setPosition(50 + i * 25, 1395).setAlpha(1)
         this.clip.push(bullet)
 
       }
@@ -248,7 +256,7 @@ class UI extends Phaser.Scene {
       delay: 1500, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
-        this.scene.launch('windGame')
+        this.scene.launch('winGame')
       }, callbackScope: this, loop: false
     });
     //this.time.removeEvent(this.timedEvent)
