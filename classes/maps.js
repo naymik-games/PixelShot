@@ -20,13 +20,23 @@ let practices = [
 let maps = [
   {
     name: 'Pixel Town',
-    missions: [0],
+    missions: [0, 4],
     thumb: 'map1_thumb'
   },
   {
     name: 'Pixelville',
     missions: [1],
     thumb: 'map2_thumb'
+  },
+  {
+    name: 'Pixelland',
+    missions: [2],
+    thumb: 'map3_thumb'
+  },
+  {
+    name: 'Pixelview',
+    missions: [3],
+    thumb: 'map4_thumb'
   }
 ]
 let missions = [
@@ -34,7 +44,7 @@ let missions = [
     map: 'Pixel Town',
     mission: 'First',
     keys: ['map1_00', 'map1_01', 'map1_02', 'map1_03', 'map1_04'],
-    text: 'kill',
+    text: 'Destroy all targets before you run out of time or ammo.',
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 4,
@@ -49,6 +59,7 @@ let missions = [
   {
     map: 'Pixelville',
     mission: 'First',
+    text: 'kill',
     keys: ['map2_00', 'map2_01', 'map2_02', 'map2_03', 'map2_04', 'map2_05'],
     wideZoom: 1,
     scopeZoom: 6,
@@ -64,6 +75,7 @@ let missions = [
   {
     map: 'Pixelland',
     mission: 'First',
+    text: 'kill',
     keys: ['map3_00', 'map3_01', 'map3_02', 'map3_03', 'map3_04', 'map3_05', 'map3_06'],
     wideZoom: 1,
     scopeZoom: 6,
@@ -75,11 +87,11 @@ let missions = [
     time: 240,
     distances: [0, 10, 13, 15, 20, 30, 35],
     targetData: [{ col: 977, row: 490, dis: 0 }, { col: 687, row: 412, dis: 1 }, { col: 488, row: 141, dis: 2 }, { col: 1433, row: 225, dis: 3 }, { col: 867, row: 316, dis: 4 }, { col: 1494, row: 84, dis: 5 }, { col: 169, row: 156, dis: 6, canShoot: true },]
-  }
-  ,
+  },
   {
     map: 'Pixelview',
     mission: 'First',
+    text: 'kill',
     keys: ['map4_00', 'map4_01', 'map4_02', 'map4_03', 'map4_04', 'map4_05', 'map4_06'],
     wideZoom: 1,
     scopeZoom: 6,
@@ -91,6 +103,23 @@ let missions = [
     time: 240,
     distances: [0, 10, 13, 15, 20, 30, 35],
     targetData: [{ col: 259, row: 353, dis: 0, canShoot: true }, { col: 609, row: 1085, dis: 0, move: true, canShoot: false }, { col: 730, row: 897, dis: 1, canShoot: false }, { col: 374, row: 964, dis: 3, canShoot: false }, { col: 1237, row: 915, dis: 2, canShoot: false }, { col: 24, row: 873, dis: 5, canShoot: false }, { col: 410, row: 770, dis: 6, canShoot: false }, { col: 878, row: 674, dis: 0, canShoot: false },]
+  },
+  {
+    map: 'Pixel Town',
+    mission: 'Second',
+    text: 'kill',
+    keys: ['map1_00', 'map1_01', 'map1_02', 'map1_03', 'map1_04'],
+    text: 'kill',
+    wideZoom: 1,
+    scopeZoom: 6,
+    backScale: 4,
+    widthActual: 805,
+    heightActual: 410,
+    totalLayers: 5,
+    startingClips: 1,
+    time: 240,
+    distances: [0, 5, 10, 20, 30],
+    targetData: [{ col: 791, row: 232, dis: 4, canShoot: true, move: false }, { col: 498, row: 350, dis: 0, canShoot: false, move: true }, { col: 385, row: 344, dis: 1, canShoot: false, move: false }, { col: 174, row: 305, dis: 0, canShoot: true, move: false }, { col: 221, row: 291, dis: 3, canShoot: false, move: false },]
   }
 ]
 

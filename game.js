@@ -13,7 +13,7 @@ window.onload = function () {
       height: 1640
     },
 
-    scene: [preloadGame, startGame, playGame, UI, loseGame, winGame],
+    scene: [preloadGame, startGame, selectGame, playGame, UI, loseGame, winGame],
     pixelArt: true,
     roundPixels: true
   }
@@ -89,29 +89,27 @@ class playGame extends Phaser.Scene {
     //this.cameras.main.setDeadzone(400, 200);
     this.cameras.main.setZoom(1)
 
-    // var mb = this.add.image(0, 0, 'map3').setOrigin(0).setScale(this.backScale).setDepth(2)
+    //add background layers
     for (var i = 0; i < this.totalLayers; i++) {
       this.back = this.add.image(0, 0, this.keys[i]).setOrigin(0).setScale(this.backScale).setDepth(i + 1)
     }
 
-
+    //add Player
     this.player = this.add.image(this.cameras.main.getBounds().width / 2, game.config.height / 2, 'scope', 1).setAlpha(.2).setInteractive().setDepth(8);
     this.player.health = 100
-
     this.cameras.main.startFollow(this.player, true);
-
     this.playerSpeed = 5
+
+
+    //add targets
     this.targetPool = []
     this.targets = []
     for (var i = 0; i < this.targetData.length; i++) {
       var td = this.targetData[i]
       var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
-      //var target = this.add.image(td.col * this.backScale, td.row * this.backScale, 'spot').setDepth(7).setScale(this.targetScaleFactor - td.dis).setTint(0xff0000)
-      //target.distance = this.distances[td.dis]
-      //this.targets.push(target)
     }
 
-
+    //add grapjics settings
     this.graphicsScope = this.add.graphics({ lineStyle: { width: 4, color: 0x000000 }, fillStyle: { color: 0xaa0000 } });
     this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa }, fillStyle: { color: 0xaa0000 } });
 
@@ -127,7 +125,7 @@ class playGame extends Phaser.Scene {
       console.log(col + ',' + row)
     }, this) */
 
-
+    //set callbacks for wind
     if (this.easy) {
       this.wind = 0
 
@@ -153,14 +151,15 @@ class playGame extends Phaser.Scene {
       defaultKey: 'spot',
       maxSize: 30
     });
-    
+
     /* this.input.on("pointerdown", this.gemSelect, this);
      this.input.on("pointermove", this.drawPath, this);
      this.input.on("pointerup", this.removeGems, this);
     */
-    //this.check = this.add.image(725, 1000, 'check').setScale(.7);
+
   }
   update() {
+    //movement
     if (this.cursors.left.isDown) {
       this.movePlayer('left')
     }
@@ -174,6 +173,7 @@ class playGame extends Phaser.Scene {
     else if (this.cursors.down.isDown) {
       this.movePlayer('down')
     }
+    //sensing box
     this.graphics.clear()
     this.rect.setPosition(this.player.x - 175, this.player.y - 170)
     //this.graphics.strokeRectShape(this.rect).setDepth(8);
@@ -185,6 +185,7 @@ class playGame extends Phaser.Scene {
       }
     }.bind(this));
 
+    //scope sensor
     if (this.toggle == 1) {
       this.graphicsScope.clear()
       this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 38);
@@ -216,16 +217,12 @@ class playGame extends Phaser.Scene {
          duration: 300,
          alpha: 1
        }) */
-      // this.cameras.main.setBounds(0, 0, 4200 * 3, 4200 * 3);
-      // this.physics.world.setBounds(0, 0, 4200 * 3, 4200 * 3);
+
     } else {
       this.cameras.main.setZoom(this.scopeZoom)
       this.player.setFrame(0)
       this.player.setScale(.25).setAlpha(1)
 
-      //this.circle = new Phaser.Geom.Circle(this.player.x, this.player.y, 38);
-
-      //this.graphicsScope.strokeCircleShape(this.circle).setDepth(8);
 
       //this.player.setAlpha(.2)
       /* var tween = this.tweens.add({
@@ -233,8 +230,7 @@ class playGame extends Phaser.Scene {
         duration: 300,
         alpha: 1
       })
-      this.cameras.main.setBounds(0, 0, this.camBoundW, this.camBoundH);
-      this.physics.world.setBounds(-450, -820, 8192 + 900, 8192 + 1640); */
+      */
     }
   }
   fire() {

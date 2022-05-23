@@ -39,7 +39,7 @@ class UI extends Phaser.Scene {
     } else {
       this.targetCount = this.Main.targets.length
     }
-
+    //main texts
     this.scoreText = this.add.bitmapText(450, 75, 'topaz', this.score, 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(1);
     this.shotText = this.add.bitmapText(875, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0xcbf7ff).setAlpha(1);
     this.windText = this.add.bitmapText(110, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
@@ -49,15 +49,11 @@ class UI extends Phaser.Scene {
 
     this.showToast('READY?')
 
+    //fire button
     this.fireButton = this.add.image(650, 1045, 'fire').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(0);
     this.fireButton.on('pointerdown', this.fireShot, this)
 
-
-
-
-
-
-
+    //RESET ADJUSTMENTS
     this.reset = this.add.image(650, 595, 'reset').setInteractive()
     this.reset.on('pointerdown', function () {
       this.windAdjust = 0
@@ -100,19 +96,6 @@ class UI extends Phaser.Scene {
     }, this);
     this.windSetText = this.add.bitmapText(game.config.width / 2 - 235, game.config.height / 2 - 360, 'topaz', this.windAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
 
-
-
-    /* var windLeftButton = this.add.image(game.config.width / 2 - 100, game.config.height / 2 - 350, 'menu_icons', 6).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
-    //var windLeftText = this.add.bitmapText(game.config.width / 2 - 100, game.config.height / 2 - 450, 'topaz', 'L', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
-    windLeftButton.on('pointerdown', function () {
-      this.changeWind('left')
-    }, this)
-    this.windSetText = this.add.bitmapText(game.config.width / 2, game.config.height / 2 - 350, 'topaz', this.windAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
-    var windRightButton = this.add.image(game.config.width / 2 + 100, game.config.height / 2 - 350, 'menu_icons', 7).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
-    //var windRightText = this.add.bitmapText(game.config.width / 2 + 100, game.config.height / 2 - 450, 'topaz', 'R', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
-    windRightButton.on('pointerdown', function () {
-      this.changeWind('right')
-    }, this) */
     this.windContainer.add(this.windSetText)
     this.windContainer.add(this.horizontalAdjust)
     this.windContainer.add(this.reset)
@@ -121,24 +104,9 @@ class UI extends Phaser.Scene {
 
 
 
-    //distance set
+    //DISTANCE SET
     this.distanceAdjust = 0
     this.distanceContainer = this.add.container()
-    //var distanceDownText = this.add.bitmapText(850, game.config.height / 2 - 100, 'topaz', 'U', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
-    /*    var distanceDownButton = this.add.image(800, game.config.height / 2 - 100, 'menu_icons', 6).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
-       distanceDownButton.angle = 90
-   
-       distanceDownButton.on('pointerdown', function () {
-         this.changeDistance('lower')
-       }, this)
-   
-           var distanceUpButton = this.add.image(800, game.config.height / 2 + 100, 'menu_icons', 7).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
-       distanceUpButton.angle = 90
-       // var distanceUpText = this.add.bitmapText(825, game.config.height / 2 + 100, 'topaz', 'D', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
-       distanceUpButton.on('pointerdown', function () {
-         this.changeDistance('raise')
-       }, this) */
-
 
     this.distanceAdjustText = this.add.bitmapText(800, game.config.height / 2 - 225, 'topaz', this.distanceAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
 
@@ -170,14 +138,12 @@ class UI extends Phaser.Scene {
       this.verticalAdjust.setAlpha(1)
     }, this);
 
-
-
-
     this.distanceContainer.add(this.verticalAdjust)
     this.distanceContainer.add(this.distanceAdjustText)
-    // this.distanceContainer.add(distanceUpButton)
+
     this.distanceContainer.setAlpha(0)
-    ///bullets
+
+    ///SET UP CLIPS
     this.ammoGroup = this.add.container()
     for (var i = 0; i < this.clipCount; i++) {
 
@@ -186,6 +152,7 @@ class UI extends Phaser.Scene {
       this.ammoBox.push(clip)
 
     }
+    //SET UP BULLETS
     for (var i = 0; i < this.bulletCount; i++) {
 
       var bullet = this.add.image(50 + i * 25, 1395, 'bullet').setScale(.6)
@@ -193,6 +160,7 @@ class UI extends Phaser.Scene {
       this.clip.push(bullet)
 
     }
+    //RELOAD BUTTON
     this.reloadButton = this.add.image(250, 1045, 'reload').setOrigin(.5).setTint(0xcbf7ff).setAlpha(0).setInteractive();
     this.reloadButton.on('pointerdown', function () {
       if (this.clip.length == this.bulletCount || this.ammoBox.length == 0) { return }
@@ -229,7 +197,8 @@ class UI extends Phaser.Scene {
 
     }, this)
     this.ammoGroup.setVisible(false)
-    //controls
+
+    //SET UP MOVEMENT CONTROLS
     this.staticXJsPos = 450
     this.staticYJsPos = 1200
     this.jBase = this.add.image(0, 0, 'jBase').setTint(0x0000ff)
@@ -247,6 +216,8 @@ class UI extends Phaser.Scene {
     }).on('update', this.updateJoystickState, this);
     this.cursorKeys = this.joyStick.createCursorKeys();
 
+
+    //HANDLE HEALTH UPDATES
     this.Main.events.on('health', function (data) {
       var per = data / this.healthTotal
       var tween = this.tweens.add({
@@ -263,6 +234,7 @@ class UI extends Phaser.Scene {
       })
     }, this);
 
+    //HANDLE UI HIT TARGET
     this.Main.events.on('hit', function (data) {
       // console.log('acc ' + data.acc + ', dist ' + this.distanceFinal)
       this.showToast('HIT')
@@ -278,7 +250,7 @@ class UI extends Phaser.Scene {
     }, this);
 
 
-
+    //SET UP LEVEL STATUS--HEALTHBAR, TARGET PROGRESS, TIMER
     this.levelProgressBarB = this.add.image(20, 1630, 'blank').setOrigin(0, 1).setTint(0x000000).setAlpha(.8)
     this.levelProgressBarB.displayWidth = 260;
     this.levelProgressBarB.displayHeight = 150;
@@ -296,7 +268,7 @@ class UI extends Phaser.Scene {
 
 
 
-
+    //CALL SET UP FOR MENU
     this.makeMenu()
 
   }

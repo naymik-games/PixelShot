@@ -15,6 +15,7 @@ let easy = true
 let gameMode = 'map'
 let onMission = 3
 let onPractice = 0
+let onMap = 0
 let gameData;
 var defaultValues = {
   easy: true,
