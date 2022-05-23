@@ -49,35 +49,16 @@ class UI extends Phaser.Scene {
 
     this.showToast('READY?')
 
-    this.fireButton = this.add.image(650, 1150, 'blank').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(0);
+    this.fireButton = this.add.image(650, 1045, 'fire').setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(0);
     this.fireButton.on('pointerdown', this.fireShot, this)
 
-    this.adjustTest = this.add.image(50, 820, 'blank').setInteractive({ draggable: true })
-    this.adjustTest.displayHeight = 300
-    this.adjustTest.on('dragstart', function (pointer, dragX, dragY) {
-      this.dragging = true
-      this.dragStart = { x: pointer.x, y: pointer.y }
-      /* ... */
-    }, this);
-    this.adjustTest.on('drag', function (pointer, dragX, dragY) {
-      if (this.dragging) {
-        if (dragY < this.dragStart.y) {
-          this.Main.player.y -= 1
-          console.log(this.dragStart.y - dragY)
-        } else if (dragY > this.dragStart.y) {
-          this.Main.player.y += 1
-        }
-
-      }
-      /* ... */
-    }, this);
-    this.adjustTest.on('dragend', function (pointer, dragX, dragY, dropped) { /* ... */ }, this);
 
 
 
 
 
-    this.reset = this.add.image(800, 475, 'blank').setInteractive()
+
+    this.reset = this.add.image(650, 595, 'reset').setInteractive()
     this.reset.on('pointerdown', function () {
       this.windAdjust = 0
       this.windSetText.setText(this.windAdjust)
@@ -89,7 +70,39 @@ class UI extends Phaser.Scene {
     //WIND SET
     this.windAdjust = 0
     this.windContainer = this.add.container()
-    var windLeftButton = this.add.image(game.config.width / 2 - 100, game.config.height / 2 - 350, 'menu_icons', 6).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
+
+    this.horizontalAdjust = this.add.image(game.config.width / 2, game.config.height / 2 - 350, 'hAdjustment').setInteractive({ draggable: true })
+    this.horizontalAdjust.displayHeight = 80
+    this.horizontalAdjust.displayWidth = 300
+    this.horizontalAdjust.on('dragstart', function (pointer, dragX, dragY) {
+      this.dragging = true
+      this.dragStart = { x: pointer.x, y: pointer.y }
+      this.horizontalAdjust.setAlpha(.8)
+    }, this);
+    this.horizontalAdjust.on('drag', function (pointer, dragX, dragY) {
+      if (this.dragging) {
+        if (dragX < this.dragStart.x) {
+          this.Main.player.x -= 1
+          this.windAdjust -= 1
+        } else if (dragX > this.dragStart.x) {
+          this.Main.player.x += 1
+          this.windAdjust += 1
+        }
+
+        this.windSetText.setText(this.windAdjust)
+        this.dragStart.x = dragX
+        this.dragStart.y = dragY
+      }
+      /* ... */
+    }, this);
+    this.horizontalAdjust.on('dragend', function (pointer, dragX, dragY, dropped) {
+      this.horizontalAdjust.setAlpha(1)
+    }, this);
+    this.windSetText = this.add.bitmapText(game.config.width / 2 - 235, game.config.height / 2 - 360, 'topaz', this.windAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
+
+
+
+    /* var windLeftButton = this.add.image(game.config.width / 2 - 100, game.config.height / 2 - 350, 'menu_icons', 6).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
     //var windLeftText = this.add.bitmapText(game.config.width / 2 - 100, game.config.height / 2 - 450, 'topaz', 'L', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
     windLeftButton.on('pointerdown', function () {
       this.changeWind('left')
@@ -99,11 +112,11 @@ class UI extends Phaser.Scene {
     //var windRightText = this.add.bitmapText(game.config.width / 2 + 100, game.config.height / 2 - 450, 'topaz', 'R', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
     windRightButton.on('pointerdown', function () {
       this.changeWind('right')
-    }, this)
+    }, this) */
     this.windContainer.add(this.windSetText)
-    this.windContainer.add(windLeftButton)
+    this.windContainer.add(this.horizontalAdjust)
     this.windContainer.add(this.reset)
-    this.windContainer.add(windRightButton)
+    //this.windContainer.add(windRightButton)
     this.windContainer.setAlpha(0)
 
 
@@ -112,24 +125,57 @@ class UI extends Phaser.Scene {
     this.distanceAdjust = 0
     this.distanceContainer = this.add.container()
     //var distanceDownText = this.add.bitmapText(850, game.config.height / 2 - 100, 'topaz', 'U', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
-    var distanceDownButton = this.add.image(800, game.config.height / 2 - 100, 'menu_icons', 6).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
-    distanceDownButton.angle = 90
+    /*    var distanceDownButton = this.add.image(800, game.config.height / 2 - 100, 'menu_icons', 6).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
+       distanceDownButton.angle = 90
+   
+       distanceDownButton.on('pointerdown', function () {
+         this.changeDistance('lower')
+       }, this)
+   
+           var distanceUpButton = this.add.image(800, game.config.height / 2 + 100, 'menu_icons', 7).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
+       distanceUpButton.angle = 90
+       // var distanceUpText = this.add.bitmapText(825, game.config.height / 2 + 100, 'topaz', 'D', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
+       distanceUpButton.on('pointerdown', function () {
+         this.changeDistance('raise')
+       }, this) */
 
-    distanceDownButton.on('pointerdown', function () {
-      this.changeDistance('lower')
-    }, this)
 
-    this.distanceAdjustText = this.add.bitmapText(800, game.config.height / 2, 'topaz', this.distanceAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
-    var distanceUpButton = this.add.image(800, game.config.height / 2 + 100, 'menu_icons', 7).setOrigin(.5).setTint(0xffffff).setInteractive().setAlpha(1).setScale(.8);
-    distanceUpButton.angle = 90
-    // var distanceUpText = this.add.bitmapText(825, game.config.height / 2 + 100, 'topaz', 'D', 80).setOrigin(.5).setTint(0xffffff).setAlpha(1).setInteractive();
-    distanceUpButton.on('pointerdown', function () {
-      this.changeDistance('raise')
-    }, this)
+    this.distanceAdjustText = this.add.bitmapText(800, game.config.height / 2 - 225, 'topaz', this.distanceAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
 
-    this.distanceContainer.add(distanceDownButton)
+    this.verticalAdjust = this.add.image(800, game.config.height / 2, 'vAdjustment').setInteractive({ draggable: true })
+    this.verticalAdjust.displayHeight = 300
+    this.verticalAdjust.displayWidth = 80
+    this.verticalAdjust.on('dragstart', function (pointer, dragX, dragY) {
+      this.dragging = true
+      this.dragStart = { x: pointer.x, y: pointer.y }
+      this.verticalAdjust.setAlpha(.8)
+    }, this);
+    this.verticalAdjust.on('drag', function (pointer, dragX, dragY) {
+      if (this.dragging) {
+        if (dragY < this.dragStart.y) {
+          this.Main.player.y -= 1
+          this.distanceAdjust -= 1
+        } else if (dragY > this.dragStart.y) {
+          this.Main.player.y += 1
+          this.distanceAdjust += 1
+        }
+
+        this.distanceAdjustText.setText(this.distanceAdjust * -1)
+        this.dragStart.x = dragX
+        this.dragStart.y = dragY
+      }
+      /* ... */
+    }, this);
+    this.verticalAdjust.on('dragend', function (pointer, dragX, dragY, dropped) {
+      this.verticalAdjust.setAlpha(1)
+    }, this);
+
+
+
+
+    this.distanceContainer.add(this.verticalAdjust)
     this.distanceContainer.add(this.distanceAdjustText)
-    this.distanceContainer.add(distanceUpButton)
+    // this.distanceContainer.add(distanceUpButton)
     this.distanceContainer.setAlpha(0)
     ///bullets
     this.ammoGroup = this.add.container()
@@ -147,7 +193,7 @@ class UI extends Phaser.Scene {
       this.clip.push(bullet)
 
     }
-    this.reloadButton = this.add.image(250, 1150, 'blank').setOrigin(.5).setTint(0xcbf7ff).setAlpha(0).setInteractive();
+    this.reloadButton = this.add.image(250, 1045, 'reload').setOrigin(.5).setTint(0xcbf7ff).setAlpha(0).setInteractive();
     this.reloadButton.on('pointerdown', function () {
       if (this.clip.length == this.bulletCount || this.ammoBox.length == 0) { return }
       var tween = this.tweens.add({
@@ -186,12 +232,14 @@ class UI extends Phaser.Scene {
     //controls
     this.staticXJsPos = 450
     this.staticYJsPos = 1200
+    this.jBase = this.add.image(0, 0, 'jBase').setTint(0x0000ff)
+    this.jTip = this.add.image(0, 0, 'jTip')
     this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
       x: this.staticXJsPos,
       y: this.staticYJsPos,
       radius: 100,
-      //base: baseGameObject,
-      //thumb: thumbGameObject,
+      base: this.jBase,
+      thumb: this.jTip,
       dir: '8dir',
       // forceMin: 16,
       // fixed: true,

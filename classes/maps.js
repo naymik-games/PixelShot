@@ -1,19 +1,19 @@
 let practices = [
   {
-    map: 'Pixel Town',
+    map: 'Practice Town',
     mission: 'First',
-    keys: ['practice'],
+    keys: ['map5_00', 'map5_01', 'map5_02', 'map5_03', 'map5_04'],
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
-    widthActual: 900,
+    widthActual: 1600,
     heightActual: 820,
     totalLayers: 5,
     startingClips: 5,
     distances: [0, 5, 10, 20, 30],
     time: 240,
     targetGoal: 10,
-    targetData: [{ col: 489, row: 385, dis: 0, move: true, canShoot: true }, { col: 676, row: 379, dis: 1, move: true, canShoot: false }, { col: 374, row: 336, dis: 1, move: false, canShoot: true }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
+    targetData: [{ col: 845, row: 717, dis: 0, canShoot: false, move: false }, { col: 872, row: 305, dis: 3, canShoot: true, move: false }, { col: 1038, row: 387, dis: 3, canShoot: false, move: true }, { col: 422, row: 257, dis: 2, canShoot: false, move: false }, { col: 666, row: 562, dis: 1, canShoot: false, move: false }, { col: 1411, row: 520, dis: 1, canShoot: true, move: false }, { col: 1314, row: 255, dis: 4, canShoot: false, move: true }, { col: 241, row: 323, dis: 2, canShoot: false, move: false },]
   }
 ]
 
