@@ -37,6 +37,11 @@ let maps = [
     name: 'Pixelview',
     missions: [3],
     thumb: 'map4_thumb'
+  },
+  {
+    name: 'Bitville',
+    missions: [5],
+    thumb: 'map6_thumb'
   }
 ]
 let missions = [
@@ -120,6 +125,23 @@ let missions = [
     time: 240,
     distances: [0, 5, 10, 20, 30],
     targetData: [{ col: 791, row: 232, dis: 4, canShoot: true, move: false }, { col: 498, row: 350, dis: 0, canShoot: false, move: true }, { col: 385, row: 344, dis: 1, canShoot: false, move: false }, { col: 174, row: 305, dis: 0, canShoot: true, move: false }, { col: 221, row: 291, dis: 3, canShoot: false, move: false },]
+  }
+  ,
+  {
+    map: 'Bitville',
+    mission: 'One',
+    text: 'kill',
+    keys: ['map6_full'],
+    wideZoom: 1,
+    scopeZoom: 6,
+    backScale: 3,
+    widthActual: 2102,
+    heightActual: 720,
+    totalLayers: 1,
+    startingClips: 3,
+    time: 240,
+    distances: [0, 10, 15, 20, 30],
+    targetData: [{ col: 190, row: 114, dis: 4, canShoot: false, move: false }, { col: 1845, row: 379, dis: 1, canShoot: false, move: true }, { col: 557, row: 288, dis: 1, canShoot: true, move: false }, { col: 183, row: 266, dis: 3, canShoot: true, move: false }, { col: 929, row: 262, dis: 2, canShoot: false, move: true }, { col: 269, row: 449, dis: 1, canShoot: false, move: false }, { col: 1328, row: 289, dis: 2, canShoot: false, move: false }, { col: 810, row: 480, dis: 0, canShoot: false, move: true }, { col: 1479, row: 437, dis: 1, canShoot: false, move: true },]
   }
 ]
 

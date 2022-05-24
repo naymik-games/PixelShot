@@ -1,5 +1,11 @@
 let game;
+/* health
+Ammo 
+time
 
+tap to go to target
+auto target
+radar */
 
 
 window.onload = function () {
@@ -108,8 +114,12 @@ class playGame extends Phaser.Scene {
       var td = this.targetData[i]
       var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
     }
+    //extras
+    this.extras = []
+    var testItem = new Extra(this, 300, 300, 'items', 2, 0, 1, false, 1)
 
     //add grapjics settings
+    this.graphicsHelp = this.add.graphics({ lineStyle: { width: 4, color: 0x00ff00 }, fillStyle: { color: 0xaa0000 } });
     this.graphicsScope = this.add.graphics({ lineStyle: { width: 4, color: 0x000000 }, fillStyle: { color: 0xaa0000 } });
     this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa }, fillStyle: { color: 0xaa0000 } });
 
@@ -174,14 +184,18 @@ class playGame extends Phaser.Scene {
       this.movePlayer('down')
     }
     //sensing box
+    this.graphicsHelp.clear()
     this.graphics.clear()
     this.rect.setPosition(this.player.x - 175, this.player.y - 170)
     //this.graphics.strokeRectShape(this.rect).setDepth(8);
     this.targets.forEach(function (target) {
       if (Phaser.Geom.Rectangle.ContainsPoint(this.rect, target)) {
-        target.setTexture('target_help')
+        //target.setTexture('target_help')
+        var circle = new Phaser.Geom.Circle(target.x, target.y, 35);
+        this.graphicsHelp.strokeCircleShape(circle).setDepth(15);
       } else {
-        target.setTexture('target')
+        //target.setTexture('target')
+        //this.graphicsHelp.clear()
       }
     }.bind(this));
 
@@ -251,7 +265,8 @@ class playGame extends Phaser.Scene {
     this.targets.forEach(function (target) {
       var tbound = target.getBounds()
       // target.rect = new Phaser.Geom.Rectangle(tbound.x, tbound.y, tbound.width, tbound.height)
-      target.rect = new Phaser.Geom.Rectangle(target.x - 4, target.y - 4, 8, 8)
+      //var tscale = target.scale
+      target.rect = new Phaser.Geom.Rectangle(target.x - target.displayWidth / 2, target.y - target.displayHeight / 2, target.displayWidth, target.displayHeight)
       //target.rect = new Phaser.Geom.Circle(tbound.x + tbound.width / 2, tbound.y + tbound.width / 2, tbound.width / 2)
       if (Phaser.Geom.Rectangle.ContainsPoint(target.rect, this.spot)) {
 
@@ -302,6 +317,61 @@ class playGame extends Phaser.Scene {
       }
 
     }.bind(this));
+
+
+    this.extras.forEach(function (extra) {
+      var tbound = extra.getBounds()
+      // target.rect = new Phaser.Geom.Rectangle(tbound.x, tbound.y, tbound.width, tbound.height)
+      //var tscale = target.scale
+      extra.rect = new Phaser.Geom.Rectangle(extra.x - extra.displayWidth / 2, extra.y - extra.displayHeight / 2, extra.displayWidth, extra.displayHeight)
+      //target.rect = new Phaser.Geom.Circle(tbound.x + tbound.width / 2, tbound.y + tbound.width / 2, tbound.width / 2)
+      if (Phaser.Geom.Rectangle.ContainsPoint(extra.rect, this.spot)) {
+
+        //console.log('X' + Math.abs(target.x - this.spot.x))
+        //console.log('Y' + Math.abs(target.y - this.spot.y))
+        var numX = extra.x - this.spot.x
+        var numY = extra.y - this.spot.y
+        console.log('X' + (numX * -1))
+        console.log('Y' + (numY * -1))
+        /* if (!this.easy) {
+          if (Math.abs(numX) > 10 || Math.abs(numY) > 10) {
+            return
+          }
+        } */
+        //var color = this.textures.getPixel(1, 1, 'spot');
+        // console.log(color)
+        extra.setTint(0x00ff00)
+        //numX = (numX < 0) ? numX * -1 : numX;
+        var tween = this.tweens.add({
+          targets: extra,
+          alpha: 0,
+          delay: 300,
+          scale: 0,
+          duration: 200,
+          callbackScope: this,
+          onComplete: function () {
+            extra.setPosition(-50, -50)
+
+            var ind = this.extras.indexOf(extra)
+            var removed = this.extras.splice(ind, 1);
+            //this.targetPool.push(removed[0])
+
+          }
+        })
+
+        //this.showToast('HIT')
+        this.explode(this.spot.x, this.spot.y)
+        // console.log('HIT')
+        // var acc = Math.abs(numX) + Math.abs(numY)
+        //this.addHit(acc, this.distance)
+
+      }
+
+    }.bind(this));
+
+
+
+
 
 
 
