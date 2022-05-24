@@ -23,6 +23,7 @@ class UI extends Phaser.Scene {
     }, this)
     this.canFire = true
     this.hits = 0;
+    this.hitsObjective = 0
     this.score = 0;
     this.scoreBuffer = 0
     this.shotsFired = 0
@@ -219,19 +220,8 @@ class UI extends Phaser.Scene {
 
     //HANDLE HEALTH UPDATES
     this.Main.events.on('health', function (data) {
-      var per = data / this.healthTotal
-      var tween = this.tweens.add({
-        targets: this.levelProgressBar,
-        displayWidth: 250 * Phaser.Math.Clamp(per, 0, 1),
-        duration: 500,
-        callbackScope: this,
-        onComplete: function () {
-          if (data <= 0) {
-            //this.showToast('YOU ARE DEAD')
-            this.loseGame()
-          }
-        }
-      })
+      this.healthUpdate(data)
+
     }, this);
 
     //HANDLE UI HIT TARGET
@@ -248,7 +238,25 @@ class UI extends Phaser.Scene {
         this.winGame()
       }
     }, this);
+    //HANDLE UI HIT TARGET EXTRA
+    this.Main.events.on('hitExtra', function (data) {
+      // console.log('acc ' + data.acc + ', dist ' + this.distanceFinal)
 
+      this.showToast('HIT ' + data.target.details.name)
+      //this.hits += 1;
+      if (data.target.details.type == 'collect') {
+        this.doCollect(data.target)
+      } else if (data.target.details.type == 'objective') {
+        this.doObjective(data.target)
+      }
+      //console.log('dots ' + string)
+      this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
+      //this.scoreText.setText(this.score)
+      //this.hitText.setText(this.hits)
+      /* if (this.hits == this.targetCount) {
+        this.winGame()
+      } */
+    }, this);
 
     //SET UP LEVEL STATUS--HEALTHBAR, TARGET PROGRESS, TIMER
     this.levelProgressBarB = this.add.image(20, 1630, 'blank').setOrigin(0, 1).setTint(0x000000).setAlpha(.8)
@@ -326,6 +334,42 @@ class UI extends Phaser.Scene {
     partInSeconds = partInSeconds.toString().padStart(2, '0');
     // Returns formated time
     return `${minutes}:${partInSeconds}`;
+  }
+  healthUpdate(data) {
+    var per = data / this.healthTotal
+    var tween = this.tweens.add({
+      targets: this.levelProgressBar,
+      displayWidth: 250 * Phaser.Math.Clamp(per, 0, 1),
+      duration: 500,
+      callbackScope: this,
+      onComplete: function () {
+        if (data <= 0) {
+          //this.showToast('YOU ARE DEAD')
+          this.loseGame()
+        }
+      }
+    })
+  }
+  addClip() {
+
+    var clip = this.add.image(175 + this.ammoBox.length * 75, 1395, 'clip').setScale(.6)
+    this.ammoGroup.add(clip)
+    this.ammoBox.push(clip)
+  }
+  doCollect(extra) {
+    if (extra.details.name == 'Health') {
+      this.healthUpdate(this.Main.player.health + 10)
+    } else if (extra.details.name == 'Time') {
+      this.initialTime += 30
+    } else if (extra.details.name == 'Ammo') {
+      this.addClip()
+    }
+  }
+  doObjective(extra) {
+    this.hitsObjective++
+    if (extra.details.name == 'Power') {
+
+    }
   }
   updateJoystickState() {
     let direction = '';

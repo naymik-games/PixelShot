@@ -116,8 +116,10 @@ class playGame extends Phaser.Scene {
     }
     //extras
     this.extras = []
-    var testItem = new Extra(this, 300, 300, 'items', 2, 0, 1, false, 1)
-
+    this.objectiveCount = 0
+    var testItem = new Extra(this, 300, 300, 'items', extraObjects[2].index, 0, 1, false, 2)
+    var testItem = new Extra(this, 500, 300, 'items', extraObjects[3].index, 0, 1, false, 3)
+    //console.log('ob' + this.objectiveCount)
     //add grapjics settings
     this.graphicsHelp = this.add.graphics({ lineStyle: { width: 4, color: 0x00ff00 }, fillStyle: { color: 0xaa0000 } });
     this.graphicsScope = this.add.graphics({ lineStyle: { width: 4, color: 0x000000 }, fillStyle: { color: 0xaa0000 } });
@@ -192,7 +194,7 @@ class playGame extends Phaser.Scene {
       if (Phaser.Geom.Rectangle.ContainsPoint(this.rect, target)) {
         //target.setTexture('target_help')
         var circle = new Phaser.Geom.Circle(target.x, target.y, 35);
-        this.graphicsHelp.strokeCircleShape(circle).setDepth(15);
+        this.graphicsHelp.strokeCircleShape(circle).setDepth(7.5);
       } else {
         //target.setTexture('target')
         //this.graphicsHelp.clear()
@@ -340,6 +342,7 @@ class playGame extends Phaser.Scene {
         } */
         //var color = this.textures.getPixel(1, 1, 'spot');
         // console.log(color)
+        console.log(extra.details.name)
         extra.setTint(0x00ff00)
         //numX = (numX < 0) ? numX * -1 : numX;
         var tween = this.tweens.add({
@@ -362,8 +365,10 @@ class playGame extends Phaser.Scene {
         //this.showToast('HIT')
         this.explode(this.spot.x, this.spot.y)
         // console.log('HIT')
-        // var acc = Math.abs(numX) + Math.abs(numY)
+        // 
         //this.addHit(acc, this.distance)
+        var acc = Math.abs(numX) + Math.abs(numY)
+        this.addHitExtra(acc, this.distance, extra)
 
       }
 
@@ -375,6 +380,10 @@ class playGame extends Phaser.Scene {
 
 
 
+  }
+  addHitExtra(acc, dis, extra) {
+    var data = { acc: acc, dis: dis, target: extra }
+    this.events.emit('hitExtra', data);
   }
   addHit(acc, dis) {
     var data = { acc: acc, dis: dis }
