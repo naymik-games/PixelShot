@@ -2,18 +2,20 @@ let practices = [
   {
     map: 'Practice Town',
     mission: 'First',
-    keys: ['map5_00', 'map5_01', 'map5_02', 'map5_03', 'map5_04'],
+    keys: ['map5_full_', 'map5_full'],
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
     widthActual: 1600,
     heightActual: 820,
-    totalLayers: 5,
+    totalLayers: 2,
     startingClips: 5,
     distances: [0, 5, 10, 20, 30],
     time: 240,
     targetGoal: 10,
-    targetData: [{ col: 845, row: 717, dis: 0, canShoot: false, move: false }, { col: 872, row: 305, dis: 3, canShoot: true, move: false }, { col: 1038, row: 387, dis: 3, canShoot: false, move: true }, { col: 422, row: 257, dis: 2, canShoot: false, move: false }, { col: 666, row: 562, dis: 1, canShoot: false, move: false }, { col: 1411, row: 520, dis: 1, canShoot: true, move: false }, { col: 1314, row: 255, dis: 4, canShoot: false, move: true }, { col: 241, row: 323, dis: 2, canShoot: false, move: false },]
+    targetData: [{ col: 845, row: 717, dis: 0, canShoot: false, move: false }, { col: 872, row: 305, dis: 3, canShoot: true, move: false }, { col: 1038, row: 387, dis: 3, canShoot: false, move: true }, { col: 422, row: 257, dis: 2, canShoot: false, move: false }, { col: 666, row: 562, dis: 1, canShoot: false, move: false }, { col: 1411, row: 520, dis: 1, canShoot: true, move: false }, { col: 1314, row: 255, dis: 4, canShoot: false, move: true }, { col: 241, row: 323, dis: 2, canShoot: false, move: false },],
+    allPositions: [{ col: 31, row: 579, dis: 1, canShoot: false, move: false }, { col: 144, row: 567, dis: 1, canShoot: false, move: false }, { col: 359, row: 544, dis: 1, canShoot: false, move: false }, { col: 373, row: 511, dis: 1, canShoot: false, move: false }, { col: 424, row: 556, dis: 2, canShoot: false, move: false }, { col: 613, row: 566, dis: 1, canShoot: false, move: false }, { col: 716, row: 564, dis: 1, canShoot: false, move: false }, { col: 951, row: 567, dis: 1, canShoot: false, move: false }, { col: 959, row: 556, dis: 1, canShoot: false, move: false }, { col: 1159, row: 551, dis: 1, canShoot: false, move: false }, { col: 1179, row: 535, dis: 1, canShoot: false, move: false }, { col: 1244, row: 554, dis: 1, canShoot: false, move: false }, { col: 1270, row: 554, dis: 1, canShoot: false, move: false }, { col: 1253, row: 578, dis: 1, canShoot: false, move: false }, { col: 1338, row: 570, dis: 1, canShoot: false, move: false }, { col: 1350, row: 570, dis: 1, canShoot: false, move: false }, { col: 1415, row: 557, dis: 1, canShoot: false, move: false }, { col: 1370, row: 492, dis: 1, canShoot: false, move: false }, { col: 1476, row: 578, dis: 1, canShoot: false, move: false }, { col: 1532, row: 556, dis: 1, canShoot: false, move: false }, { col: 1582, row: 484, dis: 1, canShoot: false, move: false }, { col: 246, row: 478, dis: 2, canShoot: false, move: false }, { col: 310, row: 496, dis: 2, canShoot: false, move: false }, { col: 262, row: 556, dis: 2, canShoot: false, move: false }, { col: 286, row: 415, dis: 2, canShoot: false, move: false }, { col: 244, row: 375, dis: 2, canShoot: false, move: false }, { col: 304, row: 366, dis: 2, canShoot: false, move: false }, { col: 510, row: 514, dis: 2, canShoot: false, move: false }, { col: 607, row: 535, dis: 2, canShoot: false, move: false }, { col: 673, row: 538, dis: 2, canShoot: false, move: false }, { col: 676, row: 435, dis: 2, canShoot: false, move: false }, { col: 733, row: 404, dis: 2, canShoot: false, move: false }, { col: 733, row: 468, dis: 2, canShoot: false, move: false }, { col: 1102, row: 545, dis: 2, canShoot: false, move: false }, { col: 1079, row: 489, dis: 2, canShoot: false, move: false }, { col: 1034, row: 579, dis: 2, canShoot: false, move: false }, { col: 984, row: 578, dis: 0, canShoot: false, move: false }, { col: 1004, row: 516, dis: 2, canShoot: false, move: false }, { col: 1025, row: 446, dis: 2, canShoot: false, move: false }, { col: 1044, row: 446, dis: 2, canShoot: false, move: false }, { col: 1006, row: 416, dis: 2, canShoot: false, move: false }, { col: 945, row: 498, dis: 2, canShoot: false, move: false }, { col: 923, row: 428, dis: 2, canShoot: false, move: false }, { col: 1401, row: 455, dis: 2, canShoot: false, move: false }, { col: 1467, row: 477, dis: 2, canShoot: false, move: false }, { col: 1487, row: 524, dis: 2, canShoot: false, move: false }, { col: 44, row: 529, dis: 3, canShoot: false, move: false }, { col: 193, row: 505, dis: 3, canShoot: false, move: false }, { col: 430, row: 496, dis: 3, canShoot: false, move: false }, { col: 489, row: 446, dis: 3, canShoot: false, move: false }, { col: 409, row: 404, dis: 3, canShoot: false, move: false }, { col: 489, row: 345, dis: 3, canShoot: false, move: false }, { col: 470, row: 277, dis: 3, canShoot: false, move: false }, { col: 412, row: 296, dis: 3, canShoot: false, move: false }, { col: 424, row: 176, dis: 3, canShoot: false, move: false }, { col: 621, row: 456, dis: 3, canShoot: false, move: false }, { col: 625, row: 404, dis: 3, canShoot: false, move: false }, { col: 656, row: 422, dis: 3, canShoot: false, move: false }, { col: 841, row: 481, dis: 3, canShoot: false, move: false }, { col: 822, row: 392, dis: 3, canShoot: false, move: false }, { col: 841, row: 392, dis: 3, canShoot: false, move: false }, { col: 788, row: 324, dis: 3, canShoot: false, move: false }, { col: 877, row: 305, dis: 3, canShoot: false, move: false }, { col: 1193, row: 437, dis: 3, canShoot: false, move: false }, { col: 1167, row: 398, dis: 3, canShoot: false, move: false }, { col: 1244, row: 416, dis: 3, canShoot: false, move: false }, { col: 1564, row: 437, dis: 3, canShoot: false, move: false }, { col: 1541, row: 407, dis: 3, canShoot: false, move: false }, { col: 1563, row: 367, dis: 3, canShoot: false, move: false }, { col: 1584, row: 336, dis: 3, canShoot: false, move: false }, { col: 567, row: 517, dis: 4, canShoot: false, move: false }, { col: 532, row: 372, dis: 4, canShoot: false, move: false }, { col: 545, row: 372, dis: 4, canShoot: false, move: false }, { col: 559, row: 372, dis: 4, canShoot: false, move: false }, { col: 1012, row: 336, dis: 4, canShoot: false, move: false }, { col: 1025, row: 336, dis: 4, canShoot: false, move: false }, { col: 1047, row: 263, dis: 4, canShoot: false, move: false }, { col: 1076, row: 437, dis: 4, canShoot: false, move: false }, { col: 1356, row: 430, dis: 4, canShoot: false, move: false }, { col: 1354, row: 406, dis: 4, canShoot: false, move: false }, { col: 1336, row: 404, dis: 4, canShoot: false, move: false }, { col: 1298, row: 351, dis: 4, canShoot: false, move: false }, { col: 1375, row: 298, dis: 4, canShoot: false, move: false }, { col: 1304, row: 266, dis: 4, canShoot: false, move: false }]
+
   }
 ]
 
@@ -42,24 +44,29 @@ let maps = [
     name: 'Bitville',
     missions: [5],
     thumb: 'map6_thumb'
+  },
+  {
+    name: 'Pixeltoon',
+    missions: [6],
+    thumb: 'map7_thumb'
   }
 ]
 let missions = [
   {
     map: 'Pixel Town',
     mission: 'First',
-    keys: ['map1_00', 'map1_01', 'map1_02', 'map1_03', 'map1_04'],
+    keys: ['map1_full_', 'map1_full'],
     text: 'Destroy all targets before you run out of time or ammo.',
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 4,
     widthActual: 805,
     heightActual: 410,
-    totalLayers: 5,
+    totalLayers: 2,
     startingClips: 5,
     time: 240,
     distances: [0, 5, 10, 20, 30],
-    targetData: [{ col: 489, row: 385, dis: 0 }, { col: 676, row: 379, dis: 1 }, { col: 374, row: 336, dis: 1 }, { col: 307, row: 304, dis: 2 }, { col: 71, row: 221, dis: 3 }, { col: 583, row: 201, dis: 3 }, { col: 279, row: 146, dis: 4 },]
+    targetData: [{ col: 21, row: 366, dis: 0, canShoot: false, move: true }, { col: 88, row: 293, dis: 0, canShoot: false, move: true }, { col: 67, row: 226, dis: 0, canShoot: false, move: true }, { col: 22, row: 257, dis: 0, canShoot: false, move: true }, { col: 516, row: 211, dis: 0, canShoot: false, move: true }, { col: 493, row: 287, dis: 0, canShoot: false, move: true }, { col: 776, row: 245, dis: 0, canShoot: false, move: false }, { col: 557, row: 349, dis: 0, canShoot: false, move: false },]
   },
   {
     map: 'Pixelville',
@@ -113,20 +120,19 @@ let missions = [
     map: 'Pixel Town',
     mission: 'Second',
     text: 'kill',
-    keys: ['map1_00', 'map1_01', 'map1_02', 'map1_03', 'map1_04'],
+    keys: ['map1_full_', 'map1_full'],
     text: 'kill',
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 4,
     widthActual: 805,
     heightActual: 410,
-    totalLayers: 5,
+    totalLayers: 2,
     startingClips: 1,
     time: 240,
     distances: [0, 5, 10, 20, 30],
     targetData: [{ col: 791, row: 232, dis: 4, canShoot: true, move: false }, { col: 498, row: 350, dis: 0, canShoot: false, move: true }, { col: 385, row: 344, dis: 1, canShoot: false, move: false }, { col: 174, row: 305, dis: 0, canShoot: true, move: false }, { col: 221, row: 291, dis: 3, canShoot: false, move: false },]
-  }
-  ,
+  },
   {
     map: 'Bitville',
     mission: 'One',
@@ -142,6 +148,22 @@ let missions = [
     time: 240,
     distances: [0, 10, 15, 20, 30],
     targetData: [{ col: 190, row: 114, dis: 4, canShoot: false, move: false }, { col: 1845, row: 379, dis: 1, canShoot: false, move: true }, { col: 557, row: 288, dis: 1, canShoot: true, move: false }, { col: 183, row: 266, dis: 3, canShoot: true, move: false }, { col: 929, row: 262, dis: 2, canShoot: false, move: true }, { col: 269, row: 449, dis: 1, canShoot: false, move: false }, { col: 1328, row: 289, dis: 2, canShoot: false, move: false }, { col: 810, row: 480, dis: 0, canShoot: false, move: true }, { col: 1479, row: 437, dis: 1, canShoot: false, move: true },]
+  },
+  {
+    map: 'Pixeltoon',
+    mission: 'One',
+    text: 'kill',
+    keys: ['map7_full_', 'map7_full'],
+    wideZoom: 1,
+    scopeZoom: 6,
+    backScale: 2,
+    widthActual: 2000,
+    heightActual: 1153,
+    totalLayers: 2,
+    startingClips: 3,
+    time: 240,
+    distances: [0, 5, 10, 15, 20, 25, 30, 35],
+    targetData: [{ col: 1311, row: 975, dis: 0, canShoot: false, move: true }, { col: 1848, row: 545, dis: 4, canShoot: false, move: true }, { col: 1237, row: 819, dis: 1, canShoot: false, move: false }, { col: 693, row: 305, dis: 7, canShoot: false, move: false }, { col: 867, row: 827, dis: 0, canShoot: false, move: true }, { col: 306, row: 579, dis: 3, canShoot: false, move: false }, { col: 830, row: 457, dis: 5, canShoot: false, move: false },]
   }
 ]
 

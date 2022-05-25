@@ -6,11 +6,13 @@ class Target extends Phaser.GameObjects.Image {
     this.y = y
     this.scene = scene
     this.distance = dis
-    this.canShoot = canShoot
+
+
     this.setScale(scale)
     this.setTint(0xff0000)
-    this.setDepth(7)
+    this.setDepth(1.5)
     this.shootTimes = [8000, 10000, 12000, 15000, 20000]
+    this.swaySpeed = [2250, 3000, 3500, 4000]
     scene.add.existing(this);
     scene.targets.push(this)
     if (canShoot) {
@@ -18,20 +20,26 @@ class Target extends Phaser.GameObjects.Image {
 
     }
     if (sway) {
-      var tween = scene.tweens.add({
-        targets: this,
-        x: '+= 8',
-        duration: 3000,
-        yoyo: true,
-        loop: -1
-      })
+      this.setSway()
     }
 
   }
   setShoot() {
+    this.canShoot = true
     var delay = Phaser.Math.RND.pick(this.shootTimes)
     this.shootTimer = this.scene.time.addEvent({ delay: delay, callback: this.shoot, callbackScope: this, loop: true });
 
+  }
+  setSway() {
+    this.canSway = true
+    var speed = Phaser.Math.RND.pick(this.swaySpeed)
+    this.swayTween = this.scene.tweens.add({
+      targets: this,
+      x: '+= 8',
+      duration: speed,
+      yoyo: true,
+      loop: -1
+    })
   }
   // ...
 

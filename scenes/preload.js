@@ -110,11 +110,8 @@ class preloadGame extends Phaser.Scene {
     this.load.image('jBase', 'assets/sprites/joystick_base_outline.png');
     this.load.image('jTip', 'assets/sprites/joystick_tip_arrows.png');
 
-    this.load.image('map1_00', 'assets/sprites/map1/map1_00.png');
-    this.load.image('map1_01', 'assets/sprites/map1/map1_01.png');
-    this.load.image('map1_02', 'assets/sprites/map1/map1_02.png');
-    this.load.image('map1_03', 'assets/sprites/map1/map1_03.png');
-    this.load.image('map1_04', 'assets/sprites/map1/map1_04.png');
+    this.load.image('map1_full_', 'assets/sprites/map1/map1_full_.png');
+    this.load.image('map1_full', 'assets/sprites/map1/map1_full.png');
     this.load.image('map1_thumb', 'assets/sprites/map1/map1_thumb.png');
 
 
@@ -144,15 +141,17 @@ class preloadGame extends Phaser.Scene {
     this.load.image('map4_06', 'assets/sprites/map4/map4_06.png');
     this.load.image('map4_thumb', 'assets/sprites/map4/map4_thumb.png');
 
-    this.load.image('map5_00', 'assets/sprites/map5/map5_00.png');
-    this.load.image('map5_01', 'assets/sprites/map5/map5_01.png');
-    this.load.image('map5_02', 'assets/sprites/map5/map5_02.png');
-    this.load.image('map5_03', 'assets/sprites/map5/map5_03.png');
-    this.load.image('map5_04', 'assets/sprites/map5/map5_04.png');
+    this.load.image('map5_full_', 'assets/sprites/map5/map5_full_.png');
+    this.load.image('map5_full', 'assets/sprites/map5/map5_full.png');
+
     this.load.image('map5_thumb', 'assets/sprites/map5/map5_thumb.png');
 
     this.load.image('map6_full', 'assets/sprites/map6/map6_full.png');
     this.load.image('map6_thumb', 'assets/sprites/map6/map6_thumb.png');
+
+    this.load.image('map7_full_', 'assets/sprites/map7/map7_full_.png');
+    this.load.image('map7_full', 'assets/sprites/map7/map7_full.png');
+    this.load.image('map7_thumb', 'assets/sprites/map7/map7_thumb.png');
 
     this.load.image('map3', 'assets/sprites/map3.png');
 

@@ -198,7 +198,19 @@ class UI extends Phaser.Scene {
 
     }, this)
     this.ammoGroup.setVisible(false)
-
+    //OBJECTIVE UI
+    this.objectiveContainer = this.add.container()
+    this.power = this.add.image(50, 200, 'items', 3).setScale(4).setAlpha(.5)
+    this.objectiveContainer.add(this.power)
+    this.laptop = this.add.image(150, 200, 'items', 4).setScale(4).setAlpha(.5)
+    this.objectiveContainer.add(this.laptop)
+    this.satalite = this.add.image(250, 200, 'items', 5).setScale(4).setAlpha(.5)
+    this.objectiveContainer.add(this.satalite)
+    this.wifi = this.add.image(350, 200, 'items', 6).setScale(4).setAlpha(.5)
+    this.objectiveContainer.add(this.wifi)
+    this.security = this.add.image(450, 200, 'items', 7).setScale(4).setAlpha(.5)
+    this.objectiveContainer.add(this.security)
+    this.objectiveContainer.setVisible(false)
     //SET UP MOVEMENT CONTROLS
     this.staticXJsPos = 450
     this.staticYJsPos = 1200
@@ -368,7 +380,7 @@ class UI extends Phaser.Scene {
   doObjective(extra) {
     this.hitsObjective++
     if (extra.details.name == 'Power') {
-
+      this.power.setAlpha(1)
     }
   }
   updateJoystickState() {
@@ -417,6 +429,7 @@ class UI extends Phaser.Scene {
       this.windSetText.setText(this.windAdjust)
       this.distanceContainer.setAlpha(1)
       this.distanceAdjust = 0
+      this.objectiveContainer.setVisible(true)
       this.ammoGroup.setVisible(true)
       if (this.ammoBox.length > 0) {
         this.reloadButton.setAlpha(1)
@@ -444,6 +457,7 @@ class UI extends Phaser.Scene {
       this.distanceContainer.setAlpha(0)
       this.reloadButton.setAlpha(0)
       this.ammoGroup.setVisible(false)
+      this.objectiveContainer.setVisible(false)
       /*       var tween = this.tweens.add({
               targets: this.rifle,
               scale: 1,

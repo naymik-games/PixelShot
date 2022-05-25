@@ -110,10 +110,22 @@ class playGame extends Phaser.Scene {
     //add targets
     this.targetPool = []
     this.targets = []
-    for (var i = 0; i < this.targetData.length; i++) {
-      var td = this.targetData[i]
-      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
+    //scene, x, y, texture, dis, scale, sway, canShoot
+    if (gameMode == 'practice') {
+      this.positions = Phaser.Utils.Array.Shuffle(practices[0].allPositions);
+      for (var i = 0; i < 5; i++) {
+        var td = this.positions.pop()
+        var shoot = false;
+        var move = Phaser.Math.Between(1, 100) > 50
+        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
+      }
+    } else {
+      for (var i = 0; i < this.targetData.length; i++) {
+        var td = this.targetData[i]
+        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
+      }
     }
+
     //extras
     this.extras = []
     this.objectiveCount = 0
@@ -299,6 +311,11 @@ class playGame extends Phaser.Scene {
             if (target.canShoot) {
               //target.shootTimer.paused = true
               this.time.removeEvent(target.shootTimer);
+              this.canShoot = false
+            }
+            if (this.canSway) {
+              this.swayTween.remove()
+              this.canSway = false
             }
 
             var ind = this.targets.indexOf(target)
@@ -414,9 +431,15 @@ class playGame extends Phaser.Scene {
     target.setTexture('spot')
     target.setTint(0xff0000)
     target.setAlpha(1)
-    target.setScale(this.targetScaleFactor - target.distance)
-    var col = Phaser.Math.Between(20, this.widthActual - 20)
-    var row = Phaser.Math.Between(20, this.heightActual - 20)
+
+    var td = this.positions.pop()
+    target.setScale(this.targetScaleFactor - td.dis)
+    target.distance = this.distances[td.dis]
+    var col = td.col
+    var row = td.row
+    if (Phaser.Math.Between(1, 100) < 50) {
+      target.setSway()
+    }
     target.setPosition(col * this.backScale, row * this.backScale)
     this.targets.push(target)
   }
