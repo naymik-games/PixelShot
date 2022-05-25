@@ -322,7 +322,7 @@ class playGame extends Phaser.Scene {
             var removed = this.targets.splice(ind, 1);
             this.targetPool.push(removed[0])
             if (gameMode == 'practice') {
-              //this.practiceNext()
+              this.practiceNext()
             }
           }
         })
