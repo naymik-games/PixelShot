@@ -12,7 +12,7 @@ class Target extends Phaser.GameObjects.Image {
     this.setTint(0xff0000)
     this.setDepth(1.5)
     this.shootTimes = [8000, 10000, 12000, 15000, 20000]
-    this.swaySpeed = [2250, 3000, 3500, 4000]
+    this.swaySpeed = [2250, 3000, 3250, 3500]
     scene.add.existing(this);
     scene.targets.push(this)
     if (canShoot) {

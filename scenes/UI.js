@@ -246,7 +246,7 @@ class UI extends Phaser.Scene {
       this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
       //this.scoreText.setText(this.score)
       this.hitText.setText(this.hits)
-      if (this.hits == this.targetCount) {
+      if (this.hits == this.targetCount && gameMode == 'map') {
         this.winGame()
       }
     }, this);
@@ -308,7 +308,12 @@ class UI extends Phaser.Scene {
       delay: 1500, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
-        this.scene.launch('loseGame')
+        if (gameMode == 'practice') {
+          this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired })
+        } else {
+          this.scene.launch('loseGame', { score: this.score, hits: this.hits, shots: this.shotsFired })
+        }
+
       }, callbackScope: this, loop: false
     });
     //this.time.removeEvent(this.timedEvent)
@@ -319,7 +324,7 @@ class UI extends Phaser.Scene {
       delay: 1500, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
-        this.scene.launch('winGame')
+        this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired })
       }, callbackScope: this, loop: false
     });
     //this.time.removeEvent(this.timedEvent)

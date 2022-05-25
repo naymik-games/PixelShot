@@ -113,7 +113,7 @@ class playGame extends Phaser.Scene {
     //scene, x, y, texture, dis, scale, sway, canShoot
     if (gameMode == 'practice') {
       this.positions = Phaser.Utils.Array.Shuffle(practices[0].allPositions);
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 10; i++) {
         var td = this.positions.pop()
         var shoot = false;
         var move = Phaser.Math.Between(1, 100) > 50
@@ -322,7 +322,7 @@ class playGame extends Phaser.Scene {
             var removed = this.targets.splice(ind, 1);
             this.targetPool.push(removed[0])
             if (gameMode == 'practice') {
-              this.practiceNext()
+              //this.practiceNext()
             }
           }
         })
@@ -433,6 +433,7 @@ class playGame extends Phaser.Scene {
     target.setAlpha(1)
 
     var td = this.positions.pop()
+    console.log(td)
     target.setScale(this.targetScaleFactor - td.dis)
     target.distance = this.distances[td.dis]
     var col = td.col

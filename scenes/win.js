@@ -7,6 +7,13 @@ class winGame extends Phaser.Scene {
     // this.load.bitmapFont('atari', 'assets/fonts/Lato_0.png', 'assets/fonts/lato.xml');
 
   }
+  init(data) {
+    console.log('init', data);
+    this.score = data.score
+    this.hits = data.hits
+    this.shots = data.shots
+
+  }
   create() {
 
 
@@ -21,12 +28,21 @@ class winGame extends Phaser.Scene {
 
     var title = this.add.bitmapText(game.config.width / 2, 100, 'topaz', 'SUCCESS', 150).setOrigin(.5).setTint(0xc76210);
 
-    var startTime = this.add.bitmapText(game.config.width / 2, 275, 'topaz', 'Play', 50).setOrigin(.5).setTint(0xfafafa);
+    var startTime = this.add.bitmapText(game.config.width / 2, 275, 'topaz', 'Main Menu', 50).setOrigin(.5).setTint(0xfafafa);
     startTime.setInteractive();
     startTime.on('pointerdown', this.clickHandler, this);
 
-
-
+    var score = this.add.bitmapText(game.config.width / 2 - 10, 475, 'topaz', 'Score:', 50).setOrigin(1, .5).setTint(0xfafafa);
+    var score2 = this.add.bitmapText(game.config.width / 2 + 10, 475, 'topaz', this.score, 50).setOrigin(0, .5).setTint(0xfafafa);
+    var per = Math.floor((this.hits / this.shots) * 100)
+    var text = this.hits + '/' + this.shots + ' ' + per + '%'
+    var accuracy = this.add.bitmapText(game.config.width / 2 - 10, 575, 'topaz', 'Accuracy:', 50).setOrigin(1, .5).setTint(0xfafafa);
+    var accuracy2 = this.add.bitmapText(game.config.width / 2 + 10, 575, 'topaz', text, 50).setOrigin(0, .5).setTint(0xfafafa);
+    if (gameMode == 'practice') {
+      gameData.practiceHighScore = this.score
+      gameData.practiceMostTargets = this.hits
+      localStorage.setItem('PSdata', JSON.stringify(gameData));
+    }
   }
   clickHandler() {
     this.scene.stop()

@@ -24,13 +24,18 @@ class startGame extends Phaser.Scene {
     var startPractice = this.add.bitmapText(game.config.width / 2, 475, 'topaz', 'Practice', 50).setOrigin(.5).setTint(0xfafafa);
     startPractice.setInteractive();
     startPractice.on('pointerdown', this.clickHandler2, this);
+    var highScore = this.add.bitmapText(game.config.width / 2 - 10, 575, 'topaz', 'Best Score:', 40).setOrigin(1, .5).setTint(0xfafafa);
+    var highScore2 = this.add.bitmapText(game.config.width / 2 + 10, 575, 'topaz', gameData.practiceHighScore, 40).setOrigin(0, .5).setTint(0xfafafa);
+    var highTarget = this.add.bitmapText(game.config.width / 2 - 10, 675, 'topaz', 'Most Targets:', 40).setOrigin(1, .5).setTint(0xfafafa);
+    var highTarget2 = this.add.bitmapText(game.config.width / 2 + 10, 675, 'topaz', gameData.practiceMostTargets, 40).setOrigin(0, .5).setTint(0xfafafa);
+
 
     var startTime = this.add.bitmapText(game.config.width / 2, 275, 'topaz', 'Play', 50).setOrigin(.5).setTint(0xfafafa);
     startTime.setInteractive();
     startTime.on('pointerdown', this.clickHandler, this);
 
-    var startTime = this.add.bitmapText(game.config.width / 2, 1075, 'topaz', 'Easy Mode', 50).setOrigin(.5).setTint(0xfafafa);
-    var easySwitch = this.add.image(game.config.width / 2, 1175, 'switch', (gameData.easy) ? 1 : 0).setInteractive()
+    var startTime = this.add.bitmapText(game.config.width / 2, 1375, 'topaz', 'Easy Mode', 50).setOrigin(.5).setTint(0xfafafa);
+    var easySwitch = this.add.image(game.config.width / 2, 1475, 'switch', (gameData.easy) ? 1 : 0).setInteractive()
     easySwitch.on('pointerdown', function () {
       if (gameData.easy) {
         gameData.easy = false
@@ -51,6 +56,7 @@ class startGame extends Phaser.Scene {
   }
   clickHandler2() {
     gameMode = 'practice'
+    onPractice = gameData.onPractice
     this.scene.start('playGame');
     this.scene.launch('UI');
   }

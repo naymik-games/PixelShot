@@ -69,5 +69,9 @@ let onMap = 0
 let gameData;
 var defaultValues = {
   easy: true,
-  map: 0
+  map: 0,
+  mission: 0,
+  onPractice: 0,
+  practiceHighScore: 0,
+  practiceMostTargets: 0
 }
