@@ -40,14 +40,16 @@ class winGame extends Phaser.Scene {
     var accuracy2 = this.add.bitmapText(game.config.width / 2 + 10, 575, 'topaz', text, 50).setOrigin(0, .5).setTint(0xfafafa);
 
     var tscore = this.add.bitmapText(game.config.width / 2 - 10, 675, 'topaz', 'Total Score:', 50).setOrigin(1, .5).setTint(0xfafafa);
-    console.log(Math.floor(this.hits / this.shots))
-    var tscorenum = this.score * Math.floor(this.hits / this.shots)
-    var tscore2 = this.add.bitmapText(game.config.width / 2 + 10, 675, 'topaz', tscorenum, 50).setOrigin(0, .5).setTint(0xfafafa);
 
+    var tscorenum = Math.floor(this.score * (this.hits / this.shots))
+    var tscore2 = this.add.bitmapText(game.config.width / 2 + 10, 675, 'topaz', tscorenum, 50).setOrigin(0, .5).setTint(0xfafafa);
+    var tscoreObj = tscore2.getTextBounds(true)
+    // console.log(tscoreObj)
+    var newText = this.add.bitmapText(game.config.width / 2 + (tscoreObj.global.width + 20), 675, 'topaz', 'NEW', 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(0);
 
     if (gameMode == 'practice') {
       if (tscorenum > gameData.practiceHighScore) {
-
+        newText.setAlpha(1)
         gameData.practiceHighScore = tscorenum
         gameData.practiceMostTargets = this.hits
         localStorage.setItem('PSdata', JSON.stringify(gameData));

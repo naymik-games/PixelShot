@@ -317,7 +317,7 @@ class playGame extends Phaser.Scene {
               this.swayTween.remove()
               this.canSway = false
             }
-
+            this.spot.setPosition(-50, -50)
             var ind = this.targets.indexOf(target)
             var removed = this.targets.splice(ind, 1);
             this.targetPool.push(removed[0])
