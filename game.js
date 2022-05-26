@@ -113,10 +113,10 @@ class playGame extends Phaser.Scene {
     //scene, x, y, texture, dis, scale, sway, canShoot
     if (gameMode == 'practice') {
       this.positions = Phaser.Utils.Array.Shuffle(practices[0].allPositions);
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 5; i++) {
         var td = this.positions.pop()
         var shoot = false;
-        var move = Phaser.Math.Between(1, 100) > 50
+        var move = Phaser.Math.Between(1, 100) > 75
         var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
       }
     } else {
@@ -428,7 +428,7 @@ class playGame extends Phaser.Scene {
   }
   practiceNext() {
     var target = this.targetPool.pop()
-    target.setTexture('spot')
+    //target.setTexture('spot')
     target.setTint(0xff0000)
     target.setAlpha(1)
 
@@ -438,10 +438,12 @@ class playGame extends Phaser.Scene {
     target.distance = this.distances[td.dis]
     var col = td.col
     var row = td.row
-    if (Phaser.Math.Between(1, 100) < 50) {
+    if (Phaser.Math.Between(1, 100) < 85) {
       target.setSway()
     }
     target.setPosition(col * this.backScale, row * this.backScale)
+    target.setDepth(1.5)
+    console.log(target)
     this.targets.push(target)
   }
   adjustWindMinor() {

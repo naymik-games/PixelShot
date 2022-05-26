@@ -38,10 +38,21 @@ class winGame extends Phaser.Scene {
     var text = this.hits + '/' + this.shots + ' ' + per + '%'
     var accuracy = this.add.bitmapText(game.config.width / 2 - 10, 575, 'topaz', 'Accuracy:', 50).setOrigin(1, .5).setTint(0xfafafa);
     var accuracy2 = this.add.bitmapText(game.config.width / 2 + 10, 575, 'topaz', text, 50).setOrigin(0, .5).setTint(0xfafafa);
+
+    var tscore = this.add.bitmapText(game.config.width / 2 - 10, 675, 'topaz', 'Total Score:', 50).setOrigin(1, .5).setTint(0xfafafa);
+    console.log(Math.floor(this.hits / this.shots))
+    var tscorenum = this.score * Math.floor(this.hits / this.shots)
+    var tscore2 = this.add.bitmapText(game.config.width / 2 + 10, 675, 'topaz', tscorenum, 50).setOrigin(0, .5).setTint(0xfafafa);
+
+
     if (gameMode == 'practice') {
-      gameData.practiceHighScore = this.score
-      gameData.practiceMostTargets = this.hits
-      localStorage.setItem('PSdata', JSON.stringify(gameData));
+      if (tscorenum > gameData.practiceHighScore) {
+
+        gameData.practiceHighScore = tscorenum
+        gameData.practiceMostTargets = this.hits
+        localStorage.setItem('PSdata', JSON.stringify(gameData));
+      }
+
     }
   }
   clickHandler() {
