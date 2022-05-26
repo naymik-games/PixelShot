@@ -241,7 +241,9 @@ class UI extends Phaser.Scene {
       // console.log('acc ' + data.acc + ', dist ' + this.distanceFinal)
       this.showToast('HIT')
       this.hits += 1;
-
+      if (gameMode == 'practice' && data.acc < 3) {
+        this.initialTime += 15
+      }
       //console.log('dots ' + string)
       this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
       //this.scoreText.setText(this.score)
@@ -256,6 +258,8 @@ class UI extends Phaser.Scene {
 
       this.showToast('HIT ' + data.target.details.name)
       //this.hits += 1;
+      this.shotsFired -= 1
+      this.shotText.setText(this.shotsFired)
       if (data.target.details.type == 'collect') {
         this.doCollect(data.target)
       } else if (data.target.details.type == 'objective') {

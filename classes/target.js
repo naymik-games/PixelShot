@@ -35,7 +35,7 @@ class Target extends Phaser.GameObjects.Image {
     var speed = Phaser.Math.RND.pick(this.swaySpeed)
     this.swayTween = this.scene.tweens.add({
       targets: this,
-      x: '+= 8',
+      x: this.x + 8,
       duration: speed,
       yoyo: true,
       loop: -1

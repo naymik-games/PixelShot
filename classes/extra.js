@@ -9,7 +9,7 @@ class Extra extends Phaser.GameObjects.Image {
     this.details = extraObjects[type]
     this.setScale(scale)
     //this.setTint(0xff0000)
-    this.setDepth(7)
+    this.setDepth(3)
 
     scene.add.existing(this);
     scene.extras.push(this)

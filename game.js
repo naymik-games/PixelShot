@@ -129,8 +129,12 @@ class playGame extends Phaser.Scene {
     //extras
     this.extras = []
     this.objectiveCount = 0
-    var testItem = new Extra(this, 300, 300, 'items', extraObjects[2].index, 0, 1, false, 2)
-    var testItem = new Extra(this, 500, 300, 'items', extraObjects[3].index, 0, 1, false, 3)
+    //var testItem = new Extra(this, 300, 300, 'items', extraObjects[2].index, 0, 1, false, 2)
+    //var testItem = new Extra(this, 500, 300, 'items', extraObjects[3].index, 0, 1, false, 3)
+    //scene, x, y, texture, frame, dis, scale, sway, type
+    /*   if (gameMode == 'practice') {
+        this.extraLauncher = this.sys.time.addEvent({ delay: 10000, callback: this.launchExtra, callbackScope: this, loop: true });
+      } */
     //console.log('ob' + this.objectiveCount)
     //add grapjics settings
     this.graphicsHelp = this.add.graphics({ lineStyle: { width: 4, color: 0x00ff00 }, fillStyle: { color: 0xaa0000 } });
@@ -230,6 +234,15 @@ class playGame extends Phaser.Scene {
 
     }
 
+  }
+  //scene, x, y, texture, frame, dis, scale, sway, type
+  launchExtra() {
+    //if (Phaser.Math.Between(1, 100) > 85) {
+    var num = Phaser.Math.Between(1, 2)
+    var col = Phaser.Math.Between(50, this.widthActual - 50) * this.backScale // / this.cameras.main.zoom
+    var row = Phaser.Math.Between(50, this.heightActual - 50) * this.backScale /// this.cameras.main.zoom
+    var testItem = new Extra(this, col, row, 'items', extraObjects[num].index, 0, 1, false, num)
+    //}
   }
   toggleScope() {
     if (this.toggle == 1) {
@@ -331,6 +344,9 @@ class playGame extends Phaser.Scene {
         this.explode(this.spot.x, this.spot.y)
         // console.log('HIT')
         var acc = Math.abs(numX) + Math.abs(numY)
+        if (acc == 0 && gameMode == 'practice') {
+          this.launchExtra()
+        }
         this.addHit(acc, this.distance)
 
       }
@@ -438,7 +454,7 @@ class playGame extends Phaser.Scene {
     target.distance = this.distances[td.dis]
     var col = td.col
     var row = td.row
-    if (Phaser.Math.Between(1, 100) < 85) {
+    if (Phaser.Math.Between(1, 100) < 0) {
       target.setSway()
     }
     target.setPosition(col * this.backScale, row * this.backScale)
