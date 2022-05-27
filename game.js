@@ -65,6 +65,7 @@ class playGame extends Phaser.Scene {
       this.targetData = missions[onMission].targetData
       this.keys = missions[onMission].keys
       this.initialTime = missions[onMission].time
+      this.allTargetData = missions[onMission].allPositions
     }
     // map1
 
@@ -113,7 +114,7 @@ class playGame extends Phaser.Scene {
     //scene, x, y, texture, dis, scale, sway, canShoot
     if (gameMode == 'practice') {
       this.positions = Phaser.Utils.Array.Shuffle(practices[onPractice].allPositions);
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < practices[onPractice].targetGoal; i++) {
         var td = this.positions.pop()
         var shoot = false;
         var move = Phaser.Math.Between(1, 100) > 75
@@ -129,9 +130,30 @@ class playGame extends Phaser.Scene {
     //extras
     this.extras = []
     this.objectiveCount = 0
+    this.positions = Phaser.Utils.Array.Shuffle(this.allTargetData);
+    if (gameMode == 'map') {
+
+      for (var i = 3; i < extraObjects.length; i++) {
+        var td = this.positions.pop()
+        // console.log(td)
+        var col = td.col * this.backScale // / this.cameras.main.zoom
+        var row = td.row * this.backScale /// this.cameras.main.zoom
+        //scene, x, y, texture, frame, dis, scale, sway, type    
+        var testItem = new Extra(this, col, row, 'items', extraObjects[i].index, this.distances[td.dis], 1, false, i)
+        this.extras.push(testItem)
+
+      }
+      //console.log(this.extras)
+    }
+
+    //var testItem = new Extra(this, 500, 300, 'items', extraObjects[3].index, 0, 1, false, 3)
+    // var testItem = new Extra(this, col, row, 'items', extraObjects[num].index, 0, 1, false, num)
+    // var testItem = new Extra(this, 300, 300, 'items', extraObjects[2].index, 0, 1, false, 2)
+
+
     //var testItem = new Extra(this, 300, 300, 'items', extraObjects[2].index, 0, 1, false, 2)
     //var testItem = new Extra(this, 500, 300, 'items', extraObjects[3].index, 0, 1, false, 3)
-    //scene, x, y, texture, frame, dis, scale, sway, type
+
     /*   if (gameMode == 'practice') {
         this.extraLauncher = this.sys.time.addEvent({ delay: 10000, callback: this.launchExtra, callbackScope: this, loop: true });
       } */
@@ -335,7 +357,7 @@ class playGame extends Phaser.Scene {
             var removed = this.targets.splice(ind, 1);
             this.targetPool.push(removed[0])
             if (gameMode == 'practice') {
-              this.practiceNext()
+              //this.practiceNext()
             }
           }
         })
@@ -461,6 +483,14 @@ class playGame extends Phaser.Scene {
     target.setDepth(1.5)
     console.log(target)
     this.targets.push(target)
+  }
+  loadTargets() {
+    for (var i = 0; i < practices[onPractice].targetGoal; i++) {
+      var td = this.positions.pop()
+      var shoot = false;
+      var move = Phaser.Math.Between(1, 100) > 75
+      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
+    }
   }
   adjustWindMinor() {
     if (Phaser.Math.Between(1, 100) < 50) {

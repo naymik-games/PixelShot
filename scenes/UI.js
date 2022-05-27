@@ -23,6 +23,7 @@ class UI extends Phaser.Scene {
     }, this)
     this.canFire = true
     this.hits = 0;
+    this.hitsTemp = 0
     this.hitsObjective = 0
     this.score = 0;
     this.scoreBuffer = 0
@@ -35,6 +36,7 @@ class UI extends Phaser.Scene {
     this.bulletPool = []
     this.ammoBox = []
     this.clipPool = []
+    this.canScore = true
     if (gameMode == 'practice') {
       this.targetCount = practices[onPractice].targetGoal
     } else {
@@ -240,16 +242,28 @@ class UI extends Phaser.Scene {
     this.Main.events.on('hit', function (data) {
       // console.log('acc ' + data.acc + ', dist ' + this.distanceFinal)
       this.showToast('HIT')
-      this.hits += 1;
+      if (this.canScore) {
+        this.hits += 1;
+        this.hitsTemp++
+      }
+      this.canScore = false
       if (gameMode == 'practice' && data.acc < 3) {
         this.initialTime += 15
       }
       //console.log('dots ' + string)
       this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
       //this.scoreText.setText(this.score)
-      this.hitText.setText(this.hits)
-      if (this.hits == this.targetCount && gameMode == 'map') {
-        this.winGame()
+      this.hitText.setText(this.hitsTemp)
+
+      if (this.hitsTemp == this.targetCount) {
+        if (gameMode == 'map') {
+          this.winGame()
+        } else {
+          this.hitsTemp = 0
+          this.hitText.setText(this.hitsTemp)
+          this.Main.loadTargets()
+        }
+
       }
     }, this);
     //HANDLE UI HIT TARGET EXTRA
@@ -390,7 +404,17 @@ class UI extends Phaser.Scene {
     this.hitsObjective++
     if (extra.details.name == 'Power') {
       this.power.setAlpha(1)
+    } else if (extra.details.name == 'Laptop') {
+      this.laptop.setAlpha(1)
+    } else if (extra.details.name == 'Satalite Dish') {
+      this.satalite.setAlpha(1)
+    } else if (extra.details.name == 'WiFi') {
+      this.wifi.setAlpha(1)
+    } else if (extra.details.name == 'Security Camera') {
+      this.security.setAlpha(1)
     }
+
+
   }
   updateJoystickState() {
     let direction = '';
@@ -497,6 +521,7 @@ class UI extends Phaser.Scene {
 
   }
   fireShot2() {
+    this.canScore = true
     this.shotsFired++
     this.shotText.setText(this.shotsFired)
     this.Main.fire()
