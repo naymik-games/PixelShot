@@ -64,14 +64,30 @@ let extraObjects = [
 let easy = true
 let gameMode = 'map'
 let onMission = 3
-let onPractice = 0
+let onPractice = 1
 let onMap = 0
 let gameData;
 var defaultValues = {
   easy: true,
   map: 0,
   mission: 0,
+  practice: [
+    {
+      highScore: 0,
+      numTargets: 0,
+      easy: true
+    },
+    {
+      highScore: 0,
+      numTargets: 0,
+      easy: true
+    },
+    {
+      highScore: 0,
+      numTargets: 0,
+      easy: true
+    }
+  ],
   onPractice: 0,
-  practiceHighScore: 0,
-  practiceMostTargets: 0
+
 }

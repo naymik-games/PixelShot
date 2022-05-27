@@ -112,7 +112,7 @@ class playGame extends Phaser.Scene {
     this.targets = []
     //scene, x, y, texture, dis, scale, sway, canShoot
     if (gameMode == 'practice') {
-      this.positions = Phaser.Utils.Array.Shuffle(practices[0].allPositions);
+      this.positions = Phaser.Utils.Array.Shuffle(practices[onPractice].allPositions);
       for (var i = 0; i < 5; i++) {
         var td = this.positions.pop()
         var shoot = false;

@@ -83,7 +83,10 @@ class preloadGame extends Phaser.Scene {
       frameWidth: 100,
       frameHeight: 100
     });
-
+    this.load.spritesheet("icons_pixel", "assets/sprites/icons_pixel.png", {
+      frameWidth: 100,
+      frameHeight: 100
+    });
     this.load.spritesheet("particle_color", "assets/particles.png", {
       frameWidth: 6,
       frameHeight: 6
@@ -144,7 +147,7 @@ class preloadGame extends Phaser.Scene {
 
     this.load.image('map8_full_', 'assets/sprites/map8/map8_full_.png');
     this.load.image('map8_full', 'assets/sprites/map8/map8_full.png');
-
+    this.load.image('map8_thumb', 'assets/sprites/map8/map8_thumb.png');
 
 
     this.load.image('map6_full', 'assets/sprites/map6/map6_full.png');
@@ -157,6 +160,10 @@ class preloadGame extends Phaser.Scene {
     this.load.image('map9_full_', 'assets/sprites/map9/map9_full_.png');
     this.load.image('map9_full', 'assets/sprites/map9/map9_full.png');
     this.load.image('map9_thumb', 'assets/sprites/map9/map9_thumb.png');
+
+    this.load.image('map10_full_', 'assets/sprites/map10/map10_full_.png');
+    this.load.image('map10_full', 'assets/sprites/map10/map10_full.png');
+    this.load.image('map10_thumb', 'assets/sprites/map10/map10_thumb.png');
 
     this.load.image('map3', 'assets/sprites/map3.png');
 

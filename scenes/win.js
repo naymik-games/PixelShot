@@ -48,10 +48,11 @@ class winGame extends Phaser.Scene {
     var newText = this.add.bitmapText(game.config.width / 2 + (tscoreObj.global.width + 20), 675, 'topaz', 'NEW', 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(0);
 
     if (gameMode == 'practice') {
-      if (tscorenum > gameData.practiceHighScore) {
+      if (tscorenum > gameData.practice[gameData.onPractice].highScore) {
         newText.setAlpha(1)
-        gameData.practiceHighScore = tscorenum
-        gameData.practiceMostTargets = this.hits
+        gameData.practice[gameData.onPractice].highScore = tscorenum
+        gameData.practice[gameData.onPractice].numTargets = this.hits
+        gameData.practice[gameData.onPractice].easy = gameData.easy
         localStorage.setItem('PSdata', JSON.stringify(gameData));
       }
 
