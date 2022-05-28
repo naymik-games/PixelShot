@@ -25,6 +25,7 @@ class UI extends Phaser.Scene {
     this.hits = 0;
     this.hitsTemp = 0
     this.hitsObjective = 0
+    this.hitsCollect = 0
     this.score = 0;
     this.scoreBuffer = 0
     this.shotsFired = 0
@@ -272,15 +273,16 @@ class UI extends Phaser.Scene {
 
       this.showToast('HIT ' + data.target.details.name)
       //this.hits += 1;
-      this.shotsFired -= 1
-      this.shotText.setText(this.shotsFired)
-      if (data.target.details.type == 'collect') {
-        this.doCollect(data.target)
-      } else if (data.target.details.type == 'objective') {
-        this.doObjective(data.target)
+      if (this.canScore) {
+        if (data.target.details.type == 'collect') {
+          this.doCollect(data.target)
+        } else if (data.target.details.type == 'objective') {
+          this.doObjective(data.target)
+        }
+        //console.log('dots ' + string)
+        this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
       }
-      //console.log('dots ' + string)
-      this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
+      this.canScore = false
       //this.scoreText.setText(this.score)
       //this.hitText.setText(this.hits)
       /* if (this.hits == this.targetCount) {
@@ -326,10 +328,11 @@ class UI extends Phaser.Scene {
       delay: 1500, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
+        var extraHits = this.hitsObjective + this.hitsCollect
         if (gameMode == 'practice') {
-          this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired })
+          this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired, hitsExtra: extraHits })
         } else {
-          this.scene.launch('loseGame', { score: this.score, hits: this.hits, shots: this.shotsFired })
+          this.scene.launch('loseGame', { score: this.score, hits: this.hits, shots: this.shotsFired, hitsExtra: extraHits })
         }
 
       }, callbackScope: this, loop: false
@@ -338,11 +341,12 @@ class UI extends Phaser.Scene {
 
   }
   winGame() {
+    var extraHits = this.hitsObjective + this.hitsCollect
     var endTimer = this.sys.time.addEvent({
       delay: 1500, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
-        this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired })
+        this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired, hitsExtra: extraHits })
       }, callbackScope: this, loop: false
     });
     //this.time.removeEvent(this.timedEvent)
@@ -392,6 +396,7 @@ class UI extends Phaser.Scene {
     this.ammoBox.push(clip)
   }
   doCollect(extra) {
+    this.hitsCollect++
     if (extra.details.name == 'Health') {
       this.healthUpdate(this.Main.player.health + 10)
     } else if (extra.details.name == 'Time') {
@@ -508,6 +513,7 @@ class UI extends Phaser.Scene {
   }
   fireShot() {
     if (this.canFire) {
+      this.canFire = false
       if (this.Main.easy) {
         this.fireShot2()
 

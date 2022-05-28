@@ -10,13 +10,14 @@ class winGame extends Phaser.Scene {
   init(data) {
     console.log('init', data);
     this.score = data.score
-    this.hits = data.hits
+    this.hitsTarget = data.hits
     this.shots = data.shots
+    this.hitsExtra = data.hitsExtra
 
   }
   create() {
 
-
+    this.hits = this.hitsTarget + this.hitsExtra
 
     gameData = JSON.parse(localStorage.getItem('PSdata'));
     if (gameData === null || gameData.length <= 0) {

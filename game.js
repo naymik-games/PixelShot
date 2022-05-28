@@ -40,6 +40,7 @@ class playGame extends Phaser.Scene {
 
   }
   create() {
+    this.UI = this.scene.get('UI');
     this.easy = gameData.easy;
     if (gameMode == 'practice') {
       this.wideZoom = practices[onPractice].wideZoom
@@ -130,9 +131,9 @@ class playGame extends Phaser.Scene {
     //extras
     this.extras = []
     this.objectiveCount = 0
-    this.positions = Phaser.Utils.Array.Shuffle(this.allTargetData);
-    if (gameMode == 'map') {
 
+    if (gameMode == 'map') {
+      this.positions = Phaser.Utils.Array.Shuffle(this.allTargetData);
       for (var i = 3; i < extraObjects.length; i++) {
         var td = this.positions.pop()
         // console.log(td)
@@ -431,7 +432,7 @@ class playGame extends Phaser.Scene {
 
 
 
-
+    this.UI.canFire = true
 
 
 
