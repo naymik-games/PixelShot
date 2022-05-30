@@ -249,7 +249,11 @@ class UI extends Phaser.Scene {
       }
       this.canScore = false
       if (gameMode == 'practice' && data.acc < 3) {
+
         this.initialTime += 15
+        if (this.initialTime > this.Main.initialTime) {
+          this.initialTime = this.Main.initialTime
+        }
       }
       //console.log('dots ' + string)
       this.scoreBuffer += Math.floor((100 + this.Main.distance) - data.acc)
