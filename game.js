@@ -58,20 +58,20 @@ class playGame extends Phaser.Scene {
       this.wideZoom = missions[onMission].wideZoom
       this.scopeZoom = missions[onMission].scopeZoom
       this.backScale = missions[onMission].backScale
-      this.widthActual = missions[onMission].widthActual
-      this.heightActual = missions[onMission].heightActual
-      this.totalLayers = missions[onMission].totalLayers
+      this.widthActual = maps[onMap].widthActual
+      this.heightActual = maps[onMap].heightActual
+      this.totalLayers = maps[onMap].totalLayers
       this.startingClips = missions[onMission].startingClips
       this.distances = missions[onMission].distances
       this.targetData = missions[onMission].targetData
-      this.keys = missions[onMission].keys
+      this.keys = maps[onMap].keys
       this.initialTime = missions[onMission].time
-      this.allTargetData = missions[onMission].allPositions
+      this.allTargetData = maps[onMap].allPositions
     }
     // map1
 
 
-
+    this.isMoving = false
     this.targetScaleFactor = 4 + this.totalLayers
     //map 2
     /*  this.wideZoom = 1
@@ -512,27 +512,26 @@ class playGame extends Phaser.Scene {
     }
   }
   movePlayer(direction, force) {
+
     if (this.toggle == 1) {
       this.playerSpeed = 1
 
     } else {
-
-
       if (force > 90) {
         this.playerSpeed = 5
       } else {
         this.playerSpeed = 1
       }
     }
-
+    //console.log(direction)
     if (direction === "up") {
       if (this.player.y <= this.cameras.main.getBounds().y) { return }
       this.player.y -= this.playerSpeed;
-
+      this.isMoving = true
     } else if (direction === "down") {
       if (this.player.y >= this.cameras.main.getBounds().height) { return }
       this.player.y += this.playerSpeed;
-
+      this.isMoving = true
     } else if (direction === "right") {
       if (this.player.x >= this.cameras.main.getBounds().width) { return }
       this.player.x += this.playerSpeed;
@@ -542,29 +541,31 @@ class playGame extends Phaser.Scene {
       if (this.player.x <= this.cameras.main.getBounds().x) { return }
       this.player.x -= this.playerSpeed;
       // this.back.x += this.playerSpeed / 4
-
+      this.isMoving = true
     } else if (direction === "upright") {
       this.player.x += this.playerSpeed;
       this.player.y -= this.playerSpeed;
-
+      this.isMoving = true
     } else if (direction === "downright") {
       this.player.x += this.playerSpeed;
       this.player.y += this.playerSpeed;
-
+      this.isMoving = true
     } else if (direction === "downleft") {
       this.player.x -= this.playerSpeed;
       this.player.y += this.playerSpeed;
-
+      this.isMoving = true
     } else if (direction === "upleft") {
       this.player.x -= this.playerSpeed;
       this.player.y -= this.playerSpeed;
-
+      this.isMoving = true
     } else {
       this.player.x = 0;
       this.player.y = 0;
+      this.isMoving = false
+      console.log('no move')
     }
 
-
+    // console.log(this.isMoving)
 
   }
   addScore() {

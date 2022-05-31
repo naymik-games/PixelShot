@@ -14,6 +14,10 @@ class selectGame extends Phaser.Scene {
     // this.input.on('poimterdown', this.down,this);
     // this.input.on('pointermove', this.move,this);
     //this.input.on('pointerup', this.up,this);
+    var backText = this.add.bitmapText(50, 1550, 'topaz', 'BACK', 60).setTint(0xff8045).setOrigin(0, .5).setInteractive();
+    backText.on('pointerdown', function () {
+      this.scene.start('startGame');
+    }, this)
     this.showGroup(this.currentGroup, 'left')
     this.input.on('pointerup', this.endSwipe, this);
   }
@@ -93,6 +97,7 @@ class selectGame extends Phaser.Scene {
       var targetText = this.add.bitmapText(50, missionText.y + 85, 'topaz', 'Targets: ' + missions[missionIndex].targetData.length, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
       groupBox.add(targetText);
     }
+
     //console.log(gameSettings.highestSolved)
     /* for (var i = 0; i < maps[groupNum].puzzleCount; i++) {7
       var tempLevel = groups[groupNum].levelStart + i
