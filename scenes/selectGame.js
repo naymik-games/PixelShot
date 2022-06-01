@@ -79,16 +79,17 @@ class selectGame extends Phaser.Scene {
     }
     var groupBox = this.add.container().setDepth(2);
     var tempGroup = groupNum + 1;
-    var groupTitle = this.add.bitmapText(game.config.width / 2, 150, 'topaz', maps[groupNum].name, 100).setTint(0xff8045).setOrigin(.5).setMaxWidth(800);
+    var groupTitle = this.add.bitmapText(game.config.width / 2, 75, 'topaz', maps[groupNum].name, 100).setTint(0xff8045).setOrigin(.5).setMaxWidth(800);
     groupBox.add(groupTitle);
     var groupText = this.add.bitmapText(game.config.width / 2, 1550, 'topaz', tempGroup + '/' + maps.length, 60).setTint(0xff8045).setOrigin(.5).setMaxWidth(500);
     groupBox.add(groupText);
 
-    var thumb = this.add.image(game.config.width / 2, 250, maps[groupNum].thumb).setScale(2).setOrigin(.5, 0)
+    var thumb = this.add.image(game.config.width / 2, 175, maps[groupNum].thumb).setScale(2).setOrigin(.5, 0)
     groupBox.add(thumb)
+    var startInfo = thumb.y + thumb.displayHeight + 50
     for (var i = 0; i < maps[groupNum].missions.length; i++) {
       var missionIndex = maps[groupNum].missions[i]
-      var missionTitle = this.add.bitmapText(50, 750 + i * 275, 'topaz', missions[missionIndex].mission, 60).setTint(0xff8045).setOrigin(0, .5).setMaxWidth(800).setInteractive();
+      var missionTitle = this.add.bitmapText(50, startInfo + i * 275, 'topaz', missions[missionIndex].mission, 60).setTint(0xff8045).setOrigin(0, .5).setMaxWidth(800).setInteractive();
       missionTitle.level = missionIndex
       missionTitle.on('pointerup', this.selectLevel.bind(this, missionTitle));
       groupBox.add(missionTitle);
@@ -96,6 +97,8 @@ class selectGame extends Phaser.Scene {
       groupBox.add(missionText);
       var targetText = this.add.bitmapText(50, missionText.y + 85, 'topaz', 'Targets: ' + missions[missionIndex].targetData.length, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
       groupBox.add(targetText);
+      var objectiveText = this.add.bitmapText(850, missionText.y + 85, 'topaz', 'Objectives: ' + missions[missionIndex].objectives.length, 40).setTint(0xfafafa).setOrigin(1, .5).setMaxWidth(800);
+      groupBox.add(objectiveText);
     }
 
     //console.log(gameSettings.highestSolved)

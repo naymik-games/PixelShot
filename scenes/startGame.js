@@ -25,6 +25,14 @@ class startGame extends Phaser.Scene {
         }
         gameData.practice.push(temp)
       }
+      for (var i = 0; i < practices.length - gameData.practiceHard.length; i++) {
+        var temp = {
+          highScore: 0,
+          numTargets: 0,
+          easy: true
+        }
+        gameData.practiceHard.push(temp)
+      }
     }
     this.cameras.main.setBackgroundColor(0x000000);
 
@@ -67,18 +75,24 @@ class startGame extends Phaser.Scene {
 
   }
   showPractice(num, dir) {
+
+    if (gameData.easy) {
+      var scoreData = gameData.practice[num]
+    } else {
+      var scoreData = gameData.practiceHard[num]
+    }
     var groupBox = this.add.container().setDepth(2);
     var practiceThumb = this.add.image(game.config.width / 2, this.practiceOffset + 150, practices[num].thumb).setOrigin(.5, 0)
     var practiceName = this.add.bitmapText(practiceThumb.x - practiceThumb.displayWidth / 2, this.practiceOffset + 100, 'topaz', practices[num].map, 40).setOrigin(0, .5).setTint(0xc76210);
 
     var startInfo = practiceThumb.y + practiceThumb.displayHeight
     var highScore = this.add.bitmapText(game.config.width / 2, startInfo + 35, 'topaz', 'Best Score:', 40).setOrigin(1, .5).setTint(0xfafafa);
-    var highScore2 = this.add.bitmapText(game.config.width / 2 + 20, startInfo + 35, 'topaz', gameData.practice[num].highScore, 40).setOrigin(0, .5).setTint(0xfafafa);
+    var highScore2 = this.add.bitmapText(game.config.width / 2 + 20, startInfo + 35, 'topaz', scoreData.highScore, 40).setOrigin(0, .5).setTint(0xfafafa);
     var highTarget = this.add.bitmapText(game.config.width / 2, startInfo + 100, 'topaz', 'Most Targets:', 40).setOrigin(1, .5).setTint(0xfafafa);
-    var highTarget2 = this.add.bitmapText(game.config.width / 2 + 20, startInfo + 100, 'topaz', gameData.practice[num].numTargets, 40).setOrigin(0, .5).setTint(0xfafafa);
+    var highTarget2 = this.add.bitmapText(game.config.width / 2 + 20, startInfo + 100, 'topaz', scoreData.numTargets, 40).setOrigin(0, .5).setTint(0xfafafa);
 
     var easy = this.add.bitmapText(game.config.width / 2, startInfo + 165, 'topaz', 'Easy:', 40).setOrigin(1, .5).setTint(0xfafafa);
-    if (gameData.practice[num].easy) {
+    if (scoreData.easy) {
       var eas = 'Yes'
     } else {
       var eas = 'No'

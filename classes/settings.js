@@ -58,13 +58,31 @@ let extraObjects = [
     name: 'Security Camera',
     index: 7,
     type: 'objective'
+  },
+  {
+    id: 8,
+    name: 'Server',
+    index: 8,
+    type: 'objective'
+  },
+  {
+    id: 9,
+    name: 'Alarm Keypad',
+    index: 9,
+    type: 'objective'
+  },
+  {
+    id: 10,
+    name: 'Documents',
+    index: 10,
+    type: 'objective'
   }
 
 ]
 let easy = true
 let gameMode = 'map'
-let onMission = 3
-let onPractice = 1
+let onMission = 0
+let onPractice = 0
 let onMap = 0
 let gameData;
 var defaultValues = {
@@ -86,6 +104,23 @@ var defaultValues = {
       highScore: 0,
       numTargets: 0,
       easy: true
+    }
+  ],
+  practiceHard: [
+    {
+      highScore: 0,
+      numTargets: 0,
+      easy: false
+    },
+    {
+      highScore: 0,
+      numTargets: 0,
+      easy: false
+    },
+    {
+      highScore: 0,
+      numTargets: 0,
+      easy: false
     }
   ],
   onPractice: 0,

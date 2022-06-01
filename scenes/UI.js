@@ -29,6 +29,7 @@ class UI extends Phaser.Scene {
     this.score = 0;
     this.scoreBuffer = 0
     this.shotsFired = 0
+    this.objectivesFound = false
     this.bulletCount = 3
     this.healthTotal = 100
     this.initialTime = this.Main.initialTime
@@ -202,18 +203,46 @@ class UI extends Phaser.Scene {
     }, this)
     this.ammoGroup.setVisible(false)
     //OBJECTIVE UI
-    this.objectiveContainer = this.add.container()
-    this.power = this.add.image(50, 200, 'items', 3).setScale(4).setAlpha(.5)
-    this.objectiveContainer.add(this.power)
-    this.laptop = this.add.image(150, 200, 'items', 4).setScale(4).setAlpha(.5)
-    this.objectiveContainer.add(this.laptop)
-    this.satalite = this.add.image(250, 200, 'items', 5).setScale(4).setAlpha(.5)
-    this.objectiveContainer.add(this.satalite)
-    this.wifi = this.add.image(350, 200, 'items', 6).setScale(4).setAlpha(.5)
-    this.objectiveContainer.add(this.wifi)
-    this.security = this.add.image(450, 200, 'items', 7).setScale(4).setAlpha(.5)
-    this.objectiveContainer.add(this.security)
-    this.objectiveContainer.setVisible(false)
+    if (gameMode == 'map') {
+      this.objectiveContainer = this.add.container()
+      if (missions[onMission].objectives.indexOf(3) > -1) {
+        this.power = this.add.image(50, 200, 'items', 3).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.power)
+      }
+      if (missions[onMission].objectives.indexOf(4) > -1) {
+        this.laptop = this.add.image(150, 200, 'items', 4).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.laptop)
+      }
+      if (missions[onMission].objectives.indexOf(5) > -1) {
+        this.satalite = this.add.image(250, 200, 'items', 5).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.satalite)
+      }
+      if (missions[onMission].objectives.indexOf(6) > -1) {
+        this.wifi = this.add.image(350, 200, 'items', 6).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.wifi)
+      }
+      if (missions[onMission].objectives.indexOf(7) > -1) {
+        this.security = this.add.image(450, 200, 'items', 7).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.security)
+      }
+      if (missions[onMission].objectives.indexOf(8) > -1) {
+        this.server = this.add.image(550, 200, 'items', 8).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.server)
+      }
+      if (missions[onMission].objectives.indexOf(9) > -1) {
+        this.keypad = this.add.image(650, 200, 'items', 9).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.keypad)
+      }
+      if (missions[onMission].objectives.indexOf(10) > -1) {
+        this.documents = this.add.image(750, 200, 'items', 10).setScale(4).setAlpha(.5)
+        this.objectiveContainer.add(this.documents)
+      }
+      this.objectiveContainer.setVisible(false)
+    } else {
+      this.objectiveContainer = this.add.container()
+      this.objectiveContainer.setVisible(false)
+    }
+
     //SET UP MOVEMENT CONTROLS
     this.staticXJsPos = 450
     this.staticYJsPos = 1200
@@ -260,16 +289,20 @@ class UI extends Phaser.Scene {
       //this.scoreText.setText(this.score)
       this.hitText.setText(this.hitsTemp)
 
-      if (this.hitsTemp == this.targetCount) {
-        if (gameMode == 'map') {
+
+      if (gameMode == 'map') {
+        if (this.hitsTemp == this.targetCount && this.objectivesFound) {
           this.winGame()
-        } else {
+        }
+      } else {
+        if (this.hitsTemp == this.targetCount) {
           this.hitsTemp = 0
           this.hitText.setText(this.hitsTemp)
           this.Main.loadTargets()
         }
-
       }
+
+
     }, this);
     //HANDLE UI HIT TARGET EXTRA
     this.Main.events.on('hitExtra', function (data) {
@@ -310,8 +343,10 @@ class UI extends Phaser.Scene {
     this.levelProgressBar.displayWidth = 250 * this.Main.player.health / this.healthTotal;
     this.levelProgressBar.displayHeight = 25;
 
-
-
+    /*  this.input.on('pointerdown', function (e) {
+       this.Main.player.setPosition(e.worldX, e.worldY)
+     }, this)
+  */
     //CALL SET UP FOR MENU
     this.makeMenu()
 
@@ -329,7 +364,7 @@ class UI extends Phaser.Scene {
   }
   loseGame() {
     var endTimer = this.sys.time.addEvent({
-      delay: 1500, callback: function () {
+      delay: 2000, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
         var extraHits = this.hitsObjective + this.hitsCollect
@@ -347,7 +382,7 @@ class UI extends Phaser.Scene {
   winGame() {
     var extraHits = this.hitsObjective + this.hitsCollect
     var endTimer = this.sys.time.addEvent({
-      delay: 1500, callback: function () {
+      delay: 2000, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
         this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired, hitsExtra: extraHits })
@@ -421,9 +456,21 @@ class UI extends Phaser.Scene {
       this.wifi.setAlpha(1)
     } else if (extra.details.name == 'Security Camera') {
       this.security.setAlpha(1)
+    } else if (extra.details.name == 'Server') {
+      this.server.setAlpha(1)
+    } else if (extra.details.name == 'Alarm Keypad') {
+      this.keypad.setAlpha(1)
+    } else if (extra.details.name == 'Documents') {
+      this.documents.setAlpha(1)
     }
-
-
+    console.log('objective count: ' + this.Main.objectiveCount)
+    console.log('objectives hit: ' + this.hitsObjective)
+    if (this.hitsObjective == this.Main.objectiveCount) {
+      this.objectivesFound = true
+    }
+    if (this.hitsTemp == this.targetCount && this.objectivesFound) {
+      this.winGame()
+    }
   }
   updateJoystickState() {
     let direction = '';

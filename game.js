@@ -67,6 +67,7 @@ class playGame extends Phaser.Scene {
       this.keys = maps[onMap].keys
       this.initialTime = missions[onMission].time
       this.allTargetData = maps[onMap].allPositions
+      this.targetObjectives = missions[onMission].objectives
     }
     // map1
 
@@ -134,17 +135,19 @@ class playGame extends Phaser.Scene {
 
     if (gameMode == 'map') {
       this.positions = Phaser.Utils.Array.Shuffle(this.allTargetData);
-      for (var i = 3; i < extraObjects.length; i++) {
+      //console.log(extraObjects.length)
+      for (var i = 0; i < this.targetObjectives.length; i++) {
         var td = this.positions.pop()
         // console.log(td)
         var col = td.col * this.backScale // / this.cameras.main.zoom
         var row = td.row * this.backScale /// this.cameras.main.zoom
         //scene, x, y, texture, frame, dis, scale, sway, type    
-        var testItem = new Extra(this, col, row, 'items', extraObjects[i].index, this.distances[td.dis], 1, false, i)
-        this.extras.push(testItem)
+        var testItem = new Extra(this, col, row, 'items', extraObjects[this.targetObjectives[i]].index, this.distances[td.dis], 1, false, this.targetObjectives[i])
+        //this.extras.push(testItem)
 
       }
-      //console.log(this.extras)
+      this.objectiveCount = this.extras.length
+      console.log(this.extras)
     }
 
     //var testItem = new Extra(this, 500, 300, 'items', extraObjects[3].index, 0, 1, false, 3)
@@ -231,6 +234,11 @@ class playGame extends Phaser.Scene {
     //this.graphics.strokeRectShape(this.rect).setDepth(8);
     this.targets.forEach(function (target) {
       if (Phaser.Geom.Rectangle.ContainsPoint(this.rect, target)) {
+        if (target.canShoot) {
+          this.graphicsHelp.lineStyle(4, 0xff0000, 1)
+        } else {
+          this.graphicsHelp.lineStyle(4, 0x00ff00, 1)
+        }
         //target.setTexture('target_help')
         var circle = new Phaser.Geom.Circle(target.x, target.y, 35);
         this.graphicsHelp.strokeCircleShape(circle).setDepth(7.5);
