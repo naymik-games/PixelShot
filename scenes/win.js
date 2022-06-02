@@ -69,6 +69,19 @@ class winGame extends Phaser.Scene {
         localStorage.setItem('PSdata', JSON.stringify(gameData));
       }
 
+    } else {
+      if (gameData.easy) {
+        gameData.missions[onMission].completeEasy = true
+        if (tscorenum > gameData.missions[onMission].scoreEasy) {
+          gameData.missions[onMission].scoreEasy = tscorenum
+        }
+      } else {
+        gameData.missions[onMission].completeHard = true
+        if (tscorenum > gameData.missions[onMission].scoreHard) {
+          gameData.missions[onMission].scoreHard = tscorenum
+        }
+      }
+      localStorage.setItem('PSdata', JSON.stringify(gameData));
     }
   }
   clickHandler() {

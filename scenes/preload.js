@@ -124,8 +124,8 @@ class preloadGame extends Phaser.Scene {
     this.load.image('map3_full_', 'assets/sprites/map3/map3_full_.png');
     this.load.image('map3_thumb', 'assets/sprites/map3/map3_thumb.png');
 
-    this.load.image('map4_00', 'assets/sprites/map4/map4_full.png');
-    this.load.image('map4_01', 'assets/sprites/map4/map4_full_.png');
+    this.load.image('map4_full', 'assets/sprites/map4/map4_full.png');
+    this.load.image('map4_full_', 'assets/sprites/map4/map4_full_.png');
     this.load.image('map4_thumb', 'assets/sprites/map4/map4_thumb.png');
 
     this.load.image('map5_full_', 'assets/sprites/map5/map5_full_.png');

@@ -34,6 +34,18 @@ class startGame extends Phaser.Scene {
         gameData.practiceHard.push(temp)
       }
     }
+    if (gameData.missions.length < missions.length) {
+      for (var i = 0; i < missions.length - gameData.missions.length; i++) {
+        var temp = {
+          id: 0,
+          scoreEasy: 0,
+          scoreHard: 0,
+          completeEasy: false,
+          completeHard: false
+        }
+        gameData.missions.push(temp)
+      }
+    }
     this.cameras.main.setBackgroundColor(0x000000);
 
     var title = this.add.bitmapText(game.config.width / 2, 100, 'topaz', 'PixelShot', 150).setOrigin(.5).setTint(0xc76210);

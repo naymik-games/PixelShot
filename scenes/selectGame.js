@@ -89,55 +89,33 @@ class selectGame extends Phaser.Scene {
     var startInfo = thumb.y + thumb.displayHeight + 50
     for (var i = 0; i < maps[groupNum].missions.length; i++) {
       var missionIndex = maps[groupNum].missions[i]
-      var missionTitle = this.add.bitmapText(50, startInfo + i * 275, 'topaz', missions[missionIndex].mission, 60).setTint(0xff8045).setOrigin(0, .5).setMaxWidth(800).setInteractive();
+      var text = missions[missionIndex].mission
+
+      var missionTitle = this.add.bitmapText(50, startInfo + i * 275, 'topaz', text.toUpperCase(), 50).setTint(0xff8045).setOrigin(0, .5).setMaxWidth(800).setInteractive();
       missionTitle.level = missionIndex
       missionTitle.on('pointerup', this.selectLevel.bind(this, missionTitle));
       groupBox.add(missionTitle);
-      var missionText = this.add.bitmapText(50, missionTitle.y + 85, 'topaz', missions[missionIndex].text, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
-      groupBox.add(missionText);
-      var targetText = this.add.bitmapText(50, missionText.y + 85, 'topaz', 'Targets: ' + missions[missionIndex].targetData.length, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
+      /* var missionText = this.add.bitmapText(50, missionTitle.y + 85, 'topaz', missions[missionIndex].text, 40).setTint(0xcccccc).setOrigin(0, .5).setMaxWidth(800);
+      groupBox.add(missionText); */
+      var targetText = this.add.bitmapText(50, missionTitle.y + 85, 'topaz', 'Targets: ' + missions[missionIndex].targetData.length, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
       groupBox.add(targetText);
-      var objectiveText = this.add.bitmapText(850, missionText.y + 85, 'topaz', 'Objectives: ' + missions[missionIndex].objectives.length, 40).setTint(0xfafafa).setOrigin(1, .5).setMaxWidth(800);
+      var objectiveText = this.add.bitmapText(850, missionTitle.y + 85, 'topaz', 'Objectives: ' + missions[missionIndex].objectives.length, 40).setTint(0xfafafa).setOrigin(1, .5).setMaxWidth(800);
       groupBox.add(objectiveText);
-    }
-
-    //console.log(gameSettings.highestSolved)
-    /* for (var i = 0; i < maps[groupNum].puzzleCount; i++) {7
-      var tempLevel = groups[groupNum].levelStart + i
-      var levelBack = this.add.image(game.config.width / 2, 300 + i * 250, 'blank')
-      levelBack.displayWidth = 800
-      levelBack.displayHeight = 100
-      groupBox.add(levelBack);
-      var levelTitle = this.add.bitmapText(150, 300 + i * 250, 'lato', (tempLevel + 1) + ' - ' + levels[tempLevel].theme, 70).setTint(0x000000).setOrigin(0, .5).setInteractive();
-      if (levels[tempLevel].key in gameSettings.results) {
-
+      if (gameData.easy) {
+        var completeText = this.add.bitmapText(50, targetText.y + 85, 'topaz', 'Complete: ' + gameData.missions[missionIndex].completeEasy, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
+        groupBox.add(completeText);
+        var scoreText = this.add.bitmapText(850, targetText.y + 85, 'topaz', 'Score: ' + gameData.missions[missionIndex].scoreEasy, 40).setTint(0xfafafa).setOrigin(1, .5).setMaxWidth(800);
+        groupBox.add(scoreText);
       } else {
-        gameSettings.results[levels[tempLevel].key] = { best: 0, stars: 0 }
-      }
-      console.log(gameSettings.results[levels[onLevel].key].best)
-      if (levels[tempLevel].level < gameSettings.highestSolved) {
-        var status = this.add.bitmapText(game.config.width / 2, levelTitle.y + 100, 'lato', gameSettings.results[levels[tempLevel].key].stars, 70).setTint(0xffffff).setOrigin(.5).setInteractive();
-        levelTitle.on('pointerup', this.selectLevel.bind(this, levelTitle));
-      } else if (levels[tempLevel].level == gameSettings.highestSolved) {
-        var status = this.add.bitmapText(game.config.width / 2, levelTitle.y + 100, 'lato', gameSettings.results[levels[tempLevel].key].stars, 70).setTint(0xffffff).setOrigin(.5).setInteractive();
-        levelTitle.on('pointerup', this.selectLevel.bind(this, levelTitle));
-      } else if (levels[tempLevel].level == gameSettings.highestSolved + 1) {
-        var status = this.add.bitmapText(game.config.width / 2, levelTitle.y + 100, 'lato', 'Not Solved', 70).setTint(0xffffff).setOrigin(.5).setInteractive();
-        levelTitle.on('pointerup', this.selectLevel.bind(this, levelTitle));
-      } else {
-        var status = this.add.bitmapText(game.config.width / 2, levelTitle.y + 100, 'lato', 'Locked', 70).setTint(0xffffff).setOrigin(.5).setInteractive();
-        var lock = this.add.image(levelTitle.x - 45, levelTitle.y, 'lock').setScale(1.5).setDepth(5).setAlpha(1)
-        groupBox.add(lock)
-        groupBox.bringToTop(lock)
+        var completeText = this.add.bitmapText(50, targetText.y + 85, 'topaz', 'Complete: ' + gameData.missions[missionIndex].completeHard, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
+        groupBox.add(completeText);
+        var scoreText = this.add.bitmapText(850, targetText.y + 85, 'topaz', 'Score: ' + gameData.missions[missionIndex].scoreHard, 40).setTint(0xfafafa).setOrigin(1, .5).setMaxWidth(800);
+        groupBox.add(scoreText);
       }
 
-      levelTitle.level = tempLevel
-
-      groupBox.add(levelTitle);
-      groupBox.add(status)
-
     }
-    this.saveSettings() */
+
+
 
     if (dir == 'left') {
       var xstart = 850

@@ -89,6 +89,15 @@ var defaultValues = {
   easy: true,
   map: 0,
   mission: 0,
+  missions: [
+    {
+      id: 0,
+      scoreEasy: 0,
+      scoreHard: 0,
+      completeEasy: false,
+      completeHard: false
+    }
+  ],
   practice: [
     {
       highScore: 0,

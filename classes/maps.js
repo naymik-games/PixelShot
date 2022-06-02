@@ -114,19 +114,25 @@ let maps = [
     totalLayers: 2,
     allPositions: [{ col: 70, row: 799, dis: 0, canShoot: false, move: false }, { col: 257, row: 781, dis: 0, canShoot: false, move: false }, { col: 435, row: 732, dis: 0, canShoot: false, move: false }, { col: 669, row: 767, dis: 0, canShoot: false, move: false }, { col: 642, row: 801, dis: 0, canShoot: false, move: false }, { col: 190, row: 711, dis: 0, canShoot: false, move: false }, { col: 143, row: 677, dis: 0, canShoot: false, move: false }, { col: 88, row: 691, dis: 0, canShoot: false, move: false }, { col: 43, row: 712, dis: 0, canShoot: false, move: false }, { col: 714, row: 809, dis: 1, canShoot: false, move: false }, { col: 684, row: 678, dis: 1, canShoot: false, move: false }, { col: 712, row: 609, dis: 1, canShoot: false, move: false }, { col: 649, row: 587, dis: 1, canShoot: false, move: false }, { col: 585, row: 612, dis: 1, canShoot: false, move: false }, { col: 513, row: 591, dis: 2, canShoot: false, move: false }, { col: 497, row: 603, dis: 2, canShoot: false, move: false }, { col: 493, row: 579, dis: 2, canShoot: false, move: false }, { col: 469, row: 568, dis: 2, canShoot: false, move: false }, { col: 307, row: 652, dis: 2, canShoot: false, move: false }, { col: 291, row: 619, dis: 2, canShoot: false, move: false }, { col: 290, row: 578, dis: 2, canShoot: false, move: false }, { col: 242, row: 619, dis: 2, canShoot: false, move: false }, { col: 143, row: 576, dis: 2, canShoot: false, move: false }, { col: 121, row: 571, dis: 2, canShoot: false, move: false }, { col: 11, row: 550, dis: 2, canShoot: false, move: false }, { col: 21, row: 514, dis: 3, canShoot: false, move: false }, { col: 21, row: 488, dis: 3, canShoot: false, move: false }, { col: 109, row: 515, dis: 3, canShoot: false, move: false }, { col: 145, row: 503, dis: 3, canShoot: false, move: false }, { col: 170, row: 496, dis: 3, canShoot: false, move: false }, { col: 189, row: 519, dis: 3, canShoot: false, move: false }, { col: 247, row: 539, dis: 3, canShoot: false, move: false }, { col: 417, row: 499, dis: 3, canShoot: false, move: false }, { col: 490, row: 528, dis: 3, canShoot: false, move: false }, { col: 553, row: 512, dis: 3, canShoot: false, move: false }, { col: 572, row: 539, dis: 3, canShoot: false, move: false }, { col: 527, row: 573, dis: 3, canShoot: false, move: false }, { col: 644, row: 535, dis: 3, canShoot: false, move: false }, { col: 695, row: 535, dis: 3, canShoot: false, move: false }, { col: 591, row: 534, dis: 4, canShoot: false, move: false }, { col: 604, row: 510, dis: 4, canShoot: false, move: false }, { col: 590, row: 496, dis: 4, canShoot: false, move: false }, { col: 644, row: 500, dis: 4, canShoot: false, move: false }, { col: 644, row: 475, dis: 4, canShoot: false, move: false }, { col: 629, row: 444, dis: 4, canShoot: false, move: false }, { col: 629, row: 398, dis: 4, canShoot: false, move: false }, { col: 654, row: 393, dis: 4, canShoot: false, move: false }, { col: 678, row: 421, dis: 4, canShoot: false, move: false }, { col: 674, row: 459, dis: 4, canShoot: false, move: false }, { col: 516, row: 480, dis: 4, canShoot: false, move: false }, { col: 374, row: 467, dis: 4, canShoot: false, move: false }, { col: 339, row: 459, dis: 4, canShoot: false, move: false }, { col: 301, row: 474, dis: 4, canShoot: false, move: false }, { col: 170, row: 455, dis: 4, canShoot: false, move: false }, { col: 204, row: 417, dis: 4, canShoot: false, move: false }, { col: 204, row: 394, dis: 4, canShoot: false, move: false }, { col: 156, row: 378, dis: 4, canShoot: false, move: false }, { col: 107, row: 485, dis: 4, canShoot: false, move: false }, { col: 95, row: 476, dis: 4, canShoot: false, move: false }, { col: 709, row: 507, dis: 5, canShoot: false, move: false }, { col: 724, row: 484, dis: 5, canShoot: false, move: false }, { col: 694, row: 459, dis: 5, canShoot: false, move: false }, { col: 537, row: 451, dis: 5, canShoot: false, move: false }, { col: 620, row: 371, dis: 5, canShoot: false, move: false }, { col: 583, row: 374, dis: 5, canShoot: false, move: false }, { col: 615, row: 339, dis: 5, canShoot: false, move: false }, { col: 473, row: 445, dis: 5, canShoot: false, move: false }, { col: 495, row: 380, dis: 5, canShoot: false, move: false }, { col: 388, row: 435, dis: 5, canShoot: false, move: false }, { col: 397, row: 419, dis: 5, canShoot: false, move: false }, { col: 393, row: 387, dis: 5, canShoot: false, move: false }, { col: 410, row: 385, dis: 5, canShoot: false, move: false }, { col: 341, row: 427, dis: 5, canShoot: false, move: false }, { col: 342, row: 355, dis: 5, canShoot: false, move: false }, { col: 354, row: 307, dis: 5, canShoot: false, move: false }, { col: 336, row: 298, dis: 5, canShoot: false, move: false }, { col: 289, row: 378, dis: 5, canShoot: false, move: false }, { col: 278, row: 386, dis: 5, canShoot: false, move: false }, { col: 265, row: 443, dis: 5, canShoot: false, move: false }, { col: 53, row: 408, dis: 5, canShoot: false, move: false }, { col: 7, row: 425, dis: 6, canShoot: false, move: false }, { col: 16, row: 407, dis: 6, canShoot: false, move: false }, { col: 98, row: 432, dis: 6, canShoot: false, move: false }, { col: 119, row: 441, dis: 6, canShoot: false, move: false }, { col: 144, row: 435, dis: 6, canShoot: false, move: false }, { col: 314, row: 425, dis: 6, canShoot: false, move: false }, { col: 446, row: 422, dis: 6, canShoot: false, move: false }, { col: 448, row: 403, dis: 6, canShoot: false, move: false }, { col: 516, row: 414, dis: 6, canShoot: false, move: false }, { col: 552, row: 406, dis: 6, canShoot: false, move: false }, { col: 557, row: 421, dis: 6, canShoot: false, move: false }, { col: 722, row: 434, dis: 6, canShoot: false, move: false }, { col: 137, row: 268, dis: 7, canShoot: false, move: false }, { col: 385, row: 219, dis: 7, canShoot: false, move: false }, { col: 715, row: 219, dis: 7, canShoot: false, move: false },],
     id: 4
-  }
+  },
+  {
+    name: 'Pixelview',
+    missions: [6],
+    thumb: 'map4_thumb',
+    keys: ['map4_full_', 'map4_full'],
+    widthActual: 1600,
+    heightActual: 1200,
+    totalLayers: 2,
+    id: 5,
+    allPositions: [{ col: 55, row: 1174, dis: 0, canShoot: false, move: false }, { col: 69, row: 1088, dis: 0, canShoot: false, move: false }, { col: 179, row: 1128, dis: 0, canShoot: false, move: false }, { col: 301, row: 1088, dis: 0, canShoot: false, move: false }, { col: 393, row: 1134, dis: 0, canShoot: false, move: false }, { col: 414, row: 1072, dis: 0, canShoot: false, move: false }, { col: 528, row: 1092, dis: 0, canShoot: false, move: false }, { col: 608, row: 1170, dis: 0, canShoot: false, move: false }, { col: 764, row: 1184, dis: 0, canShoot: false, move: false }, { col: 893, row: 1144, dis: 0, canShoot: false, move: false }, { col: 989, row: 1144, dis: 0, canShoot: false, move: false }, { col: 1127, row: 1148, dis: 0, canShoot: false, move: false }, { col: 1232, row: 1102, dis: 0, canShoot: false, move: false }, { col: 1530, row: 1068, dis: 0, canShoot: false, move: false }, { col: 1588, row: 1134, dis: 0, canShoot: false, move: false }, { col: 283, row: 352, dis: 0, canShoot: false, move: false }, { col: 205, row: 354, dis: 0, canShoot: false, move: false }, { col: 231, row: 289, dis: 0, canShoot: false, move: false }, { col: 47, row: 1034, dis: 1, canShoot: false, move: false }, { col: 149, row: 966, dis: 1, canShoot: false, move: false }, { col: 424, row: 1002, dis: 1, canShoot: false, move: false }, { col: 488, row: 1002, dis: 1, canShoot: false, move: false }, { col: 488, row: 865, dis: 1, canShoot: false, move: false }, { col: 728, row: 1070, dis: 1, canShoot: false, move: false }, { col: 807, row: 1118, dis: 1, canShoot: false, move: false }, { col: 780, row: 946, dis: 1, canShoot: false, move: false }, { col: 809, row: 948, dis: 1, canShoot: false, move: false }, { col: 700, row: 871, dis: 1, canShoot: false, move: false }, { col: 1009, row: 1008, dis: 1, canShoot: false, move: false }, { col: 1043, row: 1094, dis: 1, canShoot: false, move: false }, { col: 1105, row: 1074, dis: 1, canShoot: false, move: false }, { col: 1224, row: 1008, dis: 1, canShoot: false, move: false }, { col: 1294, row: 1072, dis: 1, canShoot: false, move: false }, { col: 1314, row: 1154, dis: 1, canShoot: false, move: false }, { col: 1350, row: 970, dis: 1, canShoot: false, move: false }, { col: 1434, row: 1114, dis: 1, canShoot: false, move: false }, { col: 1490, row: 970, dis: 1, canShoot: false, move: false }, { col: 1450, row: 889, dis: 1, canShoot: false, move: false }, { col: 1556, row: 883, dis: 1, canShoot: false, move: false }, { col: 229, row: 958, dis: 2, canShoot: false, move: false }, { col: 299, row: 946, dis: 2, canShoot: false, move: false }, { col: 1212, row: 902, dis: 2, canShoot: false, move: false }, { col: 1232, row: 962, dis: 2, canShoot: false, move: false }, { col: 233, row: 922, dis: 2, canShoot: false, move: false }, { col: 11, row: 944, dis: 3, canShoot: false, move: false }, { col: 53, row: 883, dis: 3, canShoot: false, move: false }, { col: 375, row: 962, dis: 3, canShoot: false, move: false }, { col: 548, row: 982, dis: 3, canShoot: false, move: false }, { col: 656, row: 741, dis: 3, canShoot: false, move: false }, { col: 658, row: 669, dis: 3, canShoot: false, move: false }, { col: 873, row: 922, dis: 3, canShoot: false, move: false }, { col: 893, row: 962, dis: 3, canShoot: false, move: false }, { col: 1093, row: 922, dis: 3, canShoot: false, move: false }, { col: 1153, row: 863, dis: 3, canShoot: false, move: false }, { col: 1125, row: 803, dis: 3, canShoot: false, move: false }, { col: 1093, row: 805, dis: 3, canShoot: false, move: false }, { col: 1386, row: 1068, dis: 3, canShoot: false, move: false }, { col: 1484, row: 843, dis: 3, canShoot: false, move: false }, { col: 1492, row: 761, dis: 3, canShoot: false, move: false }, { col: 1516, row: 783, dis: 3, canShoot: false, move: false }, { col: 23, row: 743, dis: 4, canShoot: false, move: false }, { col: 133, row: 819, dis: 4, canShoot: false, move: false }, { col: 323, row: 733, dis: 4, canShoot: false, move: false }, { col: 422, row: 773, dis: 4, canShoot: false, move: false }, { col: 454, row: 733, dis: 4, canShoot: false, move: false }, { col: 945, row: 781, dis: 4, canShoot: false, move: false }, { col: 1023, row: 723, dis: 4, canShoot: false, move: false }, { col: 1212, row: 703, dis: 4, canShoot: false, move: false }, { col: 1370, row: 920, dis: 4, canShoot: false, move: false }, { col: 1424, row: 803, dis: 4, canShoot: false, move: false }, { col: 1394, row: 741, dis: 4, canShoot: false, move: false }, { col: 1576, row: 743, dis: 4, canShoot: false, move: false }, { col: 1592, row: 621, dis: 4, canShoot: false, move: false }, { col: 103, row: 681, dis: 5, canShoot: false, move: false }, { col: 494, row: 669, dis: 5, canShoot: false, move: false }, { col: 564, row: 781, dis: 5, canShoot: false, move: false }, { col: 786, row: 763, dis: 5, canShoot: false, move: false }, { col: 875, row: 673, dis: 5, canShoot: false, move: false }, { col: 893, row: 673, dis: 5, canShoot: false, move: false }, { col: 1536, row: 681, dis: 5, canShoot: false, move: false }, { col: 263, row: 538, dis: 0, canShoot: false, move: false },]
+  },
   /*{
     name: 'Pixelland',
     missions: [2],
     thumb: 'map3_thumb',
     id: 3
   },
-  {
-    name: 'Pixelview',
-    missions: [3],
-    thumb: 'map4_thumb',
-    id: 4
-  },
+ 
   {
     name: 'Bitville',
     missions: [5],
@@ -242,25 +248,25 @@ let missions = [
     objectives: [3, 5, 7, 9],
     targetData: [{ col: 379, row: 150, dis: 5, canShoot: true, move: false }, { col: 776, row: 244, dis: 5, canShoot: false, move: true }, { col: 266, row: 399, dis: 0, canShoot: false, move: true }, { col: 170, row: 282, dis: 3, canShoot: false, move: true }, { col: 520, row: 262, dis: 4, canShoot: false, move: false }, { col: 82, row: 293, dis: 4, canShoot: false, move: true }, { col: 642, row: 396, dis: 3, canShoot: false, move: false }, { col: 173, row: 245, dis: 5, canShoot: false, move: false }, { col: 373, row: 372, dis: 2, canShoot: false, move: true }, { col: 21, row: 363, dis: 3, canShoot: false, move: false },]
 
+  },
+  {
+    id: 6,
+    mission: 'First',
+    text: 'kill',
+    map: 'Pixelview',
+    wideZoom: 1,
+    scopeZoom: 6,
+    backScale: 2,
+
+    startingClips: 3,
+    time: 390,
+    distances: [0, 10, 15, 20, 25, 35],
+    objectives: [3, 4, 5, 6, 7],
+    targetData: [{ col: 203, row: 352, dis: 0, canShoot: true, move: true }, { col: 414, row: 1072, dis: 0, canShoot: false, move: true }, { col: 1492, row: 968, dis: 1, canShoot: false, move: false }, { col: 1212, row: 904, dis: 2, canShoot: true, move: false }, { col: 550, row: 982, dis: 3, canShoot: false, move: true }, { col: 1580, row: 743, dis: 4, canShoot: false, move: true }, { col: 941, row: 783, dis: 4, canShoot: false, move: true }, { col: 103, row: 683, dis: 5, canShoot: false, move: false }, { col: 1214, row: 703, dis: 5, canShoot: false, move: true }, { col: 422, row: 773, dis: 4, canShoot: false, move: false }, { col: 873, row: 673, dis: 5, canShoot: false, move: true },]
   }
 
 
-  /*{
-  id: 3,
-  mission: 'First',
-  text: 'kill',
-  keys: ['map4_full_', 'map4_full'],
-  wideZoom: 1,
-  scopeZoom: 6,
-  backScale: 2,
-  widthActual: 1600,
-  heightActual: 1200,
-  totalLayers: 2,
-  startingClips: 3,
-  time: 240,
-  distances: [0, 10, 13, 15, 20, 30, 35],
-  targetData: [{ col: 259, row: 353, dis: 0, canShoot: true }, { col: 609, row: 1085, dis: 0, move: true, canShoot: false }, { col: 730, row: 897, dis: 1, canShoot: false }, { col: 374, row: 964, dis: 3, canShoot: false }, { col: 1237, row: 915, dis: 2, canShoot: false }, { col: 24, row: 873, dis: 5, canShoot: false }, { col: 410, row: 770, dis: 6, canShoot: false }, { col: 878, row: 674, dis: 0, canShoot: false },]
-},
+  /*,
 {
   id: 4,
   map: 'Pixel Town',
