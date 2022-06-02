@@ -172,7 +172,7 @@ let missions = [
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
-
+    objectives: [3],
     startingClips: 5,
     time: 300,
     distances: [5, 10, 15, 20, 25, 30, 35],
@@ -186,7 +186,7 @@ let missions = [
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
-
+    objectives: [4],
     startingClips: 8,
     distances: [0, 10, 20, 25, 30],
 
@@ -202,7 +202,7 @@ let missions = [
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 3,
-
+    objectives: [3, 4, 5],
     startingClips: 6,
     distances: [0, 10, 15, 20, 25, 30],
 
@@ -221,7 +221,7 @@ let missions = [
 
     startingClips: 6,
     distances: [5, 10, 15, 20, 25, 30, 33, 35],
-
+    objectives: [4, 6, 8, 10],
     time: 300,
 
     targetData: [{ col: 388, row: 220, dis: 7, canShoot: false, move: false }, { col: 354, row: 307, dis: 5, canShoot: true, move: false }, { col: 53, row: 408, dis: 5, canShoot: false, move: false }, { col: 557, row: 422, dis: 6, canShoot: false, move: false }, { col: 315, row: 426, dis: 6, canShoot: false, move: false }, { col: 162, row: 455, dis: 4, canShoot: false, move: false }, { col: 553, row: 513, dis: 3, canShoot: false, move: false }, { col: 141, row: 575, dis: 2, canShoot: false, move: false }, { col: 296, row: 798, dis: 0, canShoot: false, move: false }, { col: 680, row: 611, dis: 1, canShoot: false, move: false },]
