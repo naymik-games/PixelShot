@@ -1,4 +1,4 @@
-var cacheName = 'PixelShot v1.01';
+var cacheName = 'PixelShot v2.0';
 var filesToCache = [
   '/',
   '/index.html',
@@ -42,7 +42,8 @@ var filesToCache = [
   '/assets/sprites/menu.png',
   '/assets/sprites/reload.png',
   '/assets/sprites/reset.png',
-  '/assets/sprites/scope5.png',
+  '/assets/sprites/scope_wide.png',
+  '/assets/sprites/scope_zoom.png',
   '/assets/sprites/spot.png',
   '/assets/sprites/switch.png',
   '/assets/sprites/vAdjustment.png',

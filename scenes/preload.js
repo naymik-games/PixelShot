@@ -171,10 +171,9 @@ class preloadGame extends Phaser.Scene {
       spacing: 1
 
     });
-    this.load.spritesheet("scope", "assets/sprites/scope5.png", {
-      frameWidth: 900,
-      frameHeight: 1640
-    });
+
+    this.load.image('scope_w', 'assets/sprites/scope_wide.png');
+    this.load.image('scope_z', 'assets/sprites/scope_zoom.png');
     this.load.spritesheet("burst", "assets/sprites/burst.png", {
       frameWidth: 100,
       frameHeight: 100

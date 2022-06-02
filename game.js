@@ -104,7 +104,7 @@ class playGame extends Phaser.Scene {
     }
 
     //add Player
-    this.player = this.add.image(this.cameras.main.getBounds().width / 2, game.config.height / 2, 'scope', 1).setAlpha(.2).setInteractive().setDepth(8);
+    this.player = this.add.image(this.cameras.main.getBounds().width / 2, game.config.height / 2, 'scope_w').setAlpha(.2).setInteractive().setDepth(8);
     this.player.health = 100
     this.cameras.main.startFollow(this.player, true);
     this.playerSpeed = 5
@@ -278,7 +278,7 @@ class playGame extends Phaser.Scene {
   toggleScope() {
     if (this.toggle == 1) {
       this.cameras.main.setZoom(this.wideZoom)
-      this.player.setFrame(1)
+      this.player.setTexture('scope_w')
       this.player.setScale(1).setAlpha(2)
 
       this.graphicsScope.clear()
@@ -292,7 +292,7 @@ class playGame extends Phaser.Scene {
 
     } else {
       this.cameras.main.setZoom(this.scopeZoom)
-      this.player.setFrame(0)
+      this.player.setTexture('scope_z')
       this.player.setScale(.25).setAlpha(1)
 
 
