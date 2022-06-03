@@ -97,7 +97,12 @@ class selectGame extends Phaser.Scene {
       groupBox.add(missionTitle);
       /* var missionText = this.add.bitmapText(50, missionTitle.y + 85, 'topaz', missions[missionIndex].text, 40).setTint(0xcccccc).setOrigin(0, .5).setMaxWidth(800);
       groupBox.add(missionText); */
-      var targetText = this.add.bitmapText(50, missionTitle.y + 85, 'topaz', 'Targets: ' + missions[missionIndex].targetData.length, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
+      if (missions[missionIndex].targetData == null) {
+        var tc = missions[missionIndex].targetGoal
+      } else {
+        var tc = missions[missionIndex].targetData.length
+      }
+      var targetText = this.add.bitmapText(50, missionTitle.y + 85, 'topaz', 'Targets: ' + tc, 40).setTint(0xfafafa).setOrigin(0, .5).setMaxWidth(800);
       groupBox.add(targetText);
       var objectiveText = this.add.bitmapText(850, missionTitle.y + 85, 'topaz', 'Objectives: ' + missions[missionIndex].objectives.length, 40).setTint(0xfafafa).setOrigin(1, .5).setMaxWidth(800);
       groupBox.add(objectiveText);

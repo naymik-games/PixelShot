@@ -63,10 +63,16 @@ class playGame extends Phaser.Scene {
       this.totalLayers = maps[onMap].totalLayers
       this.startingClips = missions[onMission].startingClips
       this.distances = missions[onMission].distances
-      this.targetData = missions[onMission].targetData
+      if (missions[onMission].targetData == null) {
+        this.targetData = []
+      } else {
+        this.targetData = missions[onMission].targetData
+      }
+
       this.keys = maps[onMap].keys
       this.initialTime = missions[onMission].time
       this.allTargetData = maps[onMap].allPositions
+
       this.targetObjectives = missions[onMission].objectives
     }
     // map1
@@ -123,10 +129,22 @@ class playGame extends Phaser.Scene {
         var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
       }
     } else {
-      for (var i = 0; i < this.targetData.length; i++) {
-        var td = this.targetData[i]
-        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
+      if (this.targetData.length == 0) {
+        this.positions = Phaser.Utils.Array.Shuffle(maps[onMap].allPositions);
+        for (var i = 0; i < missions[onMission].targetGoal; i++) {
+          var td = this.positions.pop()
+          var shoot = false;
+          var move = Phaser.Math.Between(1, 100) > 75
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
+        }
+      } else {
+        for (var i = 0; i < this.targetData.length; i++) {
+          var td = this.targetData[i]
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
+        }
       }
+
+
     }
 
     //extras

@@ -42,7 +42,10 @@ class UI extends Phaser.Scene {
     if (gameMode == 'practice') {
       this.targetCount = practices[onPractice].targetGoal
     } else {
+
       this.targetCount = this.Main.targets.length
+
+
     }
     //main texts
     this.scoreText = this.add.bitmapText(450, 75, 'topaz', this.score, 80).setOrigin(.5).setTint(0xcbf7ff).setAlpha(1);
