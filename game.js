@@ -79,7 +79,7 @@ class playGame extends Phaser.Scene {
 
 
     this.isMoving = false
-    this.targetScaleFactor = 4 + this.totalLayers
+    this.targetScaleFactor = 1 + this.distances.length
     //map 2
     /*  this.wideZoom = 1
      this.scopeZoom = 6
