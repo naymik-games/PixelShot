@@ -131,9 +131,15 @@ class playGame extends Phaser.Scene {
     } else {
       if (this.targetData.length == 0) {
         this.positions = Phaser.Utils.Array.Shuffle(maps[onMap].allPositions);
+        var tempCount = 0
         for (var i = 0; i < missions[onMission].targetGoal; i++) {
           var td = this.positions.pop()
-          var shoot = false;
+          if (tempCount < missions[onMission].shootCount) {
+            var shoot = true;
+          } else {
+            var shoot = false;
+          }
+          tempCount++;
           var move = Phaser.Math.Between(1, 100) > 75
           var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
         }
@@ -486,7 +492,10 @@ class playGame extends Phaser.Scene {
         ebullet.setVisible(false)
         //duration, intensity, force
         this.cameras.main.shake(100, .05);
-        this.player.health -= 10
+        if (Phaser.Math.Between(1, 100) < 75) {
+          this.player.health -= 10
+        }
+
         this.events.emit('health', this.player.health);
       }
     })

@@ -345,7 +345,8 @@ let missions = [
     time: 600,
     distances: [0, 10, 15, 25, 30, 35, 38],
     objectives: [3, 4, 5, 9, 10],
-    targetGoal: 24
+    targetGoal: 24,
+    shootCount: 2
     //targetData: [{ col: 203, row: 352, dis: 0, canShoot: true, move: true }, { col: 414, row: 1072, dis: 0, canShoot: false, move: true }, { col: 1492, row: 968, dis: 1, canShoot: false, move: false }, { col: 1212, row: 904, dis: 2, canShoot: true, move: false }, { col: 550, row: 982, dis: 3, canShoot: false, move: true }, { col: 1580, row: 743, dis: 4, canShoot: false, move: true }, { col: 941, row: 783, dis: 4, canShoot: false, move: true }, { col: 103, row: 683, dis: 5, canShoot: false, move: false }, { col: 1214, row: 703, dis: 5, canShoot: false, move: true }, { col: 422, row: 773, dis: 4, canShoot: false, move: false }, { col: 873, row: 673, dis: 5, canShoot: false, move: true },]
   }
   /*,
