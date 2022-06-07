@@ -294,8 +294,12 @@ class playGame extends Phaser.Scene {
   launchExtra() {
     //if (Phaser.Math.Between(1, 100) > 85) {
     var num = Phaser.Math.Between(1, 2)
-    var col = Phaser.Math.Between(50, this.widthActual - 50) * this.backScale // / this.cameras.main.zoom
-    var row = Phaser.Math.Between(50, this.heightActual - 50) * this.backScale /// this.cameras.main.zoom
+    //var col = Phaser.Math.Between(50, this.widthActual - 50) * this.backScale // / this.cameras.main.zoom
+    // var row = Phaser.Math.Between(50, this.heightActual - 50) * this.backScale /// this.cameras.main.zoom
+    var td = this.positions.pop()
+    var col = td.col * this.backScale // / this.cameras.main.zoom
+    var row = td.row * this.backScale /// this.cameras.main.zoom
+
     var testItem = new Extra(this, col, row, 'items', extraObjects[num].index, 0, 1, false, num)
     //}
   }
@@ -547,12 +551,14 @@ class playGame extends Phaser.Scene {
     }
   }
   movePlayer(direction, force) {
-
+    console.log(force)
     if (this.toggle == 1) {
       this.playerSpeed = 1
 
     } else {
-      if (force > 90) {
+      if (force > 200) {
+        this.playerSpeed = 10
+      } else if (force > 90) {
         this.playerSpeed = 5
       } else {
         this.playerSpeed = 1

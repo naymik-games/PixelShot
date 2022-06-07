@@ -53,7 +53,8 @@ class UI extends Phaser.Scene {
     this.windText = this.add.bitmapText(110, 75, 'topaz', '0', 80).setOrigin(1, .5).setTint(0x00ff66).setAlpha(1);
     this.distanceText = this.add.bitmapText(135, 75, 'topaz', '0', 80).setOrigin(0, .5).setTint(0xcbf7ff).setAlpha(0);
 
-
+    this.perfectText = this.add.bitmapText(game.config.width / 2, game.config.height / 2 - 75, 'topaz', 'PERFECT!', 50).setOrigin(.5).setTint(0xff0000).setAlpha(0);
+    this.accText = this.add.bitmapText(game.config.width - 225, game.config.height - 75, 'topaz', '0', 60).setOrigin(.5).setTint(0xcbf7ff).setAlpha(0);
 
     this.showToast('READY?')
 
@@ -116,7 +117,7 @@ class UI extends Phaser.Scene {
     this.distanceAdjust = 0
     this.distanceContainer = this.add.container()
 
-    this.distanceAdjustText = this.add.bitmapText(800, game.config.height / 2 - 225, 'topaz', this.distanceAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
+    this.distanceAdjustText = this.add.bitmapText(800, game.config.height / 2 - 225, 'topaz', this.distanceAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(0);
 
     this.verticalAdjust = this.add.image(800, game.config.height / 2, 'vAdjustment').setInteractive({ draggable: true })
     this.verticalAdjust.displayHeight = 300
@@ -278,6 +279,22 @@ class UI extends Phaser.Scene {
       if (this.canScore) {
         this.hits += 1;
         this.hitsTemp++
+      }
+      var rounded = Math.round(data.acc * 10) / 10
+      this.accText.setText(rounded)
+      if (data.acc == 0) {
+        var tween1 = this.tweens.add({
+          targets: this.perfectText,
+          alpha: 1,
+          duration: 500
+        })
+        var tween2 = this.tweens.add({
+          targets: this.perfectText,
+          alpha: 0,
+          duration: 500,
+          delay: 1500
+        })
+        this.perfectText.setAlpha(1)
       }
       this.canScore = false
       if (gameMode == 'practice' && data.acc < 3) {
@@ -514,7 +531,7 @@ class UI extends Phaser.Scene {
       } else {
         this.fireButton.setAlpha(.2)
       }
-
+      this.accText.setAlpha(1)
       this.distanceText.setAlpha(1)
       this.windContainer.setAlpha(1)
       this.windAdjust = 0
@@ -546,6 +563,7 @@ class UI extends Phaser.Scene {
       this.fireButton.setAlpha(0).disableInteractive()
       this.distanceText.setAlpha(0)
       this.windContainer.setAlpha(0)
+      this.accText.setAlpha(0)
       this.distanceContainer.setAlpha(0)
       this.reloadButton.setAlpha(0)
       this.ammoGroup.setVisible(false)
