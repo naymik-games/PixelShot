@@ -293,7 +293,12 @@ class playGame extends Phaser.Scene {
   //scene, x, y, texture, frame, dis, scale, sway, type
   launchExtra() {
     //if (Phaser.Math.Between(1, 100) > 85) {
-    var num = Phaser.Math.Between(1, 2)
+    if (gameMode == 'practice') {
+      var num = Phaser.Math.Between(1, 2)
+    } else {
+      var num = Phaser.Math.Between(0, 2)
+    }
+
     //var col = Phaser.Math.Between(50, this.widthActual - 50) * this.backScale // / this.cameras.main.zoom
     // var row = Phaser.Math.Between(50, this.heightActual - 50) * this.backScale /// this.cameras.main.zoom
     var td = this.positions.pop()

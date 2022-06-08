@@ -13,6 +13,7 @@ class winGame extends Phaser.Scene {
     this.hitsTarget = data.hits
     this.shots = data.shots
     this.hitsExtra = data.hitsExtra
+    this.perfectCount = data.perfectCount
 
   }
   create() {
@@ -40,13 +41,18 @@ class winGame extends Phaser.Scene {
     var accuracy = this.add.bitmapText(game.config.width / 2 - 10, 575, 'topaz', 'Accuracy:', 50).setOrigin(1, .5).setTint(0xfafafa);
     var accuracy2 = this.add.bitmapText(game.config.width / 2 + 10, 575, 'topaz', text, 50).setOrigin(0, .5).setTint(0xfafafa);
 
-    var tscore = this.add.bitmapText(game.config.width / 2 - 10, 675, 'topaz', 'Total Score:', 50).setOrigin(1, .5).setTint(0xfafafa);
+    var perfectText1 = this.add.bitmapText(game.config.width / 2 - 10, 675, 'topaz', 'Perfect:', 50).setOrigin(1, .5).setTint(0xfafafa);
+    var perfectText2 = this.add.bitmapText(game.config.width / 2 + 10, 675, 'topaz', this.perfectCount, 50).setOrigin(1, .5).setTint(0xfafafa);
+
+
+    var tscore = this.add.bitmapText(game.config.width / 2 - 10, 775, 'topaz', 'Total Score:', 50).setOrigin(1, .5).setTint(0xfafafa);
 
     var tscorenum = Math.floor(this.score * (this.hits / this.shots))
-    var tscore2 = this.add.bitmapText(game.config.width / 2 + 10, 675, 'topaz', tscorenum, 50).setOrigin(0, .5).setTint(0xfafafa);
+    tscorenum += this.perfectCount * 100
+    var tscore2 = this.add.bitmapText(game.config.width / 2 + 10, 775, 'topaz', tscorenum, 50).setOrigin(0, .5).setTint(0xfafafa);
     var tscoreObj = tscore2.getTextBounds(true)
     // console.log(tscoreObj)
-    var newText = this.add.bitmapText(game.config.width / 2 + (tscoreObj.global.width + 20), 675, 'topaz', 'NEW', 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(0);
+    var newText = this.add.bitmapText(game.config.width / 2 + (tscoreObj.global.width + 20), 775, 'topaz', 'NEW', 50).setOrigin(0, .5).setTint(0xff0000).setAlpha(0);
 
     if (gameMode == 'practice') {
       if (gameData.easy) {
@@ -74,11 +80,13 @@ class winGame extends Phaser.Scene {
         gameData.missions[onMission].completeEasy = true
         if (tscorenum > gameData.missions[onMission].scoreEasy) {
           gameData.missions[onMission].scoreEasy = tscorenum
+          newText.setAlpha(1)
         }
       } else {
         gameData.missions[onMission].completeHard = true
         if (tscorenum > gameData.missions[onMission].scoreHard) {
           gameData.missions[onMission].scoreHard = tscorenum
+          newText.setAlpha(1)
         }
       }
       localStorage.setItem('PSdata', JSON.stringify(gameData));
@@ -88,7 +96,12 @@ class winGame extends Phaser.Scene {
     this.scene.stop()
     this.scene.stop('playGame')
     this.scene.stop('UI')
-    this.scene.start('startGame');
+    if (gameMode == 'practice') {
+      this.scene.start('startGame');
+    } else {
+      this.scene.start('selectGame');
+    }
+
 
   }
 

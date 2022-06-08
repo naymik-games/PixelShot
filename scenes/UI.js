@@ -31,6 +31,7 @@ class UI extends Phaser.Scene {
     this.shotsFired = 0
     this.objectivesFound = false
     this.bulletCount = 3
+    this.perfectCount = 0
     this.healthTotal = 100
     this.initialTime = this.Main.initialTime
     this.clipCount = this.Main.startingClips
@@ -283,6 +284,7 @@ class UI extends Phaser.Scene {
       var rounded = Math.round(data.acc * 10) / 10
       this.accText.setText(rounded)
       if (data.acc == 0) {
+        this.perfectCount++
         var tween1 = this.tweens.add({
           targets: this.perfectText,
           alpha: 1,
@@ -405,7 +407,7 @@ class UI extends Phaser.Scene {
       delay: 2000, callback: function () {
         this.scene.pause()
         this.scene.pause('playGame')
-        this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired, hitsExtra: extraHits })
+        this.scene.launch('winGame', { score: this.score, hits: this.hits, shots: this.shotsFired, hitsExtra: extraHits, perfectCount: this.perfectCount })
       }, callbackScope: this, loop: false
     });
     //this.time.removeEvent(this.timedEvent)
@@ -457,7 +459,7 @@ class UI extends Phaser.Scene {
   doCollect(extra) {
     this.hitsCollect++
     if (extra.details.name == 'Health') {
-      this.healthUpdate(this.Main.player.health + 10)
+      this.healthUpdate(this.Main.player.health + 20)
     } else if (extra.details.name == 'Time') {
       this.initialTime += 30
     } else if (extra.details.name == 'Ammo') {
