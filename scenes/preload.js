@@ -172,6 +172,10 @@ class preloadGame extends Phaser.Scene {
     this.load.image('map20_full', 'assets/sprites/map20/map20_full.png');
     this.load.image('map20_thumb', 'assets/sprites/map20/map20_thumb.png');
 
+    this.load.image('map21_full_', 'assets/sprites/map21/map21_full_.png');
+    this.load.image('map21_full', 'assets/sprites/map21/map21_full.png');
+    this.load.image('map21_thumb', 'assets/sprites/map21/map21_thumb.png');
+
     this.load.spritesheet("switch", "assets/sprites/switch.png", {
       frameWidth: 150,
       frameHeight: 75

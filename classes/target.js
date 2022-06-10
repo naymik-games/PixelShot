@@ -15,6 +15,7 @@ class Target extends Phaser.GameObjects.Image {
     this.swaySpeed = [2250, 3000, 3500, 3750, 4000]
     scene.add.existing(this);
     scene.targets.push(this)
+    console.log(this.scale)
     if (canShoot) {
       this.setShoot()
 

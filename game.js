@@ -79,7 +79,7 @@ class playGame extends Phaser.Scene {
 
 
     this.isMoving = false
-    this.targetScaleFactor = .1 + this.distances.length
+    this.targetScaleFactor = this.distances.length - .75
     //map 2
     /*  this.wideZoom = 1
      this.scopeZoom = 6
@@ -148,7 +148,7 @@ class playGame extends Phaser.Scene {
       } else {
         for (var i = 0; i < this.targetData.length; i++) {
           var td = this.targetData[i]
-          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot, false)
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot, td.multi)
         }
       }
 
