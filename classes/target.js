@@ -1,12 +1,12 @@
 class Target extends Phaser.GameObjects.Image {
-  constructor(scene, x, y, texture, dis, scale, sway, canShoot) {
+  constructor(scene, x, y, texture, dis, scale, sway, canShoot, multi) {
     super(scene, x, y, texture);
     // ...
     this.x = x
     this.y = y
     this.scene = scene
     this.distance = dis
-
+    console.log(multi)
 
     this.setScale(scale)
     this.setTint(0xff0000)
@@ -21,6 +21,9 @@ class Target extends Phaser.GameObjects.Image {
     }
     if (sway) {
       this.setSway()
+    }
+    if (multi) {
+      this.multi = true
     }
 
   }

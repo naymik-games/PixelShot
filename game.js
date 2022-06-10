@@ -79,7 +79,7 @@ class playGame extends Phaser.Scene {
 
 
     this.isMoving = false
-    this.targetScaleFactor = 1 + this.distances.length
+    this.targetScaleFactor = .1 + this.distances.length
     //map 2
     /*  this.wideZoom = 1
      this.scopeZoom = 6
@@ -126,7 +126,8 @@ class playGame extends Phaser.Scene {
         var td = this.positions.pop()
         var shoot = false;
         var move = Phaser.Math.Between(1, 100) > 75
-        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
+        var mul = Phaser.Math.Between(1, 100) > 75
+        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot, mul)
       }
     } else {
       if (this.targetData.length == 0) {
@@ -140,13 +141,14 @@ class playGame extends Phaser.Scene {
             var shoot = false;
           }
           tempCount++;
+          var mul = Phaser.Math.Between(1, 100) > 75
           var move = Phaser.Math.Between(1, 100) > 75
-          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot, mul)
         }
       } else {
         for (var i = 0; i < this.targetData.length; i++) {
           var td = this.targetData[i]
-          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot)
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot, false)
         }
       }
 
@@ -375,6 +377,7 @@ class playGame extends Phaser.Scene {
         //var color = this.textures.getPixel(1, 1, 'spot');
         // console.log(color)
         target.setTint(0x00ff00)
+        //console.log(this.multi)
         //numX = (numX < 0) ? numX * -1 : numX;
         var tween = this.tweens.add({
           targets: target,
@@ -384,7 +387,7 @@ class playGame extends Phaser.Scene {
           duration: 200,
           callbackScope: this,
           onComplete: function () {
-            target.setPosition(-50, -50)
+
             if (target.canShoot) {
               //target.shootTimer.paused = true
               this.time.removeEvent(target.shootTimer);
@@ -395,23 +398,32 @@ class playGame extends Phaser.Scene {
               this.canSway = false
             }
             this.spot.setPosition(-50, -50)
-            var ind = this.targets.indexOf(target)
-            var removed = this.targets.splice(ind, 1);
-            this.targetPool.push(removed[0])
-            if (gameMode == 'practice') {
-              //this.practiceNext()
+            if (target.multi) {
+              this.moveTarget(target)
+              this.events.emit('escape');
+            } else {
+              target.setPosition(-50, -50)
+              var ind = this.targets.indexOf(target)
+              var removed = this.targets.splice(ind, 1);
+              this.targetPool.push(removed[0])
+              this.explode(this.spot.x, this.spot.y)
+              // console.log('HIT')
+              var acc = Math.abs(numX) + Math.abs(numY)
+              if (acc == 0 && gameMode == 'practice') {
+                this.launchExtra()
+              }
+              this.addHit(acc, this.distance)
             }
+
+
+
+
+
           }
         })
 
         //this.showToast('HIT')
-        this.explode(this.spot.x, this.spot.y)
-        // console.log('HIT')
-        var acc = Math.abs(numX) + Math.abs(numY)
-        if (acc == 0 && gameMode == 'practice') {
-          this.launchExtra()
-        }
-        this.addHit(acc, this.distance)
+
 
       }
 
@@ -509,6 +521,18 @@ class playGame extends Phaser.Scene {
       }
     })
   }
+  moveTarget(target) {
+    var td = this.positions.pop()
+    //target.setPosition(td.col * this.backScale - this.cameras.main.scrollX, td.row * this.backScale - this.cameras.main.scrollY)
+    target.setPosition(this.back.x + (td.col * this.backScale), this.back.y + (td.row * this.backScale))
+
+    target.setAlpha(1)
+    target.distance = td.dis
+    target.setScale(this.targetScaleFactor - td.dis)
+    target.setTint(0xD37919)
+    target.setShoot()
+    target.multi = false
+  }
   practiceNext() {
     var target = this.targetPool.pop()
     //target.setTexture('spot')
@@ -534,7 +558,7 @@ class playGame extends Phaser.Scene {
       var td = this.positions.pop()
       var shoot = false;
       var move = Phaser.Math.Between(1, 100) > 75
-      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'spot', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot)
+      var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot, true)
     }
   }
   adjustWindMinor() {
@@ -556,7 +580,7 @@ class playGame extends Phaser.Scene {
     }
   }
   movePlayer(direction, force) {
-    console.log(force)
+    //console.log(force)
     if (this.toggle == 1) {
       this.playerSpeed = 1
 

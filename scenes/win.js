@@ -8,11 +8,12 @@ class winGame extends Phaser.Scene {
 
   }
   init(data) {
-    console.log('init', data);
+    //console.log('init', data);
     this.score = data.score
     this.hitsTarget = data.hits
     this.shots = data.shots
     this.hitsExtra = data.hitsExtra
+
     this.perfectCount = data.perfectCount
 
   }
