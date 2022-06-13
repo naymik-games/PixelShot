@@ -126,7 +126,7 @@ class playGame extends Phaser.Scene {
         var td = this.positions.pop()
         var shoot = false;
         var move = Phaser.Math.Between(1, 100) > 75
-        var mul = Phaser.Math.Between(1, 100) > 75
+        var mul = Phaser.Math.Between(1, 100) > 90
         var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot, mul)
       }
     } else {
