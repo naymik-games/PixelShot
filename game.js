@@ -79,7 +79,7 @@ class playGame extends Phaser.Scene {
 
 
     this.isMoving = false
-    this.targetScaleFactor = this.distances.length - .75
+    this.targetScaleFactor = this.distances.length - .25
     //map 2
     /*  this.wideZoom = 1
      this.scopeZoom = 6
@@ -119,15 +119,26 @@ class playGame extends Phaser.Scene {
     //add targets
     this.targetPool = []
     this.targets = []
+    var step = 4 / (this.distances.length)
+    var result = this.range(this.distances.length, step);
+    const result2 = result.reverse();
     //scene, x, y, texture, dis, scale, sway, canShoot
     if (gameMode == 'practice') {
       this.positions = Phaser.Utils.Array.Shuffle(practices[onPractice].allPositions);
+      console.log(this.distances.length)
+
+      //console.log(result2);
       for (var i = 0; i < practices[onPractice].targetGoal; i++) {
         var td = this.positions.pop()
         var shoot = false;
         var move = Phaser.Math.Between(1, 100) > 75
         var mul = Phaser.Math.Between(1, 100) > 90
-        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot, mul)
+        var doub = Phaser.Math.Between(1, 100) > 85
+
+        var tempScale = this.targetScaleFactor - td.dis
+        let a = result2[td.dis]
+
+        var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], a, move, shoot, mul, doub)
       }
     } else {
       if (this.targetData.length == 0) {
@@ -141,14 +152,17 @@ class playGame extends Phaser.Scene {
             var shoot = false;
           }
           tempCount++;
-          var mul = Phaser.Math.Between(1, 100) > 75
+          var mul = Phaser.Math.Between(1, 100) > 85
           var move = Phaser.Math.Between(1, 100) > 75
-          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, move, shoot, mul)
+          var doub = Phaser.Math.Between(1, 100) > 75
+          let a = result2[td.dis]
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], a, move, shoot, mul, doub)
         }
       } else {
         for (var i = 0; i < this.targetData.length; i++) {
           var td = this.targetData[i]
-          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], this.targetScaleFactor - td.dis, td.move, td.canShoot, td.multi)
+          let a = result2[td.dis]
+          var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], a, td.move, td.canShoot, td.multi, td.double)
         }
       }
 
@@ -292,6 +306,15 @@ class playGame extends Phaser.Scene {
     }
 
   }
+
+  range(end, step) {
+    var list = []
+    for (var i = 0; i < end; i++) {
+      var n = .75 + i * step
+      list.push(n);
+    }
+    return list
+  }
   //scene, x, y, texture, frame, dis, scale, sway, type
   launchExtra() {
     //if (Phaser.Math.Between(1, 100) > 85) {
@@ -401,6 +424,12 @@ class playGame extends Phaser.Scene {
             if (target.multi) {
               this.moveTarget(target)
               this.events.emit('escape');
+            } else if (target.double) {
+              this.events.emit('double');
+              target.setScale(target.saveScale)
+              target.setAlpha(1)
+              target.setTint(0xff0000)
+              target.double = false
             } else {
               target.setPosition(-50, -50)
               var ind = this.targets.indexOf(target)
@@ -409,7 +438,7 @@ class playGame extends Phaser.Scene {
               this.explode(this.spot.x, this.spot.y)
               // console.log('HIT')
               var acc = Math.abs(numX) + Math.abs(numY)
-              if (acc == 0 && gameMode == 'practice') {
+              if (acc == 0) { // && gameMode == 'practice'
                 this.launchExtra()
               }
               this.addHit(acc, this.distance)

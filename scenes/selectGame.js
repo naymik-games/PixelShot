@@ -84,7 +84,7 @@ class selectGame extends Phaser.Scene {
     var groupText = this.add.bitmapText(game.config.width / 2, 1550, 'topaz', tempGroup + '/' + maps.length, 60).setTint(0xff8045).setOrigin(.5).setMaxWidth(500);
     groupBox.add(groupText);
 
-    var thumb = this.add.image(game.config.width / 2, 175, maps[groupNum].thumb).setScale(2).setOrigin(.5, 0)
+    var thumb = this.add.image(game.config.width / 2, 175, maps[groupNum].thumb).setScale(.5).setOrigin(.5, 0)
     groupBox.add(thumb)
     var startInfo = thumb.y + thumb.displayHeight + 50
     for (var i = 0; i < maps[groupNum].missions.length; i++) {
