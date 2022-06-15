@@ -104,9 +104,15 @@ class playGame extends Phaser.Scene {
     //this.cameras.main.setDeadzone(400, 200);
     this.cameras.main.setZoom(1)
 
+
+
+
+
+    //this.grayscalePipeline = this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
+    // this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
     //add background layers
     for (var i = 0; i < this.totalLayers; i++) {
-      this.back = this.add.image(0, 0, this.keys[i]).setOrigin(0).setScale(this.backScale).setDepth(i + 1)
+      this.back = this.add.image(0, 0, this.keys[i]).setOrigin(0).setScale(this.backScale).setDepth(i + 1).setPipeline('Grayscale');
     }
 
     //add Player
@@ -735,3 +741,7 @@ class playGame extends Phaser.Scene {
   }
 
 }
+
+
+
+

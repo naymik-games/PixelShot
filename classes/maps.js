@@ -230,6 +230,7 @@ let missions = [
   {
     id: 0,
     map: 'Pixel Town',
+    mapID: 0,
     mission: 'First',
 
     text: 'Destroy all targets before you run out of time or ammo.',
@@ -246,6 +247,7 @@ let missions = [
   {
     id: 1,
     map: 'Pixelville',
+    mapID: 1,
     mission: 'First',
     text: 'Eliminate all targets',
 
@@ -261,6 +263,7 @@ let missions = [
   {
     id: 2,
     map: 'Bridgeton',
+    mapID: 2,
     mission: 'First',
     text: 'kill',
     wideZoom: 1,
@@ -277,6 +280,7 @@ let missions = [
   {
     id: 3,
     map: 'Pixcago',
+    mapID: 3,
     mission: 'First',
     text: 'kill',
     wideZoom: 1,
@@ -293,6 +297,7 @@ let missions = [
   {
     id: 4,
     map: 'Futuretown',
+    mapID: 4,
     mission: 'First',
     text: 'kill',
     wideZoom: 1,
@@ -309,6 +314,7 @@ let missions = [
   {
     id: 5,
     map: 'Pixel Town',
+    mapID: 0,
     mission: 'Second',
 
     text: 'Destroy all targets before you run out of time or ammo.',
@@ -328,6 +334,7 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'Pixelview',
+    mapID: 5,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
@@ -343,10 +350,13 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'Office',
+
+
+    mapID: 6,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
-
+    mapID: 0,
     startingClips: 7,
     time: 480,
     distances: [0, 5, 7, 10, 15, 20, 25, 30, 35],
@@ -361,6 +371,7 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'Futureville',
+    mapID: 7,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 2,
@@ -378,6 +389,7 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'Pixelarch',
+    mapID: 8,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 1.5,
@@ -395,6 +407,7 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'Cleveland',
+    mapID: 9,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 1.5,
@@ -412,6 +425,7 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'Cleveland',
+    mapID: 9,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 1.5,
@@ -429,6 +443,7 @@ let missions = [
     mission: 'First',
     text: 'kill',
     map: 'St. Pixel',
+    mapID: 10,
     wideZoom: 1,
     scopeZoom: 6,
     backScale: 3,
