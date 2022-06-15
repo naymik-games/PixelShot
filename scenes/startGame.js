@@ -50,12 +50,14 @@ class startGame extends Phaser.Scene {
 
     var title = this.add.bitmapText(game.config.width / 2, 100, 'topaz', 'PixelShot', 150).setOrigin(.5).setTint(0xc76210);
 
-    var startTime = this.add.bitmapText(game.config.width / 2, 275, 'topaz', 'Mission', 65).setOrigin(.5).setTint(0x00ff00);
-    startTime.setInteractive();
-    startTime.on('pointerdown', this.clickHandler, this);
+    var startTime = this.add.bitmapText(game.config.width / 2, 275, 'topaz', 'Mission Files', 65).setOrigin(.5).setTint(0x00ff00);
+
+    var startIcon = this.add.image(game.config.width / 2, 475, 'file_icon').setInteractive()
+
+    startIcon.on('pointerdown', this.clickHandler, this);
 
 
-    this.practiceOffset = 575
+    this.practiceOffset = 675
     var startPractice = this.add.bitmapText(game.config.width / 2, this.practiceOffset, 'topaz', 'Practice', 65).setOrigin(.5).setTint(0x00ff00);
     //startPractice.setInteractive();
 
@@ -72,8 +74,8 @@ class startGame extends Phaser.Scene {
 
 
 
-    var startTime = this.add.bitmapText(game.config.width / 2, 1375, 'topaz', 'Easy Mode', 50).setOrigin(.5).setTint(0xfafafa);
-    var easySwitch = this.add.image(game.config.width / 2, 1475, 'switch', (gameData.easy) ? 1 : 0).setInteractive()
+    var startTime = this.add.bitmapText(game.config.width / 2, 1475, 'topaz', 'Easy Mode', 50).setOrigin(.5).setTint(0xfafafa);
+    var easySwitch = this.add.image(game.config.width / 2, 1575, 'switch', (gameData.easy) ? 1 : 0).setInteractive()
     easySwitch.on('pointerdown', function () {
       if (gameData.easy) {
         gameData.easy = false

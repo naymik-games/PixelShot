@@ -84,27 +84,29 @@ class UI extends Phaser.Scene {
     this.horizontalAdjust.displayWidth = 300
     this.horizontalAdjust.on('dragstart', function (pointer, dragX, dragY) {
       this.dragging = true
-      this.dragStart = { x: pointer.x, y: pointer.y }
+      this.dragStart = { x: dragX, y: dragY }
       this.horizontalAdjust.setAlpha(.8)
     }, this);
     this.horizontalAdjust.on('drag', function (pointer, dragX, dragY) {
       if (this.dragging) {
-        if (dragX < this.dragStart.x) {
-          this.Main.player.x -= 1
-          this.windAdjust -= 1
-        } else if (dragX > this.dragStart.x) {
-          this.Main.player.x += 1
-          this.windAdjust += 1
-        }
 
-        this.windSetText.setText(this.windAdjust)
-        this.dragStart.x = dragX
-        this.dragStart.y = dragY
+        // this.dragStart.x = dragX
+        //this.dragStart.y = dragY
       }
       /* ... */
     }, this);
     this.horizontalAdjust.on('dragend', function (pointer, dragX, dragY, dropped) {
       this.horizontalAdjust.setAlpha(1)
+      if (dragX < this.dragStart.x) {
+        this.Main.player.x -= 1
+        this.windAdjust -= 1
+      } else if (dragX > this.dragStart.x) {
+        this.Main.player.x += 1
+        this.windAdjust += 1
+      }
+
+      this.windSetText.setText(this.windAdjust)
+
     }, this);
     this.windSetText = this.add.bitmapText(game.config.width / 2 - 235, game.config.height / 2 - 360, 'topaz', this.windAdjust, 80).setOrigin(.5).setTint(0x00ff66).setAlpha(1);
 
@@ -127,35 +129,32 @@ class UI extends Phaser.Scene {
     this.verticalAdjust.displayWidth = 80
     this.verticalAdjust.on('dragstart', function (pointer, dragX, dragY) {
       this.dragging = true
-      this.dragStart = { x: pointer.x, y: pointer.y }
+      this.dragStart = { x: dragX, y: dragY }
       this.verticalAdjust.setAlpha(.8)
     }, this);
     this.verticalAdjust.on('drag', function (pointer, dragX, dragY) {
       if (this.dragging) {
-        if (dragY < this.dragStart.y) {
-          this.Main.player.y -= 1
-          this.distanceAdjust -= 1
-        } else if (dragY > this.dragStart.y) {
-          this.Main.player.y += 1
-          this.distanceAdjust += 1
-        }
 
-        this.distanceAdjustText.setText(this.distanceAdjust * -1)
 
-        this.dragStart.x = dragX
-        this.dragStart.y = dragY
+        // this.dragStart.x = dragX
+        // this.dragStart.y = dragY
       }
       /* ... */
     }, this);
     this.verticalAdjust.on('dragend', function (pointer, dragX, dragY, dropped) {
       this.verticalAdjust.setAlpha(1)
+
+      if (dragY < this.dragStart.y) {
+        this.Main.player.y -= 1
+        this.distanceAdjust -= 1
+      } else if (dragY > this.dragStart.y) {
+        this.Main.player.y += 1
+        this.distanceAdjust += 1
+      }
+      //console.log(this.distanceAdjust)
+      //this.distanceAdjustText.setText(this.distanceAdjust * -1)
       //console.log('start: ' + this.dragStart.y)
       // console.log('End: ' + dragY)
-
-
-
-
-
 
     }, this);
 
@@ -480,9 +479,12 @@ class UI extends Phaser.Scene {
     if (extra.details.name == 'Health') {
       this.healthUpdate(this.Main.player.health + 20)
     } else if (extra.details.name == 'Time') {
-      this.initialTime += 30
+      this.initialTime += 45
     } else if (extra.details.name == 'Ammo') {
-      this.addClip()
+      for (let index = 0; index < 2; index++) {
+        this.addClip()
+      }
+
     }
   }
   doObjective(extra) {
@@ -559,6 +561,7 @@ class UI extends Phaser.Scene {
       this.windSetText.setText(this.windAdjust)
       this.distanceContainer.setAlpha(1)
       this.distanceAdjust = 0
+      this.distanceAdjustText.setText(this.distanceAdjust)
       this.objectiveContainer.setVisible(true)
       this.ammoGroup.setVisible(true)
       if (this.ammoBox.length > 0) {
@@ -567,7 +570,7 @@ class UI extends Phaser.Scene {
         this.reloadButton.setAlpha(.2)
       }
 
-      this.distanceAdjustText.setText(this.distanceAdjust)
+
       /*  var tween = this.tweens.add({
          targets: this.rifle,
          scale: 3,
