@@ -158,9 +158,9 @@ class playGame extends Phaser.Scene {
             var shoot = false;
           }
           tempCount++;
-          var mul = Phaser.Math.Between(1, 100) > 85
-          var move = Phaser.Math.Between(1, 100) > 75
-          var doub = Phaser.Math.Between(1, 100) > 75
+          var mul = Phaser.Math.Between(1, 100) < missions[onMission].escapeProb
+          var move = Phaser.Math.Between(1, 100) < missions[onMission].moveProb
+          var doub = Phaser.Math.Between(1, 100) < missions[onMission].doubleProb
           let a = result2[td.dis]
           var target = new Target(this, td.col * this.backScale, td.row * this.backScale, 'target', this.distances[td.dis], a, move, shoot, mul, doub)
         }

@@ -136,7 +136,7 @@ let maps = [
   },
   {
     name: 'Pixelview',
-    missions: [6],
+    missions: [6, 13],
     thumb: 'map4_thumb',
     keys: ['map4_full_', 'map4_full'],
     widthActual: 1600,
@@ -362,6 +362,10 @@ let missions = [
     distances: [0, 5, 7, 10, 15, 20, 25, 30, 35],
     objectives: [6, 7, 8, 9, 10],
     targetGoal: 12,
+    escapeProb: 0,
+    moveProb: 0,
+    doubleProb: 0,
+
     targetData: null
     //targetData: [{ col: 77, row: 247, dis: 8, canShoot: false, move: true }, { col: 281, row: 297, dis: 8, canShoot: false, move: false }, { col: 379, row: 267, dis: 8, canShoot: true, move: false }, { col: 173, row: 257, dis: 7, canShoot: false, move: false }, { col: 89, row: 776, dis: 0, canShoot: false, move: true }, { col: 269, row: 721, dis: 1, canShoot: true, move: false }, { col: 280, row: 401, dis: 6, canShoot: false, move: false }, { col: 443, row: 360, dis: 6, canShoot: false, move: true }, { col: 242, row: 473, dis: 5, canShoot: false, move: true }, { col: 316, row: 502, dis: 6, canShoot: false, move: false }, { col: 48, row: 572, dis: 4, canShoot: false, move: false }, { col: 171, row: 664, dis: 3, canShoot: false, move: true },]
   }
@@ -381,6 +385,9 @@ let missions = [
     distances: [0, 3, 5, 7, 10, 15, 20, 25, 28, 30, 32, 35],
     objectives: [3, 4, 5, 6, 7, 8, 9, 10],
     targetGoal: 8,
+    escapeProb: 10,
+    moveProb: 35,
+    doubleProb: 25,
     targetData: null
     //targetData: [{ col: 77, row: 247, dis: 8, canShoot: false, move: true }, { col: 281, row: 297, dis: 8, canShoot: false, move: false }, { col: 379, row: 267, dis: 8, canShoot: true, move: false }, { col: 173, row: 257, dis: 7, canShoot: false, move: false }, { col: 89, row: 776, dis: 0, canShoot: false, move: true }, { col: 269, row: 721, dis: 1, canShoot: true, move: false }, { col: 280, row: 401, dis: 6, canShoot: false, move: false }, { col: 443, row: 360, dis: 6, canShoot: false, move: true }, { col: 242, row: 473, dis: 5, canShoot: false, move: true }, { col: 316, row: 502, dis: 6, canShoot: false, move: false }, { col: 48, row: 572, dis: 4, canShoot: false, move: false }, { col: 171, row: 664, dis: 3, canShoot: false, move: true },]
   },
@@ -399,6 +406,9 @@ let missions = [
     distances: [0, 10, 15, 25, 30, 35, 38],
     objectives: [3, 4, 5, 9, 10],
     targetGoal: 24,
+    escapeProb: 10,
+    moveProb: 15,
+    doubleProb: 40,
     shootCount: 2
     //targetData: [{ col: 203, row: 352, dis: 0, canShoot: true, move: true }, { col: 414, row: 1072, dis: 0, canShoot: false, move: true }, { col: 1492, row: 968, dis: 1, canShoot: false, move: false }, { col: 1212, row: 904, dis: 2, canShoot: true, move: false }, { col: 550, row: 982, dis: 3, canShoot: false, move: true }, { col: 1580, row: 743, dis: 4, canShoot: false, move: true }, { col: 941, row: 783, dis: 4, canShoot: false, move: true }, { col: 103, row: 683, dis: 5, canShoot: false, move: false }, { col: 1214, row: 703, dis: 5, canShoot: false, move: true }, { col: 422, row: 773, dis: 4, canShoot: false, move: false }, { col: 873, row: 673, dis: 5, canShoot: false, move: true },]
   },
@@ -417,6 +427,9 @@ let missions = [
     distances: [0, 10, 20, 25, 30, 32, 35, 38, 40],
     objectives: [3, 4, 5, 9, 10],
     targetGoal: 8,
+    escapeProb: 15,
+    moveProb: 25,
+    doubleProb: 10,
     shootCount: 2
     //targetData: [{ col: 203, row: 352, dis: 0, canShoot: true, move: true }, { col: 414, row: 1072, dis: 0, canShoot: false, move: true }, { col: 1492, row: 968, dis: 1, canShoot: false, move: false }, { col: 1212, row: 904, dis: 2, canShoot: true, move: false }, { col: 550, row: 982, dis: 3, canShoot: false, move: true }, { col: 1580, row: 743, dis: 4, canShoot: false, move: true }, { col: 941, row: 783, dis: 4, canShoot: false, move: true }, { col: 103, row: 683, dis: 5, canShoot: false, move: false }, { col: 1214, row: 703, dis: 5, canShoot: false, move: true }, { col: 422, row: 773, dis: 4, canShoot: false, move: false }, { col: 873, row: 673, dis: 5, canShoot: false, move: true },]
   },
@@ -453,9 +466,33 @@ let missions = [
     distances: [0, 5, 10, 25, 30, 35, 40],
     objectives: [3, 5, 6, 8],
     targetGoal: 10,
+    escapeProb: 10,
+    moveProb: 50,
+    doubleProb: 25,
     shootCount: 3,
     //targetData: [{ col: 830, row: 368, dis: 8, canShoot: true, move: false, multi: true }, { col: 2707, row: 401, dis: 8, canShoot: true, move: false, multi: true }, { col: 1199, row: 862, dis: 2, canShoot: false, move: false, multi: false }, { col: 2249, row: 1066, dis: 0, canShoot: false, move: true, multi: true }, { col: 1666, row: 644, dis: 3, canShoot: false, move: false, multi: true }, { col: 466, row: 497, dis: 5, canShoot: false, move: true, multi: true }, { col: 1222, row: 278, dis: 6, canShoot: false, move: false, multi: true }, { col: 2298, row: 474, dis: 5, canShoot: false, move: true, multi: true },]
-  }
+  },
+  {
+    id: 13,
+    mission: 'Second',
+    text: 'kill',
+    map: 'Pixelview',
+    mapID: 5,
+    wideZoom: 1,
+    scopeZoom: 6,
+    backScale: 2,
+
+    startingClips: 5,
+    time: 390,
+    distances: [0, 10, 15, 20, 25, 35],
+    objectives: [7, 8, 9, 10],
+    targetGoal: 6,
+    escapeProb: 0,
+    moveProb: 10,
+    doubleProb: 0,
+    shootCount: 4,
+
+  },
   /*,
 {
   id: 4,
